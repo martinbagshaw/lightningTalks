@@ -1,0 +1,88 @@
+// pages
+
+// ––––––––––––––––––––––––––––––––––––––––––––––––––
+// home page
+.page-content.home {
+    position: fixed;
+    width: 100%;
+    right: 0;
+    z-index: 1;
+    .main-section:first-child {
+        margin-top: 0;
+        height: 100vh;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center; 
+    }
+    .main-section .button-input {
+        margin-top: 3rem;
+    }
+}
+
+// background - home page only
+.video-background {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+}
+
+
+
+// ––––––––––––––––––––––––––––––––––––––––––––––––––
+// view talks page
+.talks-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+.talk-event {
+    color: $black;
+    background-color: rgba($white, 0.75);
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    font-size: 1.25rem;
+}
+
+
+
+
+
+// bar chart
+// .skills {
+//     margin-top: 1rem;
+//     padding-top: 1rem;
+//     border-top: 2px solid black;
+// }
+// .skills > div > div {
+//     border: 1px solid black;
+//     height: 1rem;
+// }
+// .skills > div > span {
+//     font-size: 1rem;
+// }
+// .one {width: 20%;}
+// .two {width: 40%;}
+// .three {width: 60%;}
+// .four {width: 80%;}
+// .five {width: 100%;}
+
+// .html > div {
+//     background-color: var(--html);
+// }
+// .js > div {
+//     background-color: var(--js);
+// }
+// .css > div {
+//     background-color: var(--css);
+// }
+// .sql > div {
+//     background-color: var(--sql);
+// }
+// .node > div {
+//     background-color: var(--node);
+// }

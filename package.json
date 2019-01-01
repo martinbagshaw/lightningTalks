@@ -1,0 +1,49 @@
+{
+  "name": "lightningtalks",
+  "version": "1.0.0",
+  "description": "A system for members of FAC 15 to arrange lightning talks, short presentations on topics of their choosing.",
+  "main": "app.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "node ./tests/index.js | tap-spec",
+    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
+    "dev": "nodemon ./src/server.js",
+    "start": "node start",
+    "lint": "eslint --ignore-path .gitignore ."
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": " "
+  },
+  "homepage": " ",
+  "dependencies": {
+    "env2": "^2.2.2",
+    "bcryptjs": "^2.4.3",
+    "cookie": "^0.3.1",
+    "jsonwebtoken": "^8.4.0",
+    "body-parser": "^1.18.3",
+    "serve-favicon": "^2.5.0",
+    "express": "^4.15.3",
+    "express-handlebars": "^3.0.0",
+    "pg": "^7.7.1",
+    "pg-promise": "^8.5.3"
+  },
+  "devDependencies": {
+    "istanbul": "^0.4.5",
+    "nodemon": "^1.18.8",
+    "supertest": "^3.3.0",
+    "tap-spec": "^5.0.0",
+    "tape": "^4.9.1",
+    "codecov": "^3.1.0",
+    "eslint": "^5.9.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0"
+  }
+}

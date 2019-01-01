@@ -1,0 +1,31 @@
+<main class="page-content signup">
+    
+    <section class="main-section">
+        <h1>Signup</h1>
+        <p>⚡ Signup to add your Lightning Talk ⚡</p>
+        <form class="form signup-form" method="/post" action="/signup">
+
+            <label for="username">User Name (3-40 characters, no spaces)</label>
+            <input id="username" class="text-input" type="text" name="username" value="" placeholder="Enter your username..."
+                autocomplete="off" pattern="[a-zA-Z]{3,40}"/>
+
+            <label for="name">Name (3-40 characters)</label>
+            <input id="name" class="text-input" type="text" name="name" value="" placeholder="Enter your name..."
+                autocomplete="off" pattern="[a-zA-Z'\s]{3,40}">
+
+            <label for="email">Email (used if you forget your password)</label>
+            <input id="email" class="text-input" type="email" name="name" value="" placeholder="Enter your email..."
+                autocomplete="off" pattern="[a-zA-Z'\s]{3,40}">
+
+            <label for="password">Password (must contain 8 or more characters)</label>
+            <input id="password" class="text-input" type="password" name="password" value="" placeholder="Enter your password..." 
+            pattern="[!(<>)]{8,40}" autocomplete="off" > 
+
+            <label for="confirm-password">Confirm Password</label>
+            <input id="confirm-password" class="text-input" type="password" name="confirm-password" placeholder="Confirm your password..." 
+            value="" autocomplete="off" >
+
+            <input type="submit" class="button-submit" value="Signup" />
+        </form>
+    </section>
+</main>

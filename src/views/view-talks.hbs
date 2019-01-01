@@ -1,0 +1,57 @@
+<main class="page-content view-talks">
+    
+    <section class="main-section">
+        <h1>Upcoming Talks</h1>
+        <p>⚡ Upcoming Lightning Talks with FAC 15 ⚡</p>
+        <form class="form search-form" method="/post" action="search-talks">
+            <div class="topic-search">
+                <label for="search">Search by Topic</label>
+                <input class="text-input" type="text" name="search" value="" autocomplete="off" pattern="[a-zA-Z'\s]{2,40}"/>
+                <input type="submit" class="button-submit" value="Search by Topic" />
+            </div>
+            <div class="language-search">
+                <label for="sort">Search by Language</label>
+                <div class="form-rows">
+                    <!-- use checkboxes instead -->
+                    {{!-- {{#each languages}}
+                    <input type="submit" class="button-submit {{lang}}" value="{{uppercase lang}}" />
+                    {{/each}} --}}
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <section class="main-section">
+
+        <ul class="talks-list">
+            <!--
+                use a partial for talks list?
+                - here, we are displaying all
+                - on dashboard, display talks by user
+            -->
+            {{!-- {{#each users}}
+            <li class="talk-event">
+                <h3 class="name">{{name}}</h3>
+                <article class="bio">{{bio}}</article>
+                <article class="skills">
+                    <span>Skills:</span>
+                    {{#each ../languages}}
+                    <div class="{{lang}}">
+                        <span>{{uppercase lang}} level:</span>
+                        <div class="{{barchart ../this lang}}"></div>
+                    </div>
+                    {{/each}}
+                </article>
+
+            </li>
+            {{/each}} --}}
+            <!-- 
+            - use the lookup helper to search one object while using a value from another, e.g. users[lang]
+            https://stackoverflow.com/questions/29829723/example-of-using-handlebars-lookup-helper
+            - combined the lookup helper into the barchart function
+            -->
+        </ul>
+
+    </section>
+
+</main>

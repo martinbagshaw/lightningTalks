@@ -1,0 +1,20 @@
+<main class="page-content login">
+    
+    <section class="main-section">
+        <h1>Login</h1>
+        <p>⚡ Login to add and edit your Lightning Talks, and browse bookmarks ⚡</p>
+        <form class="form login-form" method="/post" action="/login">
+
+            <label for="username">User Name (3-40 characters, no spaces)</label>
+            <input id="username" class="text-input" type="text" name="username" value="" placeholder="Enter your username..."
+                autocomplete="off" pattern="[a-zA-Z]{3,40}"/>
+
+            <label for="password">Password (must contain 8 or more characters)</label>
+            <input id="password" class="text-input" type="password" name="password" value="" placeholder="Enter your password..." 
+            pattern="[!(<>)]{8,40}" autocomplete="off" > 
+
+            <input type="submit" class="button-submit" value="Login" />
+        </form>
+    </section>
+
+</main>

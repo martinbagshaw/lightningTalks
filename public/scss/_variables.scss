@@ -1,0 +1,33 @@
+// colours
+$red: #ff6347;
+$red-hover: #ff2904;
+$green: #1f7736;
+$green-hover: #0ed642;
+$blue: #239eb7;
+$blue-hover: #1a787a;
+$html: #e34c26;
+$js: #f1e05a;
+$css: #563d7c;
+$sql: #ccc;
+$node: #43853d;
+$focus: gainsboro;
+$off-white: #eee;
+$white: white;
+$black: black;
+
+// fonts
+$font-main: 'Josefin Sans', sans-serif;
+$normal: 400;
+$bold: 700;
+
+// gradients and backgrounds
+$radial-overlay: radial-gradient(transparent, rgba(0, 0, 0, 0.75));
+$bg-img: url('../img/lightning-bg.jpg');
+$bg-menu: rgba(0, 0, 0, 0.25);
+
+// emoijs (used in html at present)
+$zap: ⚡;
+$heavy_plus_sign: ➕; //just in black
+$clock_ten: 🕙;
+$calendar: 📅;
+$magnify: 🔍;
