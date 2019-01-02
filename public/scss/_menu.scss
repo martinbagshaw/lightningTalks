@@ -1,8 +1,12 @@
 // login/logout area
 .auth-section {
     position: absolute;
-    top: 2rem;
-    right: 2rem;
+    top: 1rem;
+    right: 1rem;
+    @media only screen and (min-width: 600px) {
+        top: 2rem;
+        right: 2rem;
+    }
     display: flex;
     z-index: 2; // above home page content
     .button-input.login {
@@ -48,8 +52,12 @@
 // burger button
 .burger-menu {
     position: fixed;
-    top: 2rem;
-    left: 2rem;
+    top: 1rem;
+    left: 1rem;
+    @media only screen and (min-width: 600px) {
+        top: 2rem;
+        left: 2rem;
+    }
     display: block;
     width: 3.5rem;
     height: 3.2rem;
@@ -82,5 +90,4 @@
             transform: skew(0deg, -34deg);
         }
     }
-    
 }
