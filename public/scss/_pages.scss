@@ -17,7 +17,10 @@
         align-items: center; 
     }
     .main-section .button-input {
-        margin-top: 3rem;
+        margin-top: 2rem;
+        @media only screen and (min-width: 600px) {
+            margin-top: 3rem;
+        }
     }
 }
 
@@ -40,16 +43,92 @@
     flex-direction: column;
 }
 .talk-event {
-    color: $black;
-    background-color: rgba($white, 0.75);
+    display: flex;
+    flex-direction: column;
+    @media only screen and (min-width: 600px) {
+        flex-direction: row;
+        align-items: center;
+    }
     margin-bottom: 1rem;
     padding: 1rem;
     border-radius: 1rem;
+    color: $black;
+    background-color: rgba($white, 0.75);
+}
+// left
+.talk-subject {
+    border-bottom: 2px solid;
+    @media only screen and (min-width: 600px) {
+        width: 30%;
+        border-bottom: none;
+        margin-bottom: 0;
+    }
+}
+// right
+.talk-meta {
+    width: 100%;
+}
+@media only screen and (min-width: 600px) {
+    .talk-details {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+.speaker span,
+.date-time {
+    color: $grey;
+    font-size: 1rem;
+    @media only screen and (min-width: 600px) {
+        font-size: 1.5rem;
+    }
+    span {
+        display: block;
+    }
+}
+// tags
+.talk-tags {
+    padding-top: 1rem;
+}
+.tag {
+    padding: 0.6rem 0.7rem;
+    margin-right: 0.7rem;
     font-size: 1.25rem;
+    // colours
+    $tags : 'html', 'css', 'js', 'sql', 'node';   
+    $colour_codes : $html, $css, $js, $sql, $node;
+    @for $i from 1 through length($tags) {
+        &.#{nth($tags, $i)} {
+            background-color : nth($colour_codes, $i);
+            color: $white;
+        }
+    }
+    &.js,
+    &.sql {
+        color: $black;
+        border: 1px solid $black;
+    }
 }
 
 
 
+
+
+/* --- button colour */
+// .button-submit.html,
+// .label-bg.html {background-color: var(--html);}
+// .button-submit.js,
+// .label-bg.js { background-color: var(--js); color: $black; }
+// .button-submit.css,
+// .label-bg.css { background-color: var(--css); color: $white; }
+// .button-submit.sql,
+// .label-bg.sql  { background-color: var(--sql); }
+// .button-submit.node,
+// .label-bg.node { background-color: var(--node); }
+// /* darken on focus */
+// .language-search .button-submit:focus {
+// filter: saturate(125%) hue-rotate(-10deg) brightness(0.9);
+// }
 
 
 // bar chart

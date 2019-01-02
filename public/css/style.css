@@ -16,7 +16,6 @@ html {
   -webkit-text-size-adjust: 100%; }
 
 body {
-  font-size: 1.2rem;
   line-height: 1; }
 
 ol, ul {
@@ -207,7 +206,7 @@ html {
 
 body {
   color: white;
-  font-size: 16px/1em;
+  font-size: 16px;
   font-family: "Josefin Sans", sans-serif;
   font-weight: 400;
   line-height: 1.4;
@@ -218,26 +217,38 @@ body {
   background-attachment: fixed; }
 
 h1 {
-  font-size: 3.25rem;
+  font-size: 2rem;
   font-weight: 700;
   line-height: 1.6;
   margin: 0 0 1rem;
   text-align: center; }
+  @media only screen and (min-width: 600px) {
+    h1 {
+      font-size: 3.25rem; } }
 
 h2 {
-  font-size: 2.5rem;
+  font-size: 1.7rem;
   font-weight: 700;
   line-height: 1.5;
   margin: 0 0 1rem; }
+  @media only screen and (min-width: 600px) {
+    h2 {
+      font-size: 2.5rem; } }
 
 h3 {
-  font-size: 2.2rem;
+  font-size: 1.4rem;
   font-weight: 700;
   line-height: 1.6;
   margin: 0 0 1rem; }
+  @media only screen and (min-width: 600px) {
+    h3 {
+      font-size: 2.2rem; } }
 
 p {
-  font-size: 2rem; }
+  font-size: 1.25rem; }
+  @media only screen and (min-width: 600px) {
+    p {
+      font-size: 2rem; } }
 
 a {
   text-decoration: none; }
@@ -252,24 +263,37 @@ a {
   width: 100%;
   margin: 2rem auto 0;
   padding: 0 1rem; }
+  @media only screen and (min-width: 600px) {
+    .main-section {
+      padding: 0 2rem; } }
   .main-section:first-child {
     text-align: center; }
 
 .page-content .main-section:first-child {
-  margin-top: 8rem; }
+  margin-top: 6rem; }
+  @media only screen and (min-width: 600px) {
+    .page-content .main-section:first-child {
+      margin-top: 8rem; } }
 
 .row {
   display: flex;
   flex-direction: row; }
   .row > :nth-child(1) {
-    margin-right: 2rem; }
+    margin-right: 1.25rem; }
+    @media only screen and (min-width: 600px) {
+      .row > :nth-child(1) {
+        margin-right: 2rem; } }
 
 .auth-section {
   position: absolute;
-  top: 2rem;
-  right: 2rem;
+  top: 1rem;
+  right: 1rem;
   display: flex;
   z-index: 2; }
+  @media only screen and (min-width: 600px) {
+    .auth-section {
+      top: 2rem;
+      right: 2rem; } }
   .auth-section .button-input.login {
     margin-left: 1.25rem; }
 
@@ -303,8 +327,8 @@ a {
 
 .burger-menu {
   position: fixed;
-  top: 2rem;
-  left: 2rem;
+  top: 1rem;
+  left: 1rem;
   display: block;
   width: 3.5rem;
   height: 3.2rem;
@@ -313,6 +337,10 @@ a {
   border-radius: 0.6rem;
   cursor: pointer;
   z-index: 3; }
+  @media only screen and (min-width: 600px) {
+    .burger-menu {
+      top: 2rem;
+      left: 2rem; } }
   .burger-menu > div {
     width: 100%;
     height: 0.5rem;
@@ -429,15 +457,20 @@ a {
 .button-submit, .button-input a {
   align-self: flex-end;
   font-family: "Josefin Sans", sans-serif;
-  font-size: 1.5rem;
+  line-height: 1;
   letter-spacing: 0.05rem;
-  padding: 1rem;
+  font-size: 1.25rem;
+  padding: 0.85rem;
   border: 0;
   border-radius: 0.5rem;
   cursor: pointer;
   transition: background-color ease-in-out 0.3s;
   color: white;
   background-color: #ff6347; }
+  @media only screen and (min-width: 600px) {
+    .button-submit, .button-input a {
+      font-size: 1.5rem;
+      padding: 1rem; } }
   .button-submit:hover, .button-input a:hover, .button-submit:focus, .button-input a:focus {
     background-color: #ff2904; }
 
@@ -508,7 +541,10 @@ a {
     justify-content: center;
     align-items: center; }
   .page-content.home .main-section .button-input {
-    margin-top: 3rem; }
+    margin-top: 2rem; }
+    @media only screen and (min-width: 600px) {
+      .page-content.home .main-section .button-input {
+        margin-top: 3rem; } }
 
 .video-background {
   position: fixed;
@@ -523,11 +559,72 @@ a {
   flex-direction: column; }
 
 .talk-event {
-  color: black;
-  background-color: rgba(255, 255, 255, 0.75);
+  display: flex;
+  flex-direction: column;
   margin-bottom: 1rem;
   padding: 1rem;
   border-radius: 1rem;
+  color: black;
+  background-color: rgba(255, 255, 255, 0.75); }
+  @media only screen and (min-width: 600px) {
+    .talk-event {
+      flex-direction: row;
+      align-items: center; } }
+
+.talk-subject {
+  border-bottom: 2px solid; }
+  @media only screen and (min-width: 600px) {
+    .talk-subject {
+      width: 30%;
+      border-bottom: none;
+      margin-bottom: 0; } }
+
+.talk-meta {
+  width: 100%; }
+
+@media only screen and (min-width: 600px) {
+  .talk-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; } }
+.speaker span,
+.date-time {
+  color: grey;
+  font-size: 1rem; }
+  @media only screen and (min-width: 600px) {
+    .speaker span,
+    .date-time {
+      font-size: 1.5rem; } }
+  .speaker span span,
+  .date-time span {
+    display: block; }
+
+.talk-tags {
+  padding-top: 1rem; }
+
+.tag {
+  padding: 0.6rem 0.7rem;
+  margin-right: 0.7rem;
   font-size: 1.25rem; }
+  .tag.html {
+    background-color: #e34c26;
+    color: white; }
+  .tag.css {
+    background-color: #563d7c;
+    color: white; }
+  .tag.js {
+    background-color: #f1e05a;
+    color: white; }
+  .tag.sql {
+    background-color: #ccc;
+    color: white; }
+  .tag.node {
+    background-color: #43853d;
+    color: white; }
+  .tag.js, .tag.sql {
+    color: black;
+    border: 1px solid black; }
+
+/* --- button colour */
 
 /*# sourceMappingURL=style.css.map */

@@ -10,7 +10,7 @@ html {
 // typography
 body {
     color: $white;
-    font-size: 16px/1em;
+    font-size: 16px;
     font-family : $font-main;
     font-weight : $normal;
     line-height : 1.4;
@@ -24,8 +24,11 @@ body {
     background-attachment: fixed;
 }
 
-@mixin header($size, $line){
-    font-size: $size;
+@mixin header($sm-size, $lg-size, $line){
+    font-size: $sm-size;
+    @media only screen and (min-width: 600px) {
+        font-size: $lg-size;
+    }
     font-weight: $bold;
     line-height: $line;
     margin: 0 0 1rem;
@@ -33,20 +36,23 @@ body {
 }
 
 h1 {
-    @include header(3.25rem, 1.6);
+    @include header(2rem, 3.25rem, 1.6);
     text-align: center;
 }
 
 h2 {
-    @include header(2.5rem, 1.5);
+    @include header(1.7rem, 2.5rem, 1.5);
 }
 
 h3 {
-    @include header(2.2rem, 1.6);
+    @include header(1.4rem, 2.2rem, 1.6);
 }
 
 p {
-    font-size : 2rem;
+    font-size : 1.25rem;
+    @media only screen and (min-width: 600px) {
+        font-size : 2rem;
+    }
 }
 
 a {
@@ -68,17 +74,27 @@ a {
     width: 100%;
     margin: 2rem auto 0;
     padding: 0 1rem;
+    @media only screen and (min-width: 600px) {
+        padding: 0 2rem;
+    }
     &:first-child {
         text-align: center;
     }
 }
+// only applies to sections within <main>
 .page-content .main-section:first-child {
-    margin-top: 8rem;
+    margin-top: 6rem;
+    @media only screen and (min-width: 600px) {
+        margin-top: 8rem;
+    }
 }
 .row {
     display: flex;
     flex-direction: row;
     > :nth-child(1) {
-        margin-right: 2rem;
+        margin-right: 1.25rem;
+        @media only screen and (min-width: 600px) {
+            margin-right: 2rem;
+        }
     }
 }
