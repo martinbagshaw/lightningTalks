@@ -59,7 +59,11 @@ DATABASE_URL = postgres://<user_name>:<password>@localhost:5432/<database_name>
     - by language
     - bear in mind front end validation workshop
     - hide / grey past talks
+
 15. Get Travis CI and codecov working
+    - requires heroku database
+    - requires env variable for database to be set in travis
+
 16. Set up es-lint and prettier to enforce style guides (look at warning sign in bottom right of vs code)
 17. Architect user flow (protected routes, identify user name and details, change buttons on login/out)
 
