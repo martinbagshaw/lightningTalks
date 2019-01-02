@@ -3,7 +3,7 @@
 const express = require("express");
 const router = express.Router();
 
-// get helpers
+// get helper functions
 const helpers = require("../views/helpers/index");
 
 // home route
@@ -13,9 +13,29 @@ router.get("/", (req, res) => {
 
 // view talks route
 router.get("/view-talks", (req, res) => {
-  res.render("view-talks" ); //, { talks: helpers.getTalks }
+  helpers.getAllTalks((err, talkList) => {
+    if (err) {
+      res.statusCode = 500;
+      res.send("Error");
+    }
+    res.render("view-talks", { talks: talkList })
+  })
 });
 
+// search talks tool
+router.get('/search-talks', (req, res) => {
+  helpers.getAllTalks((err, talkList) => {
+    if (err) {
+      res.statusCode = 500;
+      res.send("Error");
+    }
+    res.json(talkList)
+  })
+})
+
+
+
+// ___________________________________
 // signup route
 // - hide when logged in
 router.get("/signup", (req, res) => {

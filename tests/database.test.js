@@ -12,7 +12,8 @@ const helperIndex = require("../src/views/helpers/index");
 
 
 // getTalks function
-test("getTalks function is working", t => {
+// - subject
+test("getTalks function returns subject", t => {
   testBuild((error, response) => {
     if (error) {
       console.log("testBuild error: ", error);
@@ -26,6 +27,28 @@ test("getTalks function is working", t => {
             res[0].subject,
             "SCSS",
             "The first entered talk subject in the test database should be SCSS"
+          );
+          t.end();
+        }
+      });
+    }
+  });
+});
+// - username
+test("getTalks function returns username", t => {
+  testBuild((error, response) => {
+    if (error) {
+      console.log("testBuild error: ", error);
+    } else {
+      helperIndex.getTalks((err, res) => {
+        if (err) {
+          console.log("getTalks error: ", err);
+        } else {
+          // console.log("result from getTalks: ", res);
+          t.deepEqual(
+            res[0].username,
+            "mr-bagglesworth",
+            "The first entered talk should be from user with username 'mr-bagglesworth'"
           );
           t.end();
         }

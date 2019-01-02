@@ -33,6 +33,24 @@ test("Check view talks route returns a 200", t => {
     });
 });
 
+test("Check search talks route returns a 200 and content type of json", t => {
+  request(app)
+    .get("/search-talks")
+    .expect(200)
+    .expect("Content-Type", /application\/json/)
+    .end((err, res) => {
+      if (err) {
+        console.log(err);
+      } else {
+        t.equal(res.status === 200, true);
+        t.end();
+      }
+  });
+});
+
+
+
+// ______________________
 // this one could change if logged in - should redirect, with 301
 // - could redirect to dashboard, as user is already logged in
 test("Check login route returns a 200", t => {

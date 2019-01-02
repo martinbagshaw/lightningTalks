@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "node ./tests/index.js | tap-spec",
+    "test": "nyc tape ./tests/index.js | tap-spec",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "dev": "nodemon ./src/server.js",
     "start": "node start",
@@ -15,14 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/mr-bagglesworth/lightningTalks.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": " "
+    "url": "https://github.com/mr-bagglesworth/lightningTalks/issues"
   },
-  "homepage": " ",
+  "homepage": "https://github.com/mr-bagglesworth/lightningTalks#lightning-talks-zap",
   "dependencies": {
     "env2": "^2.2.2",
     "bcryptjs": "^2.4.3",
@@ -32,16 +32,16 @@
     "serve-favicon": "^2.5.0",
     "express": "^4.15.3",
     "express-handlebars": "^3.0.0",
-    "pg": "^7.7.1",
-    "pg-promise": "^8.5.3"
+    "pg": "^7.7.1"
   },
   "devDependencies": {
     "istanbul": "^0.4.5",
+    "nyc": "^13.1.0",
+    "codecov": "^3.1.0",
     "nodemon": "^1.18.8",
     "supertest": "^3.3.0",
     "tap-spec": "^5.0.0",
     "tape": "^4.9.1",
-    "codecov": "^3.1.0",
     "eslint": "^5.9.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0"
