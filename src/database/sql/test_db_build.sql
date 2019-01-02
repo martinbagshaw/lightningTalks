@@ -35,16 +35,16 @@ INSERT INTO users (username, name, email, password) VALUES
   'p4$$WrDwe'
 ),
 (
-  'zurda', 
-  'Michal',
-  'zurda@github.com',
-  'PL5tN0ani'
-),
-(
   'la-fosse', 
   'Charlie',
   'lafosse@github.com',
   'fl055inG_'
+),
+(
+  'zurda', 
+  'Michal',
+  'zurda@github.com',
+  'PL5tN0ani'
 );
 
 INSERT INTO talks (user_id, subject, datetime, html, css, js, sql, node) VALUES

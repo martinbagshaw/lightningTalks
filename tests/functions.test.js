@@ -11,3 +11,36 @@ test('uppercase function is working', t => {
     t.equals(actual, expected), 'uppercase function with one word';
     t.end();
 })
+
+// timeStampFrom function
+// - takes TimeStamp in object form
+// - can't be tested (TimeStamp obj form is weird)
+// test('timeStampFrom function is working', t => {
+//     t.deepEqual(
+//         helperIndex.timeStampFrom({str: '2018-12-29T15:00:00.000Z'}),
+//         ['2018-12-29', '15:00'],
+//         "timeStampFrom function with GMT String"
+//     );
+
+//     t.end();
+// })
+
+// date from timestamp
+test('dateFromStamp function is working', t => {
+    t.equals(
+        helperIndex.dateFromStamp(new Date('2018-12-29T15:00:00.000Z')),
+        '29/12/2018',
+        "dateFromStamp function reformats the date from timestamp correctly"
+    );
+    t.end();
+})
+
+// time from timestamp
+test('timeFromStamp function is working', t => {
+    t.equals(
+        helperIndex.timeFromStamp(new Date('2018-12-29T15:00:00.000Z')),
+        '15:00',
+        "timeFromStamp function reformats the time from timestamp correctly"
+    );
+    t.end();
+})
