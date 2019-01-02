@@ -1,7 +1,7 @@
 // add all database functions and all regular functions here:
 module.exports = {
     // functions
-    upperCase: require('./func_helpers/upperCase'),
+    uppercase: require('./func_helpers/uppercase'),
     // timeStampFrom: require('./func_helpers/timeStampFrom'),
     // showTag: require('./func_helpers/showTag'),
     dateFromStamp: require('./func_helpers/dateFromStamp'),

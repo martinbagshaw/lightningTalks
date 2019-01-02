@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "nyc tape ./tests/functions.test.js | tap-spec && nyc tape ./tests/routes.test.js | tap-spec && nyc tape ./tests/database.test.js | tap-spec",
+    "test": "nyc tape ./tests/index.js | tap-spec",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "dev": "nodemon ./src/server.js",
     "start": "node start",
