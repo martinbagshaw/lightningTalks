@@ -18,7 +18,7 @@ test("getTalks function returns subject", t => {
     if (error) {
       console.log("testBuild error: ", error);
     } else {
-      helperIndex.getTalks((err, res) => {
+      helperIndex.getAllTalks((err, res) => {
         if (err) {
           console.log("getTalks error: ", err);
         } else {
@@ -40,7 +40,7 @@ test("getTalks function returns username", t => {
     if (error) {
       console.log("testBuild error: ", error);
     } else {
-      helperIndex.getTalks((err, res) => {
+      helperIndex.getAllTalks((err, res) => {
         if (err) {
           console.log("getTalks error: ", err);
         } else {
