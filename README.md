@@ -3,7 +3,7 @@
 # :zap: Lightning Talks :zap:
 An extension of Founders and Coders Week 7 project, [FAC YAK](https://github.com/fac-15/FAC-YAK). A system for members of [FAC 15](https://github.com/fac-15) to arrange lightning talks, short presentations on topics of their choosing.
 
-![lightning storm](https://i.giphy.com/media/FZzbTJyRTwPuw/source.gif)
+![lightning storm](https://media.giphy.com/media/3o7qE4opCd6f1NJeuY/giphy.gif)
 
 ## User Stories
 As a member of FAC 15, I want to...
