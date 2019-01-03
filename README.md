@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/mr-bagglesworth/lightningTalks.svg?branch=master)](https://travis-ci.org/mr-bagglesworth/lightningTalks)
+[![Build Status](https://travis-ci.org/mr-bagglesworth/lightningTalks.svg?branch=master)](https://travis-ci.org/mr-bagglesworth/lightningTalks) [![codecov][![codecov](https://codecov.io/gh/mr-bagglesworth/lightningTalks/branch/master/graph/badge.svg)](https://codecov.io/gh/mr-bagglesworth/lightningTalks)
 
 # :zap: Lightning Talks :zap:
 An extension of Founders and Coders Week 7 project, [FAC YAK](https://github.com/fac-15/FAC-YAK). A system for members of [FAC 15](https://github.com/fac-15) to arrange lightning talks, short presentations on topics of their choosing.
@@ -38,39 +38,45 @@ DATABASE_URL = postgres://<user_name>:<password>@localhost:5432/<database_name>
 ---
 
 ### Checklist
-1. ~~User Stories~~
-2. ~~Create folder and file structure~~
-3. ~~Add basic files (some empty)~~
-4. ~~`npm init` to make a package.json~~
-5. ~~List dependencies and dev dependencies in package.json~~
-6. ~~`npm i` to install all dependencies~~
-7. ~~Get a basic frontend working (scss and .hbs drafting, splash page)~~
-8. ~~Map User flow~~
-9. ~~Plan a database structure (similar to FAC YAK, but allow for scaling and editing)~~
-10. ~~Decide upon where to build test and production database, and how to test database~~
-11. ~~Build test and development database, and get working, do some tests~~
-12. ~~Do some other tests (supertest etc), and combine all tests into one~~
-13. ~~First commit~~
+1. [x] ~~User Stories~~
+2. [x] ~~Create folder and file structure~~
+3. [x] ~~Add basic files (some empty)~~
+4. [x] ~~`npm init` to make a package.json~~
+5. [x] ~~List dependencies and dev dependencies in package.json~~
+6. [x] ~~`npm i` to install all dependencies~~
+7. [x] ~~Get a basic frontend working (scss and .hbs drafting, splash page)~~
+8. [ ] Map User flow (this one keeps getting iterated over as the project progresses)
+9. [x] ~~Plan a database structure (similar to FAC YAK, but allow for scaling and editing)~~
+10. [x] ~~Decide upon where to build test and production database, and how to test database~~
+11. [x] ~~Build test and development database, and get working, do some tests~~
+12. [x] ~~Do some other tests (supertest etc), and combine all tests into one~~
+13. [x] ~~First commit~~
 
-14. Display Talks and start implementing search function (similar to Meet the FACers)
-    - search for talks by user
-    - by date
-    - by topic
-    - by language
-    - bear in mind front end validation workshop
-    - hide / grey past talks
+14. [ ] Display Talks and start implementing search function (similar to Meet the FACers)
+    - [ ] search for talks by user
+    - [ ] by date
+    - [ ] by topic
+    - [ ] by language
+    - [ ] bear in mind front end validation workshop
+    - [ ] hide / grey past talks
 
 15. Get Travis CI and codecov working
-    - requires heroku database
-    - requires env variable for database to be set in travis
+    - [x] requires heroku database
+    - [x] requires env variable for database to be set in travis
+    - [x] requires live database to be built with same dummy info as test database - used Heroku CLI with psql.
 
-16. Set up es-lint and prettier to enforce style guides (look at warning sign in bottom right of vs code)
-17. Architect user flow (protected routes, identify user name and details, change buttons on login/out)
+16. [ ] Set up es-lint and prettier to enforce style guides (look at warning sign in bottom right of vs code)
+17. [ ] Architect user flow (protected routes, identify user name and details, change buttons on login/out). Basically point 8 above, again.
 
 18. Handlebars templates:
-    - splash page
-    - create profile
-    - login
-    - view talks (and search for them on the frontend)
-    - add and edit talks (dashboard) - protected route
-    - - how to change body class per page?
+    - [x] splash page
+    - [ ] view talks (and search for them on the frontend)
+    - [ ] signup
+    - [ ] login
+    - [ ] dashboard - a protected route
+        - [ ] add talks
+        - [ ] edit talks
+        - [ ] see other FAC events
+        - [ ] bookmark talks
+        - [ ] set reminders
+    - [ ] change body class per page?

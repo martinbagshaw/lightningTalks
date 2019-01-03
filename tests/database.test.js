@@ -11,7 +11,8 @@ const helperIndex = require("../src/views/helpers/index");
 
 
 
-// getTalks function
+// ______________________
+// getAllTalks function (gets past talks too)
 // - subject
 test("getTalks function returns subject", t => {
   testBuild((error, response) => {
@@ -60,6 +61,57 @@ test("getTalks function returns username", t => {
 
 
 
+// ______________________
+// upComingTalks function - don't get talks that have passed
+// - return rows where the datetime column value is greater than the entered argument
+test("upComingTalks function fails: date is past any future talks", t => {
+  testBuild((error, response) => {
+    if (error) {
+      console.log("testBuild error: ", error);
+    } else {
+      helperIndex.upComingTalks('2019-01-20 17:30:00', (err, res) => {
+        if (err) {
+          console.log("getTalks error: ", err);
+        } else {
+          t.deepEqual(
+            res[0],
+            undefined,
+            "There are no talks returned, as there are no talks after the entered date of '2019-01-20'"
+          );
+          t.end();
+        }
+      });
+    }
+  });
+});
+// passing
+test("upComingTalks function passes: first subject is 'Database testing'", t => {
+  testBuild((error, response) => {
+    if (error) {
+      console.log("testBuild error: ", error);
+    } else {
+      helperIndex.upComingTalks('2019-01-02 20:00:00', (err, res) => {
+        if (err) {
+          console.log("getTalks error: ", err);
+        } else {
+          t.deepEqual(
+            res[0].subject,
+            "Database testing",
+            "The next subject of the next talk (as of 02/01/2019) should be 'Database testing'"
+          );
+          t.end();
+        }
+      });
+    }
+  });
+});
+
+
+
+
+
+
+// ______________________
 // checkUser function
 // - have to use .then(), and .catch(), as this is how the function is written
 

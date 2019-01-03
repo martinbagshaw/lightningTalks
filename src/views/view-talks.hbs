@@ -4,19 +4,16 @@
         <h1>Upcoming Talks</h1>
         <p>⚡ Upcoming Lightning Talks with FAC 15 ⚡</p>
         <form class="form search-form" method="/post" action="search-talks">
-            <div class="topic-search">
+            <div class="column">
                 <label for="search" class="hidden">Search</label>
                 <input id="search" class="text-input" type="text" name="search" value="" placeholder="Subject, Speaker, or Tag" autocomplete="off" pattern="[a-zA-Z0-9'\s]{2,40}"/>
                 <input type="submit" class="button-submit" value="Search" />
             </div>
-            <div class="history-sort">
-                <label for="sort">Sort Talks by Date</label>
-                <div class="form-rows">
-                    <input type="submit" class="button-submit history" value="Past Talks" />
-                    <input type="submit" class="button-submit date-sort" value="Sort by Date" />
-
-                    {{!-- <button class="button-input"><a href="/dashboard">Add Talk <span class="button-icon">+</span></a></button>
-                    <button class="button-input login"><a href="/view-talks">View Talks <span class="button-icon">></span></a></button> --}}
+            <div class="column">
+                <label for="sort" class="hidden">Sort Talks by Date</label>
+                <div class="row">
+                    <button id="history" class="button-input history"><a href="/search-talks">Past Talks <span class="button-icon">←</span></a></button>
+                    <button id="date-sort" class="button-input date-sort"><a href="/search-talks">Sort by Date <span class="button-icon">↓</span></a></button>
                 </div>
             </div>
         </form>
@@ -78,4 +75,5 @@
     </section>
 
 </main>
+<script src="js/dom-helpers.js"></script>
 <script src="js/search-talks.js"></script>

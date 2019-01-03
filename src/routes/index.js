@@ -13,12 +13,15 @@ router.get("/", (req, res) => {
 
 // view talks route
 router.get("/view-talks", (req, res) => {
-  helpers.getAllTalks((err, talkList) => {
+  // convert date to something that can work with database query
+  const date = helpers.datetimeToStamp(new Date());
+
+  helpers.upComingTalks(date, (err, upcomingTalkList) => {
     if (err) {
       res.statusCode = 500;
       res.send("Error");
     }
-    res.render("view-talks", { talks: talkList })
+    res.render("view-talks", { talks: upcomingTalkList })
   })
 });
 
