@@ -4,7 +4,7 @@ $red-hover: #ff2904;
 $green: #1f7736;
 $green-hover: #0ed642;
 $blue: #239eb7;
-$blue-hover: #1a787a;
+$blue-hover: #24d1f3;
 $html: #e34c26;
 $js: #f1e05a;
 $css: #563d7c;
@@ -25,6 +25,7 @@ $bold: 700;
 $radial-overlay: radial-gradient(transparent, rgba(0, 0, 0, 0.75));
 $bg-img: url('../img/lightning-bg.jpg');
 $bg-menu: rgba(0, 0, 0, 0.25);
+$green-desc: linear-gradient($green-hover, $green);
 
 // emoijs (used in html at present)
 $zap: ⚡;

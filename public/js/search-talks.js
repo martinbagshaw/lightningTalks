@@ -1,91 +1,146 @@
 "use strict";
+/*
+This file requires dom-helpers.js to work
+
+- autocomplete: search by subject, speaker, or tag
+- history button: view past talks
+- sort button: sort date ascending and descending
+*/
 
 // fetch data
-
 const allTalks = [];
 fetch("/search-talks")
   .then(res => res.json())
   .then(data => allTalks.push(...data));
 
 
-// // sort by language
-// // - sort function
-// const sortLang = lang => {
-//   // would like to be able to toggle order without a global variable:
-//   // https://stackoverflow.com/questions/44661710/how-to-toggle-sort-in-javascript
-//   allPeeps.sort((a, b) => {
-//     const personA = a[lang];
-//     const personB = b[lang];
-//     // order ascending
-//     if (personA < personB) {
-//       return 1;
-//     }
-//     if (personA > personB) {
-//       return -1;
-//     }
-//     return 0;
-//   });
-//   return allPeeps;
-// };
 
 
 
 
-// // sort the list ascending
-// const sortList = e => {
-//   e.preventDefault();
-//   const lang = e.target.value.toLowerCase();
-//   const sorted = sortLang(lang);
-//   html(sorted);
-// };
+// ____________________________________
+// Sort function(s)
 
-// // output html
-// const html = arr => {
-//   const numbers = {
-//     1: "one",
-//     2: "two",
-//     3: "three",
-//     4: "four",
-//     5: "five"
-//   };
+// filter out old talks
+const upcomingTalks = (arr, date) => {
+  // deep clone the array of objects
+  const newArr = JSON.parse(JSON.stringify(arr));
+  // if datetime on an array item is less than the current date, filter it out
+  const returnArr = newArr.filter(talk => new Date(talk.datetime) > date);
+  return returnArr;
+}
 
-//   const outputHtml = arr
-//     .map(item => {
-//       return `
-//         <li class="cohort-member">
-//             <h3 class="name">${item.name}</h3>
-//             <article class="bio">${item.bio}</article>
-//             <article class="skills">
-//                 <span>Skills:</span>
-//                 <div class="html">
-//                     <span>HTML level:</span>
-//                     <div class=${numbers[item.html]}></div>
-//                 </div>
-//                 <div class="css">
-//                     <span>CSS level:</span>
-//                     <div class=${numbers[item.css]}></div>
-//                 </div>
-//                 <div class="js">
-//                     <span>JS level:</span>
-//                     <div class=${numbers[item.js]}></div>
-//                 </div>
-//                 <div class="sql">
-//                     <span>SQL level:</span>
-//                     <div class=${numbers[item.sql]}></div>
-//                 </div>
-//                 <div class="node">
-//                     <span>NODE level:</span>
-//                     <div class=${numbers[item.node]}></div>
-//                 </div>
-//             </article>
-//         </li>
-//         `;
-//     })
-//     .join("");
 
-//   const ul = document.querySelector(".cohort-list");
-//   ul.innerHTML = outputHtml;
-// };
+// sort talks - event handler
+// - needs refactoring to work with history
+const sortList = e => {
+  e.preventDefault();
+
+  const exit = document.getElementById('history').classList.contains('descending');
+  if (exit) return false;
+
+  // button
+  e.target.closest('button').classList.toggle('descending');
+  const order = document.getElementById('date-sort').classList.contains('descending');
+
+  // sort function
+  const upcoming = upcomingTalks(allTalks, new Date());
+  const sorted = sortDate(upcoming, order);
+
+  // return html
+  html(sorted);
+};
+
+
+
+
+
+// ____________________________________
+// History function(s)
+
+// filter out new talks
+const passedTalks = (arr, date) => {
+  const newArr = JSON.parse(JSON.stringify(arr));
+  // if datetime on an array item is greater than the current date, filter it out
+  const returnArr = newArr.filter(talk => new Date(talk.datetime) < date);
+  return returnArr;
+}
+
+
+// past and future talks - event handler
+const pastFuture = e => {
+  e.preventDefault();
+
+  // button
+  e.target.closest('button').classList.toggle('descending');
+  const order = document.getElementById('history').classList.contains('descending');
+  const text = e.target.closest('a').childNodes[0];
+  order ? text.nodeValue = 'Future Talks' : text.nodeValue = 'Past Talks';
+
+  // past and future functions
+  const talks = order ? passedTalks(allTalks, new Date()) : upcomingTalks(allTalks, new Date());
+
+  // return html
+  html(talks);
+}
+
+
+
+
+
+
+
+// ____________________________________
+// output html
+// - this function is used by all 3 features
+const html = arr => {
+  // const numbers = {
+  //   1: "one",
+  //   2: "two",
+  //   3: "three",
+  //   4: "four",
+  //   5: "five"
+  // };
+  // - could use this area for another helper function
+
+  const outputHtml = arr
+    .map(item => {
+      return `
+      <li class="talk-event">
+        <h3 class="talk-subject">${item.subject}</h3>
+        <article class="talk-meta">
+          <article class="talk-details">
+            <p class="speaker">${item.username} <span>a.k.a. ${item.name}</span></p>
+            <p class="date-time">${dateFormat(item.datetime)}<span>@ ${timeFormat(item.datetime)}</span></p>
+          </article>
+          <article class="talk-tags">
+              ${item.html ? '<span class="tag html">html</span>' : ''}
+              ${item.css ? '<span class="tag css">css</span>' : ''}
+              ${item.js ? '<span class="tag js">js</span>' : ''}
+              ${item.sql ? '<span class="tag sql">sql</span>' : ''}
+              ${item.node ? '<span class="tag node">node</span>' : ''}
+          </article>
+        </article>
+      </li>
+      `;
+    })
+    .join('');
+
+  const ul = document.querySelector(".talks-list");
+  ul.innerHTML = outputHtml;
+};
+
+
+
+
+// ____________________________________
+// attach event listeners
+const dateSort = document.getElementById('date-sort');
+dateSort.addEventListener('click', sortList);
+
+const toggleHistory = document.getElementById('history');
+toggleHistory.addEventListener('click', pastFuture);
+
 
 
 
@@ -158,3 +213,12 @@ fetch("/search-talks")
 //         document.getElementById("name-label").textContent = 'Search by Name';
 //     } 
 // })
+
+
+
+
+
+
+
+
+

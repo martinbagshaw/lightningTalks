@@ -1,3 +1,4 @@
+@charset "UTF-8";
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
   margin: 0;
   padding: 0;
@@ -284,6 +285,12 @@ a {
       .row > :nth-child(1) {
         margin-right: 2rem; } }
 
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%; }
+
 .auth-section {
   position: absolute;
   top: 1rem;
@@ -474,40 +481,40 @@ a {
   .button-submit:hover, .button-input a:hover, .button-submit:focus, .button-input a:focus {
     background-color: #ff2904; }
 
-.button-input.login a {
+.button-input.login a, .button-input.date-sort a {
   background-color: #1f7736; }
-  .button-input.login a:hover, .button-input.login a:focus {
+  .button-input.login a:hover, .button-input.login a:focus, .button-input.date-sort a:hover, .button-input.date-sort a:focus {
     background-color: #0ed642; }
+.button-input.history a {
+  background-color: #239eb7; }
+  .button-input.history a:hover, .button-input.history a:focus {
+    background-color: #24d1f3; }
+.button-input.descending a span {
+  color: transparent; }
+  .button-input.descending a span:after {
+    color: white;
+    position: absolute;
+    right: 0;
+    top: 0;
+    line-height: 1; }
+.button-input.date-sort.descending a span:after {
+  content: "↑"; }
+.button-input.history.descending a span:after {
+  content: "→"; }
 
 .button-icon {
   font-size: 2.25rem;
-  line-height: 0; }
+  line-height: 0;
+  vertical-align: middle;
+  position: relative;
+  margin-left: 0.5rem; }
 
 /* --- button colour */
-.topic-search,
-.name-input {
-  display: flex;
-  flex-direction: column;
-  width: 100%; }
-
 .language-search,
 .language-input {
   margin-top: 1rem;
   border-top: 2px solid black;
   width: 100%; }
-
-.form-rows {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-wrap: wrap;
-  margin-top: 0.5rem; }
-
-.language-input {
-  display: flex;
-  flex-direction: column; }
-  .language-input .form-rows {
-    margin-bottom: 1rem; }
 
 .language-input h3 {
   margin-top: 1rem; }
