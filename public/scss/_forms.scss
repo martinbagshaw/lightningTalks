@@ -114,7 +114,7 @@
 
 
 
-
+// ––––––––––––––––––––––––––––––––––––––––––––––––––
 // button & input[type=submit]
 // - reset
 .button-input {
@@ -138,6 +138,7 @@
     line-height: 1;
     letter-spacing: 0.05rem;
     font-size: 1.25rem;
+    text-align: left;
     padding: 0.85rem;
     @media only screen and (min-width: 600px) {
         font-size: 1.5rem;
@@ -165,27 +166,30 @@
 }
 
 
-// make a mixin (or for loop) for these, there will be more
+// button colour mixin
+// - works within .button-input
+@mixin btnColour($name, $colour, $hover){
+    &.#{$name} a {
+        background-color: $colour;
+        &:hover,
+        &:focus {
+            background-color: $hover;
+        }
+    }
+}
+
 // - check out tag in pages
 .button-input {
     a {
         @extend .button-submit;
     }
-    &.login a,
-    &.date-sort a {
-        background-color: $green;
-        &:hover,
-        &:focus {
-            background-color: $green-hover;
-        }
+    // icon buttons are higher
+    &.has-icon a {
+        line-height: 1.5;
     }
-    &.history a {
-        background-color: $blue;
-        &:hover,
-        &:focus {
-            background-color: $blue-hover;
-        }
-    }
+    @include btnColour('login', $green, $green-hover);
+    @include btnColour('date-sort', $green, $green-hover);
+    @include btnColour('history', $blue, $blue-hover);
     // toggle states
     &.descending a span {
         color: transparent;
@@ -226,35 +230,47 @@
 
 
 
+// ––––––––––––––––––––––––––––––––––––––––––––––––––
+// checkbox input
+.checkbox {
+    // container
+    &-row {
+        margin-top: 1rem;
+    }
+    // individual container
+    // - same style would apply to radio container
+    &-label {
+        display: block;
+        position: relative;
+        padding-left: 2.5rem;
+        margin: 0 1rem 0 0;
+        cursor: pointer;
+        font-size: 1.5rem;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    // original input
+    &-input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        // checked state
+        &:checked ~ .checkmark {
+            background-color: $red;
+            &:after {
+                display: block;
+            }
+        }
+    }
+    // hover state
+    &:hover .radio-input ~ .checkmark {
+        background-color: $focus;
+    }
+}
 
-// radio input
-// --- container
-.radio-group {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-left: 2rem;
-}
-// --- individual container
-.radio-label {
-    display: block;
-    position: relative;
-    padding-left: 2.5rem;
-    margin: 0 1rem 0 0;
-    cursor: pointer;
-    font-size: 1.5rem;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-// --- radio input
-.radio-input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-}
-// --- custom button
+// new custom input
 .checkmark {
     position: absolute;
     top: 0;
@@ -262,141 +278,27 @@
     height: 2rem;
     width: 2rem;
     background-color: $off-white;
-    border-radius: 50%;
-}
-// --- hover
-.radio-label:hover .radio-input ~ .checkmark {
-    background-color: $focus;
-}
-// --- checked
-.radio-input:checked ~ .checkmark {
-    background-color: $red;
-}
-// --- dot indicator
-.checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-    top: 0.75rem;
-    left: 0.75rem;
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 50%;
-    background: $white;
-}
-// --- dot:checked
-.radio-input:checked ~ .checkmark:after {
-    display: block;
+    // checkmark indicator
+    &:after {
+        content: "";
+        position: absolute;
+        display: none;
+        content: "";
+        top: 0.5rem;
+        left: 0.75rem;
+        width: 0.5rem;
+        height: 1rem;
+        border: solid $white;
+        border-width: 0 0.25rem 0.25rem 0;
+        transform: rotate(45deg);
+    }
 }
 
 
-// use a loop for this sort of thing:
-
-// .html + .radio-group .radio-label .radio-input:checked ~ .checkmark {
-// background-color: var(--html);
-// }
-// .css + .radio-group .radio-label .radio-input:checked ~ .checkmark {
-// background-color: var(--css);
-// }
-// .js + .radio-group .radio-label .radio-input:checked ~ .checkmark {
-// background-color: var(--js);
-// }
-// .sql + .radio-group .radio-label .radio-input:checked ~ .checkmark {
-// background-color: var(--sql);
-// }
-// .node + .radio-group .radio-label .radio-input:checked ~ .checkmark {
-// background-color: var(--node);
-// }
-
-
-
-
-
-
-
-
-
-
-/* --- button colour */
-// .button-submit.html,
-// .label-bg.html {background-color: var(--html);}
-// .button-submit.js,
-// .label-bg.js { background-color: var(--js); color: $black; }
-// .button-submit.css,
-// .label-bg.css { background-color: var(--css); color: $white; }
-// .button-submit.sql,
-// .label-bg.sql  { background-color: var(--sql); }
-// .button-submit.node,
-// .label-bg.node { background-color: var(--node); }
-// /* darken on focus */
-// .language-search .button-submit:focus {
-// filter: saturate(125%) hue-rotate(-10deg) brightness(0.9);
-// }
-
-
-
-
-
-
-// form customisation
-
-// --- sectioning
-// .topic-search,
-// .name-input {
-//     display: flex;
-//     flex-direction: column;
-//     width: 100%;
-// }
-// .language-search,
-// .language-input {
-//     margin-top: 1rem;
-//     border-top: 2px solid $black;
-//     width: 100%;
-// }
-
-// .form-rows {
-//     display: flex;
-//     justify-content: flex-start;
-//     align-items: center;
-//     flex-wrap: wrap;
-//     margin-top: 0.5rem;
-// }
-// .language-input {
-//     display: flex;
-//     flex-direction: column;
-//     .form-rows {
-//         margin-bottom: 1rem;
-//     }
-// }
-
-
-
-
-
-
-// --- element customisation
-
-// --- create profile
-// .language-input h3 {
-// margin-top: 1rem;
-// }
-
-// .form .label-bg {
-// padding: 0.4rem 0.4rem 0.2rem;
-// margin: 0;
-// }
-
-// // --- search profiles
-// .language-search label {
-// display: block;
-// margin: 1rem 0 -1rem;
-// }
-
-// .language-search .button-submit {
-// margin-right: 1rem;
-// margin-top: 1rem;
-// }
-// .language-search :nth-child(5){
-// margin-right: 0;
-// }
-
+$tags : 'html', 'css', 'js', 'sql', 'node';   
+$colour_codes : $html, $css, $js, $sql, $node;
+@for $i from 1 through length($tags) {
+    .checkbox-input.#{nth($tags, $i)}:checked ~ .checkmark {
+        background-color : nth($colour_codes, $i);
+    }
+}
