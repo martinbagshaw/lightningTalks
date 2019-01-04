@@ -2,12 +2,15 @@
     
     <section class="main-section">
         <h1>Upcoming Talks</h1>
-        <p>⚡ Upcoming Lightning Talks with FAC 15 ⚡</p>
-        <form class="form search-form" method="/post" action="search-talks">
+        <p>⚡ Lightning Talks with FAC 15 ⚡</p>
+        <form id="search-form" class="form search-form" method="/post" action="search-talks">
             <div class="column">
-                <label for="search" class="hidden">Search</label>
-                <input id="search" class="text-input" type="text" name="search" value="" placeholder="Subject, Speaker, or Tag" autocomplete="off" pattern="[a-zA-Z0-9'\s]{2,40}"/>
-                <input type="submit" class="button-submit" value="Search" />
+                <div class="search-container">
+                    <label for="search-bar" class="hidden">Search</label>
+                    <input id="search-bar" class="text-input search-bar" type="text" name="search" value="" placeholder="Search by Subject or Speaker" autocomplete="off" pattern="[a-zA-Z'\s]{2,40}"/>
+                    <ul id="search-suggestions" class="search-suggestions"></ul>
+                </div>
+                <input type="submit" class="button-submit search-button" value="Search" />
             </div>
             <div class="column">
                 <label for="sort" class="hidden">Sort Talks by Date</label>

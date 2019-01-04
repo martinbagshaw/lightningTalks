@@ -77,3 +77,26 @@ test('dom-helpers.js: timeFormat function is working', t => {
     t.equals(actual, expected), 'timeFormat function works';
     t.end();
 })
+
+// - sort date
+test('dom-helpers.js: sortDate function is working', t => {
+    // const actual = domHelpers.sortDate('2018-12-29T15:00:00.000Z');
+    // const expected = '15:00';
+    // t.equals(actual, expected), 'timeFormat function works';
+    const arr = [
+        { datetime: "2018-12-29T15:00:00.000Z" },
+        { datetime: "2019-01-10T13:00:00.000Z" },
+        { datetime: "2019-01-15T17:30:00.000Z" }
+    ]
+    const order = true; // descending = true
+    t.deepEqual(
+        domHelpers.sortDate(arr, order),
+        [
+            { datetime: "2019-01-15T17:30:00.000Z" },
+            { datetime: "2019-01-10T13:00:00.000Z" },
+            { datetime: "2018-12-29T15:00:00.000Z" }
+        ],
+        "sortDate function reverses order according to datetime property"
+    );
+    t.end();
+})

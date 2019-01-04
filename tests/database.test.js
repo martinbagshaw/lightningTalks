@@ -69,14 +69,14 @@ test("upComingTalks function fails: date is past any future talks", t => {
     if (error) {
       console.log("testBuild error: ", error);
     } else {
-      helperIndex.upComingTalks('2019-01-20 17:30:00', (err, res) => {
+      helperIndex.upComingTalks('2019-10-20 17:30:00', (err, res) => {
         if (err) {
           console.log("getTalks error: ", err);
         } else {
           t.deepEqual(
             res[0],
             undefined,
-            "There are no talks returned, as there are no talks after the entered date of '2019-01-20'"
+            "There are no talks returned, as there currently are no talks after the entered date of '2019-02-15'"
           );
           t.end();
         }

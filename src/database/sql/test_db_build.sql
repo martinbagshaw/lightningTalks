@@ -77,6 +77,36 @@ INSERT INTO talks (user_id, subject, datetime, html, css, js, sql, node) VALUES
   true,
   false,
   false
+),
+(
+  1, 
+  'Array Methods',
+  '2019-01-29 15:00:00',
+  false,
+  false,
+  true,
+  false,
+  false
+),
+(
+  1, 
+  'Pure Functions',
+  '2019-01-23 13:00:00',
+  false,
+  false,
+  false,
+  false,
+  true
+),
+(
+  3, 
+  'Github', 
+  '2019-02-15 17:30:00',
+  false,
+  false,
+  false,
+  false,
+  false
 );
 
 COMMIT;

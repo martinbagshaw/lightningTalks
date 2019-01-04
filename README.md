@@ -1,6 +1,7 @@
-[![Build Status](https://travis-ci.org/mr-bagglesworth/lightningTalks.svg?branch=master)](https://travis-ci.org/mr-bagglesworth/lightningTalks) [![codecov][![codecov](https://codecov.io/gh/mr-bagglesworth/lightningTalks/branch/master/graph/badge.svg)](https://codecov.io/gh/mr-bagglesworth/lightningTalks)
+[![Build Status](https://travis-ci.org/mr-bagglesworth/lightningTalks.svg?branch=master)](https://travis-ci.org/mr-bagglesworth/lightningTalks) [![codecov](https://codecov.io/gh/mr-bagglesworth/lightningTalks/branch/master/graph/badge.svg)](https://codecov.io/gh/mr-bagglesworth/lightningTalks)
 
 # :zap: Lightning Talks :zap:
+[fac-lightning-talks.herokuapp.com](http://fac-lightning-talks.herokuapp.com/)
 An extension of Founders and Coders Week 7 project, [FAC YAK](https://github.com/fac-15/FAC-YAK). A system for members of [FAC 15](https://github.com/fac-15) to arrange lightning talks, short presentations on topics of their choosing.
 
 ![lightning storm](https://media.giphy.com/media/3o7qE4opCd6f1NJeuY/giphy.gif)
@@ -33,6 +34,7 @@ DATABASE_URL = postgres://<user_name>:<password>@localhost:5432/<database_name>
 ```
 5. `npm run dev` to start the project, then [port 7119](http://localhost:7119) to view.
 6. `npm run test` to run tests on helper functions, routes, and database queries.
+7. If you wish to edit the css, this project uses Sass (SCSS). Make sure you have [Sass installed](https://sass-lang.com/install), then go to the public folder and run `sass --watch scss:css`.
 
 
 ---
@@ -53,24 +55,36 @@ DATABASE_URL = postgres://<user_name>:<password>@localhost:5432/<database_name>
 13. [x] ~~First commit~~
 
 14. [ ] Display Talks and start implementing search function (similar to Meet the FACers)
-    - [ ] search for talks by user
-    - [ ] by date
-    - [ ] by topic
+    - [x] ~~search for talks by user~~
+    - [ ] show previous talks as greyed out / add a note to say they have passed
+    - [x] ~~by subject~~
     - [ ] by language
-    - [ ] bear in mind front end validation workshop
-    - [ ] hide / grey past talks
+    - [ ] bear in mind front end validation workshop (more important for signup and login)
+    - [x] ~~hide / grey past talks~~
 
-15. Get Travis CI and codecov working
-    - [x] requires heroku database
-    - [x] requires env variable for database to be set in travis
-    - [x] requires live database to be built with same dummy info as test database - used Heroku CLI with psql.
+15. ~~Get Travis CI and codecov working~~
+    - [x] ~~requires heroku database~~
+    - [x] ~~requires env variable for database to be set in travis~~
+    - [x] ~~requires live database to be built with same dummy info as test database - used Heroku CLI with psql.~~
 
-16. [ ] Set up es-lint and prettier to enforce style guides (look at warning sign in bottom right of vs code)
-17. [ ] Architect user flow (protected routes, identify user name and details, change buttons on login/out). Basically point 8 above, again.
+16. - [ ] Set up es-lint and prettier to enforce style guides (look at warning sign in bottom right of vs code)
+17. - [ ] Architect user flow (protected routes, identify user name and details, change buttons on login/out). Basically point 8 above, again.
 
-18. Handlebars templates:
-    - [x] splash page
+18. Clean up scss
+    - [ ] Remove stuff I don't need
+    - [ ] Refactor and made it smarter
+    - [x] ~~Use big search bar [emotiQuote](https://emotiquote.herokuapp.com/)~~
+ 
+19. Handlebars templates:
+    - [x] ~~splash page~~
     - [ ] view talks (and search for them on the frontend)
+        - [x] ~~past talks~~
+        - [x] ~~order talks~~
+        - [ ] autocomplete [reuse emotiQuote](https://emotiquote.herokuapp.com/)
+            - [x] ~~with name, username, and subject~~
+            - [ ] with language tags (make a testing function) - autocomplete with object keys
+            - [ ] remove list when there are no results
+            - [ ] click list item > ~~show in searchbar > click submit >~~ get talk html
     - [ ] signup
     - [ ] login
     - [ ] dashboard - a protected route
@@ -79,4 +93,5 @@ DATABASE_URL = postgres://<user_name>:<password>@localhost:5432/<database_name>
         - [ ] see other FAC events
         - [ ] bookmark talks
         - [ ] set reminders
-    - [ ] change body class per page?
+    - [ ] change body class per page (how to do this?)
+    - [ ] load scripts for each page async in header
