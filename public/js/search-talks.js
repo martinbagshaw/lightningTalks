@@ -5,13 +5,102 @@ This file requires dom-helpers.js to work
 - autocomplete: search by subject, speaker, or tag
 - history button: view past talks
 - sort button: sort date ascending and descending
+
+- fetch data at the end of the file
+
+To Do:
+- autocomplete search with tag / language
+- grey out past talks
+- get sort button working with past and future talks (integration)
 */
 
-// fetch data
-const allTalks = [];
-fetch("/search-talks")
-  .then(res => res.json())
-  .then(data => allTalks.push(...data));
+
+
+// ____________________________________
+// Autocomplete function(s)
+// - search name, username, subject, and language
+
+
+// search for matching talks
+// - need to avoid matching everything
+const searchTalks = (word, talks) => {
+  return talks.filter(talk => {
+      // word = text input value
+      const regex = new RegExp(word, 'gi');
+
+      // autocomplete with languages (if object key matches word):
+      // - filter out non languages
+      const tagKeys = Object.keys(talk).filter(key => key.match(/^((?!id|name|username|subject|datetime).)*$/)); // can also use a !key
+      // - map returns 5 one item arrays, if any arrays not null
+      const langTag = tagKeys.map(key => key.match(regex)).filter(match => match !== null)[0];
+
+      // 1:
+      // this returns one item array, so languages / tags should do too
+      // console.log(talk.username.match(regex), ' username');
+      // console.log(langTag, ' language');
+      // langTag appears to log out the same, but does not work as expected
+      // - try logging out the different parts of the langTag function to see
+
+
+      // 2:
+      // talk['cs'] needs to return talks for css
+      // - i.e. see if property value is true without the full key
+      // - can't search for 'true' or 'false' without the full key
+      // --- Make a test for this function - it will be testable!
+
+      // need a bigger dataset to test this properly
+      return talk.username.match(regex) || talk.name.match(regex) || talk.subject.match(regex)
+  });
+};
+
+
+// autocomplete - event handler
+const autoComplete = (word, talks) => {
+
+  const matches = searchTalks(word, talks);
+  autocompleteHtml(matches);
+
+  // clear the autocomplete if nothing entered
+  const searchBarVal = document.getElementById('search-bar').value.length;
+  if (searchBarVal === 0) {
+    document.getElementById('search-suggestions').innerHTML = '';
+  }
+}
+
+
+// display a single talk when it gets clicked on
+const displayTalk = (e, talks) => {
+  // get talk id from html id
+  let talkId = e.target.closest('li').id;
+  talkId = parseInt(talkId[talkId.length - 1]);
+  // get talk from array, compose html
+  const clickedTalk = talks.filter(talk => talk.id === talkId);
+  resultHtml(clickedTalk);
+  // clear autocomplete
+  document.getElementById('search-suggestions').innerHTML = '';
+}
+
+
+
+// make sure something is entered on submit
+// - doesn't work, see validation workshop
+// - form submit is disabled at the moment - no required for autocomplete to work
+const formValidation = e => {
+  e.preventDefault();
+  // const searchBar = document.getElementById('search-bar');
+  // const pass = searchBar.validity.valid && searchBar.value.length > 2;
+  // if (pass) {
+  //   searchBar.classList.remove('error-red');
+  //   searchBar.setCustomValidity('');
+  // } else {
+  //   searchBar.classList.add('error-red');
+  //   searchBar.setCustomValidity('Enter letters a-z, and 2 or more characters');
+  //   // searchBar.placeholder
+  // }
+}
+
+
+
 
 
 
@@ -36,6 +125,7 @@ const upcomingTalks = (arr, date) => {
 const sortList = e => {
   e.preventDefault();
 
+  // prevent it working with history for time being:
   const exit = document.getElementById('history').classList.contains('descending');
   if (exit) return false;
 
@@ -48,8 +138,9 @@ const sortList = e => {
   const sorted = sortDate(upcoming, order);
 
   // return html
-  html(sorted);
+  resultHtml(sorted);
 };
+
 
 
 
@@ -75,14 +166,21 @@ const pastFuture = e => {
   e.target.closest('button').classList.toggle('descending');
   const order = document.getElementById('history').classList.contains('descending');
   const text = e.target.closest('a').childNodes[0];
-  order ? text.nodeValue = 'Future Talks' : text.nodeValue = 'Past Talks';
+  text.nodeValue = order ? 'Upcoming Talks' : 'Past Talks';
+
+  // heading textContent as well
+  const main = document.querySelector('.page-content .main-section:first-child');
+  main.children[0].textContent = order ?  'Past Talks' : 'Upcoming Talks';
+
 
   // past and future functions
   const talks = order ? passedTalks(allTalks, new Date()) : upcomingTalks(allTalks, new Date());
 
   // return html
-  html(talks);
+  resultHtml(talks);
 }
+
+
 
 
 
@@ -92,8 +190,28 @@ const pastFuture = e => {
 
 // ____________________________________
 // output html
-// - this function is used by all 3 features
-const html = arr => {
+// - autocomplete html
+const autocompleteHtml = arr => {
+  const outputHtml = arr
+  // need to indicate whether the talk has passed or not
+    .map(item => {
+      return `<li id="search-item-${item.id}" class="search-item">${item.subject} | ${item.username} <span class="search-person">a.k.a. ${item.name}</span>
+        ${item.html ? '<span class="tag html">html</span>' : ''}
+        ${item.css ? '<span class="tag css">css</span>' : ''}
+        ${item.js ? '<span class="tag js">js</span>' : ''}
+        ${item.sql ? '<span class="tag sql">sql</span>' : ''}
+        ${item.node ? '<span class="tag node">node</span>' : ''}<span class="search-arrow">→</span>
+      </li>`;
+    })
+    .join('');
+  const ul = document.getElementById("search-suggestions");
+  ul.innerHTML = outputHtml;
+}
+
+
+
+// - resultHtml is used by all 3 features
+const resultHtml = arr => {
   // const numbers = {
   //   1: "one",
   //   2: "two",
@@ -101,7 +219,11 @@ const html = arr => {
   //   4: "four",
   //   5: "five"
   // };
-  // - could use this area for another helper function
+
+  // could use this area for another helper function
+  // - grey out old talks. Adds another layer of complexity though
+  // - 
+  // rgba(125, 125, 125, 0.75)
 
   const outputHtml = arr
     .map(item => {
@@ -135,90 +257,32 @@ const html = arr => {
 
 // ____________________________________
 // attach event listeners
-const dateSort = document.getElementById('date-sort');
-dateSort.addEventListener('click', sortList);
+// - response = allTalks from fetch
+const attachEvents = response => {
+  // searchbar input
+  const searchBar = document.getElementById('search-bar');
+  searchBar.addEventListener('input', e => autoComplete(e.target.value, response), false);
 
-const toggleHistory = document.getElementById('history');
-toggleHistory.addEventListener('click', pastFuture);
+  // list item click
+  const suggestions = document.querySelector('#search-suggestions');
+  suggestions.addEventListener('click', e => displayTalk(e, response), false);
 
+  // bypass form functionality - no need to validate
+  const searchForm = document.getElementById('search-form');
+  searchForm.addEventListener('submit', formValidation);
 
+  const dateSort = document.getElementById('date-sort');
+  dateSort.addEventListener('click', sortList);
 
-
-
-
-// // - get buttons
-// const langButtons = Array.from(
-//   document.querySelectorAll(".language-search .button-submit")
-// );
-// // - attach event listener and function
-// langButtons.forEach(btn => btn.addEventListener("click", sortList));
-
-
-
-
-// // name search
-// const nameSearch = document.getElementById("name-search-button");
-// nameSearch.addEventListener("click", e => {
-//   e.preventDefault();
-
-//   // make entered name in same format as name property in json
-//   const textInput = document.getElementById("name-search");
-//   const textLabel = document.getElementById("name-label");
-//   // format
-//   const firstLetter = textInput.value
-//     .toLowerCase()
-//     .charAt(0)
-//     .toUpperCase();
-//   const formatted = firstLetter + textInput.value.substr(1);
-
-  
-//   // no value entered
-//   if (formatted.length < 2) {
-//     // console.log("value must be more than 2");
-//     textInput.classList.add('error-red');
-//     textLabel.textContent = 'Please enter a string of more than 2 characters';
-//   }
-//   // value entered
-//   else {
-
-//     // find the name in the json list
-//     const nameFind = facers => {
-//       return facers.name === formatted;
-//     };
-//     const person = allPeeps.find(nameFind);
-
-    
-//     // no person match
-//     if (person === undefined) {
-//     //   console.log("no person found");
-//       textInput.classList.add('error-red');
-//       textLabel.textContent = 'User not found in database';
-//     }
-//     // person found
-//     else {
-//       const arr = [];
-//       arr.push(person);
-//       html(arr);
-//     }
-//   }
-// });
+  const toggleHistory = document.getElementById('history');
+  toggleHistory.addEventListener('click', pastFuture);
+}
 
 
 
-// // reset name search
-// const nameInput = document.getElementById("name-search");
-// nameInput.addEventListener('input', e => {
-//     if (e.target.classList.contains('error-red')) {
-//         e.target.classList.remove('error-red');
-//         document.getElementById("name-label").textContent = 'Search by Name';
-//     } 
-// })
-
-
-
-
-
-
-
-
-
+// fetch data
+const allTalks = [];
+fetch("/search-talks")
+  .then(res => res.json())
+  .then(data => allTalks.push(...data))
+  .then(attachEvents(allTalks));

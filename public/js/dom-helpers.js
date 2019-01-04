@@ -7,11 +7,11 @@ const timeFormat = str => {
     return str.split('T')[1].match(/([^:]*:){2}/)[0].slice(0, -1);
 }
 
+// TO TEST:
 
 // sort by date
 // - can't just reverse the array, talks may not be entered in chronological order
 // - needs to be versatile - not just take upcoming items array
-// - can go in DOM helpers, this is pure, I think?
 const sortDate = (arr, order) => {
     order = !order;
     arr.sort(function (a, b) {
