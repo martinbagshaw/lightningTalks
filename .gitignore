@@ -1,0 +1,23 @@
+# ignore the following:
+node_modules/
+jspm_packages/
+*.env
+config.env
+package-lock.json
+logfile
+*.DS_Store
+*Thumbs.db
+*.sass-cache*
+*.map
+
+# Coverage directory used by tools like istanbul
+coverage
+
+# nyc test coverage
+.nyc_output
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
