@@ -1,14 +1,8 @@
-
 // forms
 .form {
     display: flex;
-    flex-direction: column;
     align-items: flex-start;
-    padding : 1rem;
-    margin: 2rem 0;
-    border-radius: 0.5rem;
-    background-color: $white;
-    color:$black;
+    color: $black;
     font-family: $font-main;
     label, 
     p {
@@ -16,9 +10,71 @@
         margin-bottom : 0.25rem;
     }
 }
+// main forms (login, signup, add talk)
+.main-form {
+    flex-direction: column;
+    padding : 1rem;
+    margin: 2rem 0;
+    border-radius: 0.5rem;
+    background-color: $white;
+}
+// search form (and autocomplete)
+.search {
+    &-form {
+        flex-direction: column;
+        margin-top: 2rem;
+        position: relative;
+    }
+    &-container {
+        width: 100%;
+        position: relative;
+    }
+    &-suggestions {
+        // margin-top: 1rem;
+        // border-radius: 0.5rem;
+        width: 100%;
+        overflow: hidden;
+        z-index: 1;
+        position: absolute;
+        // padding: 0.2rem;
+        border-radius: 0.2rem;
+        background-color: rgba( $black, .5 );
+    }
+    &-item {
+        position: relative;
+        margin-bottom: 0.2rem;
+        padding: 0.75rem 1rem;
+        text-align: left;
+        border-radius: 0.35rem;
+        cursor: pointer;
+        font-size: 1.25rem;
+        line-height: 1.8;
+        background-color: $white;
+        &:hover {
+            background-color: $off-white;
+        }
+    }
+    &-person {
+        margin: 0 1rem;
+        color: $grey;
+    }
+    &-arrow {
+        color: $grey;
+        position: absolute;
+        right: 1rem;
+        top: calc(50% - 18px);
+    }
+    
+}
 
 
 
+
+
+
+
+
+// ––––––––––––––––––––––––––––––––––––––––––––––––––
 // text input
 .text-input {
     font-family: $font-main;
@@ -29,21 +85,144 @@
     padding: 0.75rem 0.5rem;
     border-radius: 0.5rem;
     border: 2px solid $red;
+    // search bar
+    &.search-bar {
+        margin-bottom: 1rem;
+        padding: 1.25rem 0.5rem;
+        padding-right: 8rem;
+    }
     &:focus,
     &:active,
     &:disabled {
         border: 2px solid $red-hover;
         background-color: $focus;
     }
+    // text input - error
+    &.error-red,
+    &.error-red:focus {
+        background-color : $red;
+        border: 2px solid $red-hover;
+        color: $white;
+    }
+    &.error-red::placeholder {
+        color: $white;
+    }
 }
 
-// text input - error
-.error-red,
-.error-red:focus {
-    background-color : $red;
-    border: 2px solid $red-hover;
-    color: $white;
+
+
+
+
+
+
+// button & input[type=submit]
+// - reset
+.button-input {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    display: flex;
+    a {
+        color: $white;
+        &:hover,
+        &:focus {
+            color: $white;
+        }
+    }
 }
+
+// input type submit
+.button-submit {
+    align-self: flex-end;
+    font-family: $font-main;
+    line-height: 1;
+    letter-spacing: 0.05rem;
+    font-size: 1.25rem;
+    padding: 0.85rem;
+    @media only screen and (min-width: 600px) {
+        font-size: 1.5rem;
+        padding: 1rem;
+    }
+    border: 0;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color ease-in-out 0.3s;
+    color: $white;
+    background-color: $red;
+    // search button
+    &.search-button {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        padding: 1.25rem;
+        border-radius: 0.35rem;
+        font-size: 1.5rem;
+    }
+    &:hover,
+    &:focus {
+        background-color: $red-hover;
+    }
+}
+
+
+// make a mixin (or for loop) for these, there will be more
+// - check out tag in pages
+.button-input {
+    a {
+        @extend .button-submit;
+    }
+    &.login a,
+    &.date-sort a {
+        background-color: $green;
+        &:hover,
+        &:focus {
+            background-color: $green-hover;
+        }
+    }
+    &.history a {
+        background-color: $blue;
+        &:hover,
+        &:focus {
+            background-color: $blue-hover;
+        }
+    }
+    // toggle states
+    &.descending a span {
+        color: transparent;
+        &:after {
+            color: $white;
+            position: absolute;
+            right: 0;
+            top: 0;
+            line-height: 1;
+        }
+    }
+    &.date-sort.descending a span:after {
+        content: "↑";
+    }
+    &.history.descending a span:after {
+        content: "→";
+    }
+}
+// icons for button a only
+.button-icon {
+    font-size: 2.25rem;
+    line-height: 0;
+    vertical-align: middle;
+    position: relative;
+    margin-left: 0.5rem;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -134,90 +313,6 @@
 
 
 
-// button & input type=submit
-// - reset
-.button-input {
-    padding: 0;
-    border: 0;
-    background: transparent;
-    display: flex;
-    a {
-        color: $white;
-        &:hover,
-        &:focus {
-            color: $white;
-        }
-    }
-}
-
-.button-submit {
-    align-self: flex-end;
-    font-family: $font-main;
-    line-height: 1;
-    letter-spacing: 0.05rem;
-    font-size: 1.25rem;
-    padding: 0.85rem;
-    @media only screen and (min-width: 600px) {
-        font-size: 1.5rem;
-        padding: 1rem;
-    }
-    border: 0;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: background-color ease-in-out 0.3s;
-    color: $white;
-    background-color: $red;
-    &:hover,
-    &:focus {
-        background-color: $red-hover;
-    }
-}
-
-.button-input {
-    a {
-        @extend .button-submit;
-    }
-    &.login a,
-    &.date-sort a {
-        background-color: $green;
-        &:hover,
-        &:focus {
-            background-color: $green-hover;
-        }
-    }
-    &.history a {
-        background-color: $blue;
-        &:hover,
-        &:focus {
-            background-color: $blue-hover;
-        }
-    }
-    // toggle states
-    &.descending a span {
-        color: transparent;
-        &:after {
-            color: $white;
-            position: absolute;
-            right: 0;
-            top: 0;
-            line-height: 1;
-        }
-    }
-    &.date-sort.descending a span:after {
-        content: "↑";
-    }
-    &.history.descending a span:after {
-        content: "→";
-    }
-}
-.button-icon {
-    font-size: 2.25rem;
-    line-height: 0;
-    vertical-align: middle;
-    position: relative;
-    margin-left: 0.5rem;
-}
-
 
 
 
@@ -252,12 +347,12 @@
 //     flex-direction: column;
 //     width: 100%;
 // }
-.language-search,
-.language-input {
-    margin-top: 1rem;
-    border-top: 2px solid $black;
-    width: 100%;
-}
+// .language-search,
+// .language-input {
+//     margin-top: 1rem;
+//     border-top: 2px solid $black;
+//     width: 100%;
+// }
 
 // .form-rows {
 //     display: flex;
@@ -282,26 +377,26 @@
 // --- element customisation
 
 // --- create profile
-.language-input h3 {
-margin-top: 1rem;
-}
+// .language-input h3 {
+// margin-top: 1rem;
+// }
 
-.form .label-bg {
-padding: 0.4rem 0.4rem 0.2rem;
-margin: 0;
-}
+// .form .label-bg {
+// padding: 0.4rem 0.4rem 0.2rem;
+// margin: 0;
+// }
 
-// --- search profiles
-.language-search label {
-display: block;
-margin: 1rem 0 -1rem;
-}
+// // --- search profiles
+// .language-search label {
+// display: block;
+// margin: 1rem 0 -1rem;
+// }
 
-.language-search .button-submit {
-margin-right: 1rem;
-margin-top: 1rem;
-}
-.language-search :nth-child(5){
-margin-right: 0;
-}
+// .language-search .button-submit {
+// margin-right: 1rem;
+// margin-top: 1rem;
+// }
+// .language-search :nth-child(5){
+// margin-right: 0;
+// }
 
