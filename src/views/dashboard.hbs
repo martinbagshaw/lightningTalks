@@ -1,15 +1,48 @@
-<main class="page-content view-talks">
+<main class="page-content dashboard">
+
     <section class="main-section">
         <h1>Hello _username_</h1>
         <p>Here you can add a talk, edit your talks, and view bookmarked talks.</p>
     </section>
+
     <section class="main-section" id="add-talk">
         <h2>Add Talk</h2>
-        <p>if user has talks, show list of talks, with edit talk button, to go to edit talk page/ section</p>
-        <p>if user has no talks, show add talk form</p>
+        <p>Cookie / whatever should identify user, and add correct _user_ info to the database this way</p>
+        <form class="form main-form" method="/post" action="/addtalk">
+
+            <label for="subject">Subject</label>
+            <input id="subject" class="text-input" type="text" name="subject" value="" placeholder="Enter talk subject..."
+                autocomplete="off" pattern="[a-zA-Z0-9]{3,40}" required/>
+
+            <label for="description">Description</label>
+            <textarea id="description" class="text-input" name="description" pattern="[a-zA-Z0-9'\s.]{3,40}"></textarea>
+            
+            <label for="day">Day</label>
+            <input id="day" class="text-input" type="date" name="day" required>
+
+            <label for="time">Time</label>
+            <input id="time" class="text-input" type="time" name="time" min="10:00" max="18:00" required>
+
+            <label for="languages">Languages</label>
+            <p>Select any languages that are covered by this talk</p>
+            <div class="row checkbox-row">
+                {{!-- addone helper for index - previously in value? {{@key}} --}}
+                {{#each languages}}
+                <label class="checkbox-label">{{this}}
+                    <input class="checkbox-input {{this}}" type="checkbox" name="{{this}}" value="">
+                    <span class="checkmark"></span>
+                </label>
+                {{/each}}
+            </div>
+
+            <input type="submit" class="button-submit" value="Add Talk" />
+        </form>
+
     </section>
     <section class="main-section" id="your-talks">
         <h3>Your Talks</h3>
+        <p>if user has talks, show list of talks, with edit talk button, to go to edit talk page/ section</p>
+        <p>if user has no talks, say they have no talks, CTA to add a talk</p>
         <!--
             if no talks found for user:
                 You have contributed no talks yet, add your talk above
@@ -19,6 +52,8 @@
     </section>
     <section class="main-section" id="your-talks">
         <h3>Bookmarked Talks</h3>
+        <p>Show list partial, with bookmarked talks</p>
+        <p>if no talks are bookmarked, CTA to bookmark a talk</p>
         <!--
             if no bookmarks found for user:
                 You have no bookmarks yet, bookmark talks here (link to view-talks) - show bookmark option when logged in

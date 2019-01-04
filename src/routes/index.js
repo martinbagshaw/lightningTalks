@@ -56,8 +56,9 @@ router.get("/login", (req, res) => {
 // - protected
 // - can post talk through here
 // - can access edit talk route through here (protected)
+const languages = ['html', 'css', 'js', 'sql', 'node']; // add this with a helper - e.g. database query for boolean values
 router.get("/dashboard", (req, res) => {
-  res.render("dashboard" ); //, { talks: helpers.getUserTalks } // use jwt to get talks for logged in user
+  res.render("dashboard", { languages: languages} ); //, { talks: helpers.getUserTalks } // use jwt to get talks for logged in user
 });
 
 // POST request from form

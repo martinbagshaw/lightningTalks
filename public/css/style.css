@@ -456,6 +456,7 @@ a {
   line-height: 1;
   letter-spacing: 0.05rem;
   font-size: 1.25rem;
+  text-align: left;
   padding: 0.85rem;
   border: 0;
   border-radius: 0.5rem;
@@ -477,9 +478,15 @@ a {
   .button-submit:hover, .button-input a:hover, .button-submit:focus, .button-input a:focus {
     background-color: #ff2904; }
 
-.button-input.login a, .button-input.date-sort a {
+.button-input.has-icon a {
+  line-height: 1.5; }
+.button-input.login a {
   background-color: #1f7736; }
-  .button-input.login a:hover, .button-input.login a:focus, .button-input.date-sort a:hover, .button-input.date-sort a:focus {
+  .button-input.login a:hover, .button-input.login a:focus {
+    background-color: #0ed642; }
+.button-input.date-sort a {
+  background-color: #1f7736; }
+  .button-input.date-sort a:hover, .button-input.date-sort a:focus {
     background-color: #0ed642; }
 .button-input.history a {
   background-color: #239eb7; }
@@ -505,13 +512,9 @@ a {
   position: relative;
   margin-left: 0.5rem; }
 
-.radio-group {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-left: 2rem; }
-
-.radio-label {
+.checkbox-row {
+  margin-top: 1rem; }
+.checkbox-label {
   display: block;
   position: relative;
   padding-left: 2.5rem;
@@ -522,11 +525,16 @@ a {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none; }
-
-.radio-input {
+.checkbox-input {
   position: absolute;
   opacity: 0;
   cursor: pointer; }
+  .checkbox-input:checked ~ .checkmark {
+    background-color: #ff6347; }
+    .checkbox-input:checked ~ .checkmark:after {
+      display: block; }
+.checkbox:hover .radio-input ~ .checkmark {
+  background-color: gainsboro; }
 
 .checkmark {
   position: absolute;
@@ -534,30 +542,35 @@ a {
   left: 0;
   height: 2rem;
   width: 2rem;
-  background-color: #eee;
-  border-radius: 50%; }
+  background-color: #eee; }
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    content: "";
+    top: 0.5rem;
+    left: 0.75rem;
+    width: 0.5rem;
+    height: 1rem;
+    border: solid white;
+    border-width: 0 0.25rem 0.25rem 0;
+    transform: rotate(45deg); }
 
-.radio-label:hover .radio-input ~ .checkmark {
-  background-color: gainsboro; }
+.checkbox-input.html:checked ~ .checkmark {
+  background-color: #e34c26; }
 
-.radio-input:checked ~ .checkmark {
-  background-color: #ff6347; }
+.checkbox-input.css:checked ~ .checkmark {
+  background-color: #563d7c; }
 
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-  top: 0.75rem;
-  left: 0.75rem;
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 50%;
-  background: white; }
+.checkbox-input.js:checked ~ .checkmark {
+  background-color: #f1e05a; }
 
-.radio-input:checked ~ .checkmark:after {
-  display: block; }
+.checkbox-input.sql:checked ~ .checkmark {
+  background-color: #ccc; }
 
-/* --- button colour */
+.checkbox-input.node:checked ~ .checkmark {
+  background-color: #43853d; }
+
 .page-content.home {
   position: fixed;
   width: 100%;
