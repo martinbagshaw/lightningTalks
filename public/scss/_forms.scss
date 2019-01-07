@@ -53,16 +53,28 @@
         &:hover {
             background-color: $off-white;
         }
+        &.past {
+            background-color: $grey;
+        }
+        &.past:hover {
+            background-color: $grey-hover;
+        }
     }
     &-person {
         margin: 0 1rem;
         color: $grey;
+        .past & {
+            color: $off-white;
+        }
     }
     &-arrow {
-        color: $grey;
         position: absolute;
         right: 1rem;
         top: calc(50% - 18px);
+        color: $grey;
+        .past & {
+            color: $off-white;
+        }
     }
     
 }

@@ -38,6 +38,7 @@ DATABASE_URL = postgres://<user_name>:<password>@localhost:5432/<database_name>
 
 
 ---
+[notes and lessons can be found here](https://hackmd.io/RarWZD4WQvmFmusjTMCG8Q)
 
 ### Checklist
 1. [x] ~~User Stories~~

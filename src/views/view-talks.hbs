@@ -7,7 +7,7 @@
             <div class="column">
                 <div class="search-container">
                     <label for="search-bar" class="hidden">Search</label>
-                    <input id="search-bar" class="text-input search-bar" type="text" name="search" value="" placeholder="Search by Subject or Speaker" autocomplete="off" pattern="[a-zA-Z'\s]{2,40}"/>
+                    <input id="search-bar" class="text-input search-bar" type="text" name="search" value="" placeholder="Subject or Speaker, or Language" autocomplete="off" pattern="[a-zA-Z'\s]{2,40}"/>
                     <ul id="search-suggestions" class="search-suggestions"></ul>
                 </div>
                 <input type="submit" class="button-submit search-button" value="Search" />
@@ -40,35 +40,15 @@
                         <!-- add a bookmark button eventually -->
                     </article>
                     <article class="talk-tags">
-                        <!-- loop through an array of languages and use a helper -->
-                        {{#if html}}<span class="tag html">html</span>{{/if}}
-                        {{#if css}}<span class="tag css">css</span>{{/if}}
-                        {{#if js}}<span class="tag js">js</span>{{/if}}
-                        {{#if sql}}<span class="tag sql">sql</span>{{/if}}
-                        {{#if node}}<span class="tag node">node</span>{{/if}}
+                        {{#each languages}}
+                        <span class="tag {{this}}">{{this}}</span>
+                        {{/each}}
                     </article>
                 </article>
             </li>
             {{/each}}
-
-
-            {{!-- {{#each talks}}
-            <li class="talk-event">
-                <h3 class="subject">{{name}}</h3>
-                <article class="bio">{{bio}}</article>
-                <article class="skills">
-                    <span>Skills:</span>
-                    {{#each ../languages}}
-                    <div class="{{lang}}">
-                        <span>{{uppercase lang}} level:</span>
-                        <div class="{{barchart ../this lang}}"></div>
-                    </div>
-                    {{/each}}
-                </article>
-
-            </li>
-            {{/each}} --}}
             <!-- 
+            used in meet the FACers:
             - use the lookup helper to search one object while using a value from another, e.g. users[lang]
             https://stackoverflow.com/questions/29829723/example-of-using-handlebars-lookup-helper
             - combined the lookup helper into the barchart function

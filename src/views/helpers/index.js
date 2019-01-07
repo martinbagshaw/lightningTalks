@@ -9,6 +9,8 @@ module.exports = {
     timeFromStamp: require('./func_helpers/timeFromStamp'),
     // - input to db (impure function):
     datetimeToStamp: require('./func_helpers/datetimeToStamp'),
+    // json output - languages as an array
+    jsonOutput: require('./func_helpers/jsonOutput'),
     
     
     // _________
@@ -16,4 +18,5 @@ module.exports = {
     checkUser: require('./db_helpers/checkUser'),
     getAllTalks: require('./db_helpers/getTalks').getAllTalks,
     upComingTalks: require('./db_helpers/getTalks').upComingTalks
+
 };

@@ -408,14 +408,22 @@ a {
   background-color: white; }
   .search-item:hover {
     background-color: #eee; }
+  .search-item.past {
+    background-color: grey; }
+  .search-item.past:hover {
+    background-color: #9c9c9c; }
 .search-person {
   margin: 0 1rem;
   color: grey; }
+  .past .search-person {
+    color: #eee; }
 .search-arrow {
-  color: grey;
   position: absolute;
   right: 1rem;
-  top: calc(50% - 18px); }
+  top: calc(50% - 18px);
+  color: grey; }
+  .past .search-arrow {
+    color: #eee; }
 
 .text-input {
   font-family: "Josefin Sans", sans-serif;
@@ -614,7 +622,8 @@ a {
     .talk-event {
       flex-direction: row;
       align-items: center; } }
-
+  .talk-event.past {
+    background-color: rgba(128, 128, 128, 0.75); }
 .talk-subject {
   border-bottom: 2px solid; }
   @media only screen and (min-width: 600px) {
@@ -622,25 +631,24 @@ a {
       width: 30%;
       border-bottom: none;
       margin-bottom: 0; } }
-
 .talk-meta {
   width: 100%; }
-
 @media only screen and (min-width: 600px) {
   .talk-details {
     display: flex;
     align-items: center;
     justify-content: space-between; } }
-.speaker span,
-.date-time {
-  color: grey;
-  font-size: 1rem; }
+
+.speaker span, .date-time {
+  font-size: 1rem;
+  color: grey; }
+  .past .speaker span,
+  .past .date-time {
+    color: #eee; }
   @media only screen and (min-width: 600px) {
-    .speaker span,
-    .date-time {
+    .speaker span, .date-time {
       font-size: 1.5rem; } }
-  .speaker span span,
-  .date-time span {
+  .speaker span span, .date-time span {
     display: block; }
 
 .talk-tags {

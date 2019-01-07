@@ -11,28 +11,36 @@ router.get("/", (req, res) => {
   res.render("home");
 });
 
+
+
 // view talks route
+// - output upcoming talks only
 router.get("/view-talks", (req, res) => {
   // convert date to something that can work with database query
   const date = helpers.datetimeToStamp(new Date());
-
   helpers.upComingTalks(date, (err, upcomingTalkList) => {
     if (err) {
       res.statusCode = 500;
       res.send("Error");
     }
-    res.render("view-talks", { talks: upcomingTalkList })
+    // json processing here
+    const formatTalks = helpers.jsonOutput(upcomingTalkList);
+    res.render("view-talks", { talks: formatTalks })
   })
 });
 
+
 // search talks tool
+// - output all talks, irrespective of date
 router.get('/search-talks', (req, res) => {
   helpers.getAllTalks((err, talkList) => {
     if (err) {
       res.statusCode = 500;
       res.send("Error");
     }
-    res.json(talkList)
+    // json processing here
+    const formatTalks = helpers.jsonOutput(talkList);
+    res.json(formatTalks)
   })
 })
 
