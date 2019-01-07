@@ -60,7 +60,80 @@ test('timeFromStamp function is working', t => {
 
 
 
-// ______________
+
+
+
+
+
+// ______________________
+// jsonOutput function
+// - works with database output
+test('jsonOutput function is working', t => {
+
+    const inputArr = [
+        {
+            id: 2,
+            subject: "Database testing",
+            username: "la-fosse",
+            name: "Charlie",
+            datetime: "2019-01-10T13:00:00.000Z",
+            html: false,
+            css: false,
+            js: false,
+            sql: true,
+            node: false
+        },
+        {
+            id: 3,
+            subject: "React",
+            username: "zurda",
+            name: "Michal",
+            datetime: "2019-01-15T17:30:00.000Z",
+            html: false,
+            css: true,
+            js: true,
+            sql: false,
+            node: false
+        }
+    ];
+
+    t.deepEqual(
+        helperIndex.jsonOutput(inputArr),
+        [
+            {
+                id: 2,
+                subject: "Database testing",
+                username: "la-fosse",
+                name: "Charlie",
+                datetime: "2019-01-10T13:00:00.000Z",
+                languages: ['sql']
+            },
+            {
+                id: 3,
+                subject: "React",
+                username: "zurda",
+                name: "Michal",
+                datetime: "2019-01-15T17:30:00.000Z",
+                languages: ['css', 'js']
+            }
+        ],
+        "jsonOutput function refactors languages into an array"
+    );
+    t.end();
+})
+
+
+
+
+
+
+
+
+
+
+
+
+// ________________________________________________________________________________________________________________
 // DOM helper functions
 // - date format
 test('dom-helpers.js: dateFormat function is working', t => {
@@ -80,9 +153,6 @@ test('dom-helpers.js: timeFormat function is working', t => {
 
 // - sort date
 test('dom-helpers.js: sortDate function is working', t => {
-    // const actual = domHelpers.sortDate('2018-12-29T15:00:00.000Z');
-    // const expected = '15:00';
-    // t.equals(actual, expected), 'timeFormat function works';
     const arr = [
         { datetime: "2018-12-29T15:00:00.000Z" },
         { datetime: "2019-01-10T13:00:00.000Z" },

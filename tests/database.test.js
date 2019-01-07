@@ -111,6 +111,7 @@ test("upComingTalks function passes: first subject is 'Database testing'", t => 
 
 
 
+
 // ______________________
 // checkUser function
 // - have to use .then(), and .catch(), as this is how the function is written

@@ -9,7 +9,6 @@ This file requires dom-helpers.js to work
 - fetch data at the end of the file
 
 To Do:
-- autocomplete search with tag / language
 - grey out past talks
 - get sort button working with past and future talks (integration)
 */
@@ -18,38 +17,20 @@ To Do:
 
 // ____________________________________
 // Autocomplete function(s)
+
 // - search name, username, subject, and language
-
-
-// search for matching talks
-// - need to avoid matching everything
 const searchTalks = (word, talks) => {
   return talks.filter(talk => {
       // word = text input value
       const regex = new RegExp(word, 'gi');
 
-      // autocomplete with languages (if object key matches word):
-      // - filter out non languages
-      const tagKeys = Object.keys(talk).filter(key => key.match(/^((?!id|name|username|subject|datetime).)*$/)); // can also use a !key
-      // - map returns 5 one item arrays, if any arrays not null
-      const langTag = tagKeys.map(key => key.match(regex)).filter(match => match !== null)[0];
-
-      // 1:
-      // this returns one item array, so languages / tags should do too
-      // console.log(talk.username.match(regex), ' username');
-      // console.log(langTag, ' language');
-      // langTag appears to log out the same, but does not work as expected
-      // - try logging out the different parts of the langTag function to see
-
-
-      // 2:
-      // talk['cs'] needs to return talks for css
-      // - i.e. see if property value is true without the full key
-      // - can't search for 'true' or 'false' without the full key
-      // --- Make a test for this function - it will be testable!
+      // autocomplete with languages
+      // - this picks out languages from array
+      // - need to add 'javascript' as an alias for 'js' somehow
+      const tag = talk.languages.filter(lang => lang.match(regex)).filter(match => match !== null)[0];
 
       // need a bigger dataset to test this properly
-      return talk.username.match(regex) || talk.name.match(regex) || talk.subject.match(regex)
+      return talk.username.match(regex) || talk.name.match(regex) || talk.subject.match(regex) || tag
   });
 };
 
@@ -195,12 +176,13 @@ const autocompleteHtml = arr => {
   const outputHtml = arr
   // need to indicate whether the talk has passed or not
     .map(item => {
-      return `<li id="search-item-${item.id}" class="search-item">${item.subject} | ${item.username} <span class="search-person">a.k.a. ${item.name}</span>
-        ${item.html ? '<span class="tag html">html</span>' : ''}
-        ${item.css ? '<span class="tag css">css</span>' : ''}
-        ${item.js ? '<span class="tag js">js</span>' : ''}
-        ${item.sql ? '<span class="tag sql">sql</span>' : ''}
-        ${item.node ? '<span class="tag node">node</span>' : ''}<span class="search-arrow">→</span>
+      // create html for any tags that exist
+      const tags = item.languages.map(tag => tag ? `<span class="tag ${tag}">${tag}</span>` : '').join('');
+      // talk passed?
+      const past = new Date(item.datetime) < new Date() ? ' past' :'';
+      // return html
+      return `<li id="search-item-${item.id}" class="search-item${past}">${item.subject} | ${item.username} <span class="search-person">a.k.a. ${item.name}</span>
+        ${tags}<span class="search-arrow">→</span>
       </li>`;
     })
     .join('');
@@ -227,8 +209,13 @@ const resultHtml = arr => {
 
   const outputHtml = arr
     .map(item => {
+      // create html for any tags that exist
+      const tags = item.languages.map(tag => tag ? `<span class="tag ${tag}">${tag}</span>` : '').join('');
+      // talk passed?
+      const past = new Date(item.datetime) < new Date() ? ' past' :'';
+      // return html
       return `
-      <li class="talk-event">
+      <li class="talk-event${past}">
         <h3 class="talk-subject">${item.subject}</h3>
         <article class="talk-meta">
           <article class="talk-details">
@@ -236,11 +223,7 @@ const resultHtml = arr => {
             <p class="date-time">${dateFormat(item.datetime)}<span>@ ${timeFormat(item.datetime)}</span></p>
           </article>
           <article class="talk-tags">
-              ${item.html ? '<span class="tag html">html</span>' : ''}
-              ${item.css ? '<span class="tag css">css</span>' : ''}
-              ${item.js ? '<span class="tag js">js</span>' : ''}
-              ${item.sql ? '<span class="tag sql">sql</span>' : ''}
-              ${item.node ? '<span class="tag node">node</span>' : ''}
+            ${tags}
           </article>
         </article>
       </li>

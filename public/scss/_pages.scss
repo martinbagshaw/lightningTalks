@@ -43,43 +43,58 @@
     display: flex;
     flex-direction: column;
 }
-.talk-event {
-    display: flex;
-    flex-direction: column;
-    @media only screen and (min-width: 600px) {
-        flex-direction: row;
-        align-items: center;
-    }
-    margin-bottom: 1rem;
-    padding: 1rem;
-    border-radius: 1rem;
-    color: $black;
-    background-color: rgba($white, 0.75);
-}
-// left
-.talk-subject {
-    border-bottom: 2px solid;
-    @media only screen and (min-width: 600px) {
-        width: 30%;
-        border-bottom: none;
-        margin-bottom: 0;
-    }
-}
-// right
-.talk-meta {
-    width: 100%;
-}
-@media only screen and (min-width: 600px) {
-    .talk-details {
+
+
+
+// talk list item
+.talk {
+    &-event {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
+        flex-direction: column;
+        @media only screen and (min-width: 600px) {
+            flex-direction: row;
+            align-items: center;
+        }
+        margin-bottom: 1rem;
+        padding: 1rem;
+        border-radius: 1rem;
+        color: $black;
+        background-color: rgba($white, 0.75);
+        &.past {
+            background-color: rgba($grey, 0.75);
+        }
+    }
+    // subject
+    &-subject {
+        border-bottom: 2px solid;
+        @media only screen and (min-width: 600px) {
+            width: 30%;
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+    }
+    // all other details
+    &-meta {
+        width: 100%;
+    }
+    @media only screen and (min-width: 600px) {
+        &-details {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
     }
 }
+
+
+// talk text and tags
 .speaker span,
 .date-time {
-    color: $grey;
     font-size: 1rem;
+    color: $grey;
+    .past & {
+        color: $off-white;
+    }
     @media only screen and (min-width: 600px) {
         font-size: 1.5rem;
     }

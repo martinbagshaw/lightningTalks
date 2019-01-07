@@ -19,7 +19,7 @@ const getAllTalks = cb => {
 
 // upcoming talks (takes timestamp in format '2019-01-02 20:00:00')
 // - not a pure function, time changes
-// - therefore, tests will fail
+// - therefore, tests will fail at some point
 const upComingTalks = (timeStamp, cb) => {
   dbConnection.query(`SELECT subject, username, name, datetime, html, css, js, sql, node FROM talks inner join users on users.id = talks.user_id AND talks.datetime > '${timeStamp}'`,
   (err, res) => {

@@ -9,7 +9,7 @@ const timeFormat = str => {
 
 // TO TEST:
 
-// sort by date
+// sort by date, bears in mind the following:
 // - can't just reverse the array, talks may not be entered in chronological order
 // - needs to be versatile - not just take upcoming items array
 const sortDate = (arr, order) => {
