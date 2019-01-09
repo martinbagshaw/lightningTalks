@@ -11,12 +11,15 @@ module.exports = {
     datetimeToStamp: require('./func_helpers/datetimeToStamp'),
     // json output - languages as an array
     jsonOutput: require('./func_helpers/jsonOutput'),
+    // form validation
+    formValidation: require('./func_helpers/formValidation'),
     
     
     // _________
     // database
     checkUser: require('./db_helpers/checkUser'),
     getAllTalks: require('./db_helpers/getTalks').getAllTalks,
-    upComingTalks: require('./db_helpers/getTalks').upComingTalks
+    upComingTalks: require('./db_helpers/getTalks').upComingTalks,
+    addUser: require('./db_helpers/addUser')
 
 };

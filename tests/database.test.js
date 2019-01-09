@@ -9,7 +9,7 @@ const helperIndex = require("../src/views/helpers/index");
 
 
 
-
+// GET
 
 // ______________________
 // getAllTalks function (gets past talks too)
@@ -157,6 +157,38 @@ test("checkUser function: User does not exist in the database", t => {
         })
         // fail
         .catch(err => console.log('checkUser function error: ', err));
+    }
+  });
+});
+
+
+
+// POST
+
+// ______________________
+// addUser function
+// - passes if a full object is given
+// - look into encryption
+test("addUser function: full object creates new user in the database", t => {
+  testBuild((error, response) => {
+    if (error) {
+      console.log("testBuild error: ", error);
+    } else {
+
+      helperIndex.addUser('mr-bagglesworth')
+        // user added
+        // - last row
+        // - could test res.rows.length
+        .then(res => {
+          t.deepEqual(
+              res.rows[0].username,
+              true,
+              "The username 'sample-name' should get added to the database"
+          );
+          t.end();
+        })
+        // fail
+        .catch(err => console.log('addUser function error: ', err));
     }
   });
 });
