@@ -127,6 +127,78 @@ test('jsonOutput function is working', t => {
 
 
 
+// ________________________________________________________________________________________________________________
+// form validation
+
+// - username passes
+test('username checker function is working', t => {
+    const actual = helperIndex.formValidation.usernameValid('Martin');
+    const expected = true;
+    t.equals(actual, expected), '"Martin" is a valid username';
+    t.end();
+})
+test('username can\'t include a special character', t => {
+    const actual = helperIndex.formValidation.usernameValid('@Martin');
+    const expected = false;
+    t.equals(actual, expected), '"@Martin" is not a valid username';
+    t.end();
+})
+test('username can\'t include a space', t => {
+    const actual = helperIndex.formValidation.usernameValid('Martin B');
+    const expected = false;
+    t.equals(actual, expected), '"Martin B" is not a valid username';
+    t.end();
+})
+
+
+// - name passes
+test('name checker function is working', t => {
+    const actual = helperIndex.formValidation.nameValid('Martin B');
+    const expected = true;
+    t.equals(actual, expected), '"Martin B" is a valid username';
+    t.end();
+})
+test('name can\'t include a number', t => {
+    const actual = helperIndex.formValidation.nameValid('Martin 123');
+    const expected = false;
+    t.equals(actual, expected), '"Martin 123" is not a valid username';
+    t.end();
+})
+
+
+// - email passes
+test('email checker function is working', t => {
+    const actual = helperIndex.formValidation.emailValid('test@example.com');
+    const expected = true;
+    t.equals(actual, expected), '"test@example.com" is a valid email address';
+    t.end();
+})
+test('email must include an @ symbol', t => {
+    const actual = helperIndex.formValidation.emailValid('testexample.com');
+    const expected = false;
+    t.equals(actual, expected), '"testexample.com" is not a valid email address';
+    t.end();
+})
+
+
+// - strong password
+test('strong password function is working', t => {
+    const actual = helperIndex.formValidation.passwordStrong('qweQWE123@');
+    const expected = true;
+    t.equals(actual, expected), 'strong password contains uppercase, lowercase, special character and number';
+    t.end();
+})
+test('strong password function fails with weak password', t => {
+    const actual = helperIndex.formValidation.passwordStrong('abc123');
+    const expected = false;
+    t.equals(actual, expected), 'a strong password is not "abc123"';
+    t.end();
+})
+
+
+
+
+
 
 
 

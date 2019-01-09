@@ -55,12 +55,12 @@ DATABASE_URL = postgres://<user_name>:<password>@localhost:5432/<database_name>
 12. [x] ~~Do some other tests (supertest etc), and combine all tests into one~~
 13. [x] ~~First commit~~
 
-14. [ ] Display Talks and start implementing search function (similar to Meet the FACers)
+14. [x] ~~Display Talks and start implementing search function (similar to Meet the FACers)~~
     - [x] ~~search for talks by user~~
-    - [ ] show previous talks as greyed out / add a note to say they have passed
+    - [x] ~~show previous talks as greyed out / add a note to say they have passed~~
     - [x] ~~by subject~~
-    - [ ] by language
-    - [ ] bear in mind front end validation workshop (more important for signup and login)
+    - [x] ~~by language~~
+    - [x] ~~bear in mind front end validation workshop (more important for signup and login)~~
     - [x] ~~hide / grey past talks~~
 
 15. ~~Get Travis CI and codecov working~~
@@ -78,15 +78,22 @@ DATABASE_URL = postgres://<user_name>:<password>@localhost:5432/<database_name>
  
 19. Handlebars templates:
     - [x] ~~splash page~~
-    - [ ] view talks (and search for them on the frontend)
+    - [x] ~~view talks (and search for them on the frontend)~~
         - [x] ~~past talks~~
         - [x] ~~order talks~~
-        - [ ] autocomplete [reuse emotiQuote](https://emotiquote.herokuapp.com/)
+        - [x] ~~autocomplete [reuse emotiQuote](https://emotiquote.herokuapp.com/)~~
             - [x] ~~with name, username, and subject~~
-            - [ ] with language tags (make a testing function) - autocomplete with object keys
-            - [ ] remove list when there are no results
-            - [ ] click list item > ~~show in searchbar > click submit >~~ get talk html
+            - [x] ~~with language tags (change output of languages to an array)~~
+            - [x] ~~remove list when there are no results~~
+            - [x] ~~click list item > ~~show in searchbar > click submit >~~ get talk html~~S
     - [ ] signup
+        - [x] ~~check user exists in database~~
+        - [x] ~~add error message if so~~
+        - [ ] encrypt user password
+        - [ ] add user entry to the database
+        - [ ] give user a login cookie / jwt
+        - [ ] allow user to view protected route (dashboard)
+        - [ ] show logout button and hide login and signup buttons
     - [ ] login
     - [ ] dashboard - a protected route
         - [ ] add talks
