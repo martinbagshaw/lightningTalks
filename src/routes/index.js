@@ -6,6 +6,9 @@ const router = express.Router();
 // get helper functions
 const helpers = require("../views/helpers/index");
 
+// get POST handlers
+const signup = require("./signup");
+
 // home route
 router.get("/", (req, res) => {
   res.render("home");
@@ -65,16 +68,30 @@ router.get("/login", (req, res) => {
 
 
 // dashboard route
-// - protected
-// - can post talk through here
 // - can access edit talk route through here (protected)
 
 // add this with a helper - e.g. database query for boolean values
-// - used for checkboxes?
+// - used for checkboxes
 const languages = ['html', 'css', 'js', 'sql', 'node'];
 router.get("/dashboard", (req, res) => {
-  res.render("dashboard", { languages: languages} ); //, { talks: helpers.getUserTalks } // use jwt to get talks for logged in user
+
+  // logged in
+  // - should I check more than just jwt though?
+  // - can jwt be decrypted and matched to a particular user?
+  // - undefined = does not interfere with tests:
+
+  if (req.headers.cookie !== undefined && req.headers.cookie.includes('jwt')) {
+    res.render("dashboard", { languages: languages} );
+  }
+  // not logged in
+  else {
+    // 403 - forbidden. You need to be logged in to do this
+    res.status(403);
+    res.render("403");
+  }
 });
+
+
 
 
 
@@ -82,54 +99,9 @@ router.get("/dashboard", (req, res) => {
 
 // ___________________________________
 // POST requests
-
-
-// signup
-// - break this up into another file:
+// - signup
 router.post("/signup", (req, res, next) => {
-
-  // get form data
-  const { userName, name, email, password } = req.body;
-
-  // if name, username, email, or password are not entered
-  if (!userName && !name && !email && !password) {
-    return res.status(400).send({ error: true, message: 'Please fill in all details' })
-  }
-
-  // get form validation functions
-  const { usernameValid, nameValid, emailValid, passwordStrong } = helpers.formValidation;
-  // check that valid data has been entered
-  if (!usernameValid(userName) && !nameValid(name) && !emailValid(email) && !passwordStrong(password)){
-    return res.status(400).send({ error: true, message: 'Please enter valid data' })
-  }
-
-
-  // check user
-  helpers.checkUser(userName).then(data => {
-    // user doesn't exist
-    // - not exists: encrypt password, create user entry, send jwt, redirect to dashboard happens on frontend
-    if (!data.rows[0].exists) {
-      
-      // encrypt password
-      // add details to database
-      // send jwt
-      console.log(userName, name, email, password);
-
-      // response
-      return res.send({ success: true, message: 'User successfully created'})
-    }
-    // user exists - 409 conflict status code
-    else {
-      return res.status(409).send({ error: true, message: 'Username already exists. Please try a different username' })
-    }
-    
-  })
-  // error - redirect to 500 page instead?
-  .catch(err => {
-    console.log(err)
-    return res.status(500).send({ error: true, message: 'Internal server error' })
-  })
-
+  signup(req, res);
 });
 
 

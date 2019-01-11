@@ -67,18 +67,17 @@ test("Check login route returns a 200", t => {
     });
 });
 
-// this one could change if logged out - should redirect, with 301
-// - how can I test with cookie / jwt?
-// - should be 301 by default
-test("Check dashboard route returns a 200", t => {
+
+// - dashboard should be 301 by default - user not logged in
+test("Check dashboard route returns a 403 - user forbidden / not logged in", t => {
     request(app)
       .get("/dashboard")
-      .expect(200)
+      .expect(403)
       .end((err, res) => {
         if (err) {
           console.log(err);
         } else {
-          t.equal(res.status === 200, true);
+          t.equal(res.status === 403, true);
           t.end();
         }
     });
