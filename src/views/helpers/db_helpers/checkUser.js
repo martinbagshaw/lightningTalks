@@ -8,6 +8,9 @@ const checkUser = username => {
 
 module.exports = checkUser;
 
+
+// how the function is used:
+
 // checkUser(userName).then(data => {
 //   // user exists in db
 //   if (data.rows[0].exists === true) {

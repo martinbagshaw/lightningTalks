@@ -96,24 +96,28 @@ signupForm.addEventListener('submit', e => {
             // do stuff with response object
             .then(res => res.json())
             .then(res => {
+                // console.log('got result: ', res);
                 // error message - user exists, or something else?
                 if (res.error){
+                    // console.log('form error');
                     errorMessage.textContent = res.message;
                 }
-                // send to dashboard
+                // redirect to dashboard
+                // - Can't seem to do this on the backend
                 else if (res.success) {
                     window.location = '/dashboard';
                 }
             })
             // catch promise error
             .catch(err => {
+                // console.log('signup fetch error: ', err);
                 errorMessage.textContent = 'There has been an error submitting your form. Please try again later.';
             })
 
     }
     // validation fails
     else {
-        console.log('signup form error');
+        // console.log('signup form error');
         errorMessage.textContent = 'Please complete the form correctly before submitting';
     }
 

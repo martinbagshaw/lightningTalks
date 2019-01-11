@@ -122,7 +122,6 @@ test("checkUser function: User already exists in the database", t => {
     if (error) {
       console.log("testBuild error: ", error);
     } else {
-
       helperIndex.checkUser('mr-bagglesworth')
         // pass
         .then(res => {
@@ -149,9 +148,9 @@ test("checkUser function: User does not exist in the database", t => {
         // pass
         .then(res => {
           t.deepEqual(
-              res.rows[0].exists,
-              false,
-              "The user 'mr-bojangles' does not exist in the database"
+            res.rows[0].exists,
+            false,
+            "The user 'mr-bojangles' does not exist in the database"
           );
           t.end();
         })
@@ -163,31 +162,51 @@ test("checkUser function: User does not exist in the database", t => {
 
 
 
+
+
 // POST
 
 // ______________________
 // addUser function
-// - passes if a full object is given
-// - look into encryption
-test("addUser function: full object creates new user in the database", t => {
+// - currently fails
+// - perhaps because there is no callback
+// - OR: perhaps I need to run a GET request after user is posted, to see if user has been added?
+
+test("addUser function works: requires checkUser() to see if it has worked", t => {
   testBuild((error, response) => {
     if (error) {
       console.log("testBuild error: ", error);
     } else {
 
-      helperIndex.addUser('mr-bagglesworth')
-        // user added
-        // - last row
-        // - could test res.rows.length
+      // sample object we are testing
+      const newUserDetails = {
+        userName: 'old-greg',
+        name: 'im oooool greeeg',
+        email: 'olgreg@hotmail.com',
+        password: 'Qwert123@'
+      }
+
+
+      // add user to database function
+      helperIndex.addUser(newUserDetails)
+        // after function run, check if user added
+        // - need to use res, can't chain two .then()'s together in this case
+        // - guess I need to wait for the result
         .then(res => {
-          t.deepEqual(
-              res.rows[0].username,
-              true,
-              "The username 'sample-name' should get added to the database"
-          );
-          t.end();
+          helperIndex.checkUser('old-greg')
+          .then(res => {
+            t.deepEqual(
+                res.rows[0].exists,
+                true,
+                "The user 'old-greg' should exist in the database after addUser is run"
+            );
+            t.end();
+          })
+          // checkUser fail
+          .catch(err => console.log('checkUser function error: ', err));
         })
-        // fail
+
+        // addUser fail
         .catch(err => console.log('addUser function error: ', err));
     }
   });
