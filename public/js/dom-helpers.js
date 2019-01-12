@@ -10,7 +10,6 @@ const timeFormat = str => {
     return str.split('T')[1].match(/([^:]*:){2}/)[0].slice(0, -1);
 }
 
-// TO TEST:
 
 // sort by date, bears in mind the following:
 // - can't just reverse the array, talks may not be entered in chronological order
@@ -26,11 +25,60 @@ const sortDate = (arr, order) => {
 };
 
 
+
+
+// ___________________________________
+// validation functions
+// - pass in confirm password value:
+const passwordStrong = value => {
+    return value.length === 0 || RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})').test(value)
+};
+const passwordsMatch = value => {
+    return password.value === value
+};
+
+
+// _______________
+// TO TEST:
+// input error needs to work with pattern attr AND js validation
+// a) pattern (null error condition passed in)
+// - username and name = validity.valid
+// - email = validity.typeMismatch
+// b) js
+// - password and confirm password
+const inputError = (element, errorCondition, errorMsg) => { 
+    element.addEventListener('blur', e => {
+        // remove error
+        if (
+        // validated by pattern attribute in html
+        element.type === 'text' && element.validity.valid === true ||
+        element.type === 'email' && element.validity.typeMismatch === false || 
+        // validated by js function
+        errorCondition !== null && errorCondition(element.value)
+        ) {
+            element.classList.remove('error-red');
+            errorMessage.textContent = '';
+        }
+        // add error
+        else {
+            element.classList.add('error-red');
+            errorMessage.textContent = errorMsg;
+        }
+    });
+};
+
+
+
+
 // export functions for testing
 if (typeof module !== "undefined") {
     module.exports = {
         dateFormat,
         timeFormat,
-        sortDate
+        sortDate,
+        passwordStrong,
+        passwordsMatch,
+        // to test - can't really test
+        // inputError
     };
 }

@@ -4,7 +4,7 @@ const db = require('../../../database/db_connection');
 const bcrypt = require("bcryptjs");
 
 
-const addUser = (details) => {
+const addUser = details => {
 
     // destructure details
     const { userName, name, email, password } = details;

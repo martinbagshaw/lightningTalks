@@ -89,12 +89,13 @@ DATABASE_URL = postgres://<user_name>:<password>@localhost:5432/<database_name>
     - [ ] signup
         - [x] ~~check user exists in database~~
         - [x] ~~add error message if so~~
-        - [ ] encrypt user password
-        - [ ] add user entry to the database
-        - [ ] give user a login cookie / jwt
-        - [ ] allow user to view protected route (dashboard)
+        - [x] encrypt user password
+        - [x] add user entry to the database
+        - [x] give user a login cookie / jwt
+        - [x] allow user to view protected route (dashboard)
         - [ ] show logout button and hide login and signup buttons
     - [ ] login
+        - [ ] decrypt user password
     - [ ] dashboard - a protected route
         - [ ] add talks
         - [ ] edit talks

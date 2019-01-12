@@ -27,6 +27,7 @@ CREATE TABLE talks (
 
 -- insert dummy data for testing purposes
 -- this gets input before every database test
+-- added user with encrypted password in to test check password function
 INSERT INTO users (username, name, email, password) VALUES
 (
   'mr-bagglesworth', 
@@ -45,6 +46,12 @@ INSERT INTO users (username, name, email, password) VALUES
   'Michal',
   'zurda@github.com',
   'PL5tN0ani'
+),
+(
+  'dave',
+  'dave',
+  'dave@dave.com',
+  '$2a$10$laD7v6pVYjntL7fpdku/T.NisWc/yL07EeMfARZQZIJEf6rnvPv6e'
 );
 
 INSERT INTO talks (user_id, subject, datetime, html, css, js, sql, node) VALUES

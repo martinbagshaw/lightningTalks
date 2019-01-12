@@ -168,6 +168,53 @@ test("checkUser function: User does not exist in the database", t => {
 
 
 
+// checkPassword function
+// a) password ok
+test("checkPassword function: password for user is correct", t => {
+  testBuild((error, response) => {
+    if (error) {
+      console.log("testBuild error: ", error);
+    } else {
+
+      // // sample object
+      // const loginDetails = {
+      //   userName: 'mr-bagglesworth',
+      //   password: 'p4$$WrDwe'
+      // }
+
+      // sample object
+      // - added as a user to the main database, needs to be added to the test
+      // - password got encrypted. will enter encrypted version into build scrip
+      const loginDetails = {
+        userName: 'dave',
+        password: 'qwe123A@S'
+      }
+
+      helperIndex.checkPassword(loginDetails)
+        // pass
+        .then(res => {
+          t.deepEqual(
+              res,
+              true,
+              "The user 'dave' should exist in the test database with the password 'qwe123A@S'."
+          );
+          t.end();
+        })
+        // fail
+        .catch(err => console.log('checkPassword function error: ', err));
+    }
+  });
+});
+
+
+
+
+
+
+
+
+
+
 
 // POST
 
