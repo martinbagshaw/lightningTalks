@@ -1,37 +1,23 @@
-// signup form
+// login form
 "use strict";
-
-/*
-may want to add validation functions in dom-helpers.js
-    - could be used on multiple forms
-    - could modularise fetch stuff more (use with login)
-*/
 
 // ___________________________________
 // get form elements
-const signupForm = document.getElementById('signup-form');
+const loginForm = document.getElementById('login-form');
 const userName = document.getElementById('username');
-const name = document.getElementById('name');
-const email = document.getElementById('email');
 const password = document.getElementById('password');
-const confirmPassword = document.getElementById('confirm-password');
 // error message
 const errorMessage = document.getElementById('error-message');
 
 
-// ___________________________________
-// validation functions - from dom-helpers.js
-inputError(userName, null, 'Usernames must be 3 over characters long, and contain numbers, special characters, or spaces');
-inputError(name, null, 'Names must be 3 over characters long, and contain numbers or special characters');
-inputError(email, null, 'Please enter a valid email address');
+// input validation
+inputError(userName, null, 'Usernames cannot contain numbers, special characters, or spaces');
 inputError(password, passwordStrong, 'Passwords must contain 1 uppercase, 1 lowercase letter, 1 number or special character and be at least 8 characters long');
-inputError(confirmPassword, passwordsMatch, 'Both passwords must match');
-
 
 
 // ___________________________________
 // form submit event
-signupForm.addEventListener('submit', e => {
+loginForm.addEventListener('submit', e => {
 
     // prevent form submitting by default
     e.preventDefault();
@@ -39,53 +25,48 @@ signupForm.addEventListener('submit', e => {
     // perform validation checks
     if (
         userName.value.length > 0 && userName.validity.valid &&
-        name.value.length > 0 && name.validity.valid &&
-        !email.validity.typeMismatch &&
-        password.value.length > 8 && passwordStrong(password.value) &&
-        passwordsMatch(confirmPassword.value)
+        password.value.length > 8 && passwordStrong(password.value)
     ) {
 
-        // if passes validation checks, compose data, and run POST request
-        const signupData = JSON.stringify({
+        // if passes, compose data, and run POST request
+        const loginData = JSON.stringify({
             userName : userName.value,
-            name: name.value,
-            email: email.value,
             password: password.value
         });
 
-        
         // POST request
-        fetch('/signup', { 
+        fetch('/login', { 
             headers: { 'content-type': 'application/json' },
             method: 'POST', 
-            body: signupData 
+            body: loginData 
         })
             // do stuff with response object
             .then(res => res.json())
             .then(res => {
-                // console.log('got result: ', res);
+                console.log('got result: ', res);
                 // error message - user exists, or something else?
                 if (res.error){
-                    // console.log('form error');
+                    console.log('form error');
                     errorMessage.textContent = res.message;
                 }
                 // redirect to dashboard
-                // - Can't seem to do this on the backend
+                // - can't do this on backend
                 else if (res.success) {
                     window.location = '/dashboard';
                 }
             })
             // catch promise error
             .catch(err => {
-                // console.log('signup fetch error: ', err);
+                console.log('login fetch error: ', err);
                 errorMessage.textContent = 'There has been an error submitting your form. Please try again later.';
             })
-
     }
+
+
     // validation fails
     else {
-        // console.log('signup form error');
         errorMessage.textContent = 'Please complete the form correctly before submitting';
     }
 
-})
+
+});

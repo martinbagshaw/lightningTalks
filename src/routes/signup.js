@@ -1,7 +1,9 @@
 // signup route handler
 // - handles signup POST request
 // - aggregate functions here, most heavy lifting done by other files
-// - not sure where and how to test this. It interacts with database functions twice
+// - tested in a half-arsed way in routes test file
+
+// - as with frontend signup, modularisation could cut out some repetition with the login js
 const helpers = require("../views/helpers/index");
 
 const { sign, verify } = require('jsonwebtoken');
@@ -40,7 +42,7 @@ const signup = (req, res) => {
     if (!data.rows[0].exists) {
     
       // 3.
-      // - encrypt password, and add to database
+      // - encrypt password, and add to database. uses bcrypt.js
       helpers.addUser(req.body)
         
         .then(response => {
@@ -65,7 +67,7 @@ const signup = (req, res) => {
           return res.status(500).send({ error: true, message: 'Internal server error' })
         })
     }
-    // user alread exists - 409 conflict status code
+    // user already exists - 409 conflict status code
     else {
       return res.status(409).send({ error: true, message: 'Username already exists. Please try a different username' })
     }

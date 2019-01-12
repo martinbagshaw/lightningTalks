@@ -135,7 +135,7 @@ const inDataBase = {
     password: 'ahsgdv75q2e£2gc4vy215er'
   }
 }
-test("POST signup/ returns 409 status with request details that are in the test database", t => {
+test("POST signup/ returns 409 status with request details that are in the test database already", t => {
   request(app)
     .post("/signup")
     .type('form')

@@ -6,8 +6,9 @@ const router = express.Router();
 // get helper functions
 const helpers = require("../views/helpers/index");
 
-// get POST handlers
+// get POST handlers - for forms
 const signup = require("./signup");
+const login = require("./login");
 
 // home route
 router.get("/", (req, res) => {
@@ -102,6 +103,11 @@ router.get("/dashboard", (req, res) => {
 // - signup
 router.post("/signup", (req, res, next) => {
   signup(req, res);
+});
+
+// - login
+router.post("/login", (req, res) => {
+  login(req, res);
 });
 
 

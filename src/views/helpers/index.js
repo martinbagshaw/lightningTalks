@@ -17,7 +17,8 @@ module.exports = {
     
     // _________
     // database
-    checkUser: require('./db_helpers/checkUser'),
+    checkUser: require('./db_helpers/checkUser').checkUser,
+    checkPassword: require('./db_helpers/checkUser').checkPassword,
     getAllTalks: require('./db_helpers/getTalks').getAllTalks,
     upComingTalks: require('./db_helpers/getTalks').upComingTalks,
     addUser: require('./db_helpers/addUser')
