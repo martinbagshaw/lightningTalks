@@ -1,6 +1,7 @@
 // signup route handler
 // - handles signup POST request
 // - aggregate functions here, most heavy lifting done by other files
+// - not sure where and how to test this. It interacts with database functions twice
 const helpers = require("../views/helpers/index");
 
 const { sign, verify } = require('jsonwebtoken');
