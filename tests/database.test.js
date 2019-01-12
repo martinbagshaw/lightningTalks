@@ -1,8 +1,12 @@
 // database testing
-// - drop and build a new database on each database test
+
+/*
+- (theoretically) drop and build a new database on each database test - uses testBuild function
+- separated into functions that are used for GET and POST requests
+- POST requests do not return data, so GET request checkUser needs to be used in conjunction
+*/
+
 const test = require("tape");
-// testBuild function must build database synchronously
-// - this allows queries to be performed on the database
 const testBuild = require("../src/database/test_db_build.js");
 // get database query functions
 const helperIndex = require("../src/views/helpers/index");
@@ -14,7 +18,7 @@ const helperIndex = require("../src/views/helpers/index");
 // ______________________
 // getAllTalks function (gets past talks too)
 // - subject
-test("getTalks function returns subject", t => {
+test("getAllTalks function returns subject", t => {
   testBuild((error, response) => {
     if (error) {
       console.log("testBuild error: ", error);
@@ -36,7 +40,7 @@ test("getTalks function returns subject", t => {
   });
 });
 // - username
-test("getTalks function returns username", t => {
+test("getAllTalks function returns username", t => {
   testBuild((error, response) => {
     if (error) {
       console.log("testBuild error: ", error);
@@ -57,6 +61,7 @@ test("getTalks function returns username", t => {
     }
   });
 });
+
 
 
 
