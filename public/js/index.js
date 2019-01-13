@@ -1,5 +1,5 @@
 // DOM index.js
-// - universal script, controls the menu
+// - universal script, controls site-wide elements
 "use strict";
 
 // menu
@@ -15,3 +15,45 @@ menuBtn.addEventListener("click", e => {
   // audio.currentTime = 0; // start at 0
   // audio.play();
 });
+
+
+
+// login status
+// ...if a jwt / cookie is detected:
+// - change login / signup buttons
+// - can this be done through backend?
+// console.log(window.localStorage)
+
+
+// this handles login / out buttons:
+const headerBtns = Array.from(document.querySelectorAll('.auth-section button'));
+// console.log(headerBtns);
+
+const logout = headerBtns.find(btn => btn.classList.contains('logout'));
+if (logout !== undefined) {
+  logout.addEventListener("click", e => {
+    e.preventDefault();
+
+    // POST request
+    fetch('/logout', { 
+      headers: { 'content-type': 'application/json' },
+      method: 'POST'
+    })
+      // do stuff with response object
+      .then(res => res.json())
+      .then(res => {
+          // error message - can't logout
+          if (res.error){
+            console.log('logout error');
+          }
+          // redirect to home
+          else if (res.success) {
+            window.location = '/';
+          }
+      })
+      // catch promise error
+      .catch(err => {
+          console.log('logout fetch error: ', err);
+      })
+  });
+}

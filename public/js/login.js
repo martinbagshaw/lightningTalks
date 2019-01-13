@@ -43,21 +43,22 @@ loginForm.addEventListener('submit', e => {
             // do stuff with response object
             .then(res => res.json())
             .then(res => {
-                console.log('got result: ', res);
+                // console.log('got result: ', res);
                 // error message - user exists, or something else?
                 if (res.error){
-                    console.log('form error');
+                    // console.log('form error');
                     errorMessage.textContent = res.message;
                 }
                 // redirect to dashboard
                 // - can't do this on backend
+                // - can't do anything other than redirect to dashboard
                 else if (res.success) {
                     window.location = '/dashboard';
                 }
             })
             // catch promise error
             .catch(err => {
-                console.log('login fetch error: ', err);
+                // console.log('login fetch error: ', err);
                 errorMessage.textContent = 'There has been an error submitting your form. Please try again later.';
             })
     }

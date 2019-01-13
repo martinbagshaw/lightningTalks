@@ -492,6 +492,11 @@ a {
   background-color: #1f7736; }
   .button-input.login a:hover, .button-input.login a:focus {
     background-color: #0ed642; }
+.button-input.logout a {
+  background-color: #fcbc00;
+  color: black; }
+  .button-input.logout a:hover, .button-input.logout a:focus {
+    background-color: #b98b00; }
 .button-input.date-sort a {
   background-color: #1f7736; }
   .button-input.date-sort a:hover, .button-input.date-sort a:focus {
