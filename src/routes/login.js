@@ -36,11 +36,7 @@ const login = (req, res) => {
             }
             // user DOES exist
             else {
-                // console.log('user exists');
-                // return res.status(200).send({ success: true, message: 'What\'s up motherFACer! You\'re in!' })
-                
-                
-                
+
                 // 3.
                 // - check if password is correct (uses bcrypt compare)
                 const userDetails =  { userName, password };
@@ -52,7 +48,7 @@ const login = (req, res) => {
                     .then(response => {
                         const jwt = sign(userDetails, secret);
                         const cookie = `jwt=${jwt}: HttpOnly; Max-Age=9000`;
-                        console.log(userName, ' \'s cookie is: ', cookie);
+                        // console.log(userName, ' \'s cookie is: ', cookie);
 
                         res
                             .cookie('lightningJwt', cookie)
@@ -63,36 +59,9 @@ const login = (req, res) => {
 
                     // promise error
                     .catch(err => {
-                        console.log("checkPassword() fail ", result);
+                        // console.log("checkPassword() fail ", result);
                         return res.status(409).send({ error: true, message: 'Password incorrect. Please try again' })
                     });
-
-
-                // helpers.addUser(req.body)
-                    
-                //     .then(response => {
-
-                //         // 4.
-                //         // - set a cookie using:
-                //         //    - name and password object
-                //         //    - secret string (also used for retrieval of user on login) - in config.env
-                //         const userDetails =  { userName, password };
-                //         const jwt = sign(userDetails, secret);
-                //         const cookie = `jwt=${jwt}: HttpOnly; Max-Age=9000`;
-                        
-                //         // probably don't need a return
-                //         return res
-                //         .cookie('lightningJwt', cookie)
-                //         .status(302)
-                //         .send({ success: true, message: 'What\'s up motherFACer! You\'re in!' }); // pick up message on dashboard
-
-                //     })
-                //     .catch(err => {
-                //         // console.log("addUser error ", err);
-                //         return res.status(500).send({ error: true, message: 'Internal server error' })
-                //     })
-
-
 
             }
         })

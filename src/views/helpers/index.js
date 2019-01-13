@@ -14,6 +14,10 @@ module.exports = {
     // form validation
     formValidation: require('./func_helpers/formValidation'),
     
+    // login status
+    // - simple yes/no logged in, needs to be used within a request
+    loginButtons: require('./func_helpers/loginButtons'), // might want to delete this
+    
     
     // _________
     // database

@@ -180,9 +180,10 @@
 
 // button colour mixin
 // - works within .button-input
-@mixin btnColour($name, $colour, $hover){
+@mixin btnColour($name, $colour, $hover, $text:''){
     &.#{$name} a {
         background-color: $colour;
+        @if $text != '' {color: $text;}
         &:hover,
         &:focus {
             background-color: $hover;
@@ -200,8 +201,9 @@
         line-height: 1.5;
     }
     @include btnColour('login', $green, $green-hover);
+    @include btnColour('logout', $yellow, $yellow-hover, $black);
     @include btnColour('date-sort', $green, $green-hover);
-    @include btnColour('history', $blue, $blue-hover);
+    @include btnColour('history', $blue, $blue-hover );
     // toggle states
     &.descending a span {
         color: transparent;
