@@ -19,6 +19,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(favicon(path.join(__dirname, "..", "public", "img/favicon.ico")));
 app.use(express.static(path.join(__dirname, "..", "public"), { maxAge: "30d" }));
 
+// login/out buttons
+app.use((req, res, next) => {
+  status = helpers.loginButtons(req);
+  next();
+});
+
 // handlebars setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
@@ -34,11 +40,9 @@ app.engine(
 );
 
 app.set("port", process.env.PORT || 7119);
+
 app.use(routes);
 
 
-// log this out to see if i can use it to create one db_build.js file
-// - see db_connection.js
-// console.log(process.env);
 
 module.exports = app;

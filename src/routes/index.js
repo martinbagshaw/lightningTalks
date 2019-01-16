@@ -17,11 +17,9 @@ const secret = process.env.SECRET;
 
 // home route
 router.get("/", (req, res) => {
-  // buttons
-  const status = helpers.loginButtons(req);
+  // render home - with buttons (defined in app.js)
   res.render("home", { loginButtons: status });
 });
-
 
 
 // view talks route
@@ -36,8 +34,7 @@ router.get("/view-talks", (req, res) => {
     }
     // json processing here
     const formatTalks = helpers.jsonOutput(upcomingTalkList);
-    // buttons
-    const status = helpers.loginButtons(req);
+    // render view-talks
     res.render("view-talks", { talks: formatTalks, loginButtons: status })
   })
 });
@@ -66,7 +63,6 @@ router.get('/search-talks', (req, res) => {
 // signup route
 // - hide when logged in
 router.get("/signup", (req, res) => {
-  const status = helpers.loginButtons(req);
   
   // if logged in, go to dashboard
   if (req.headers.cookie !== undefined && req.headers.cookie.includes('jwt')) {
@@ -81,7 +77,6 @@ router.get("/signup", (req, res) => {
 // login route
 // - hide when logged in
 router.get("/login", (req, res) => {
-  const status = helpers.loginButtons(req);
   
   // if logged in, go to dashboard
   if (req.headers.cookie !== undefined && req.headers.cookie.includes('jwt')) {
@@ -102,13 +97,28 @@ router.get("/login", (req, res) => {
 // - used for checkboxes
 const languages = ['html', 'css', 'js', 'sql', 'node'];
 router.get("/dashboard", (req, res) => {
+  
 
-  // simple yes/no for buttons if logged in
-  const status = helpers.loginButtons(req);
-  
-  
+
   // logged in
-  // - should I check more than just jwt though?
+  // - detect who the user is on login or signup
+  // a) decrypt cookie - tried this below
+  // b) pass form details to the dashboard route somehow
+  //    - but how can we tell who the user is?
+
+
+  /*
+  from mike:
+  - output users json on frontend
+  - decrypt cookie on frontend (make sure not http only)
+  - match user to json output
+
+   */
+
+
+
+
+  // - should I check more than just 'jwt' in a cookie?
   // - can jwt be decrypted and matched to a particular user? I don't think so
   // - undefined = does not interfere with tests:
 
@@ -120,25 +130,43 @@ router.get("/dashboard", (req, res) => {
     // can't seem to verify or decode
 
     
-    const decoded = decode(myJwt, secret);
+    // const decoded = decode(myJwt, secret);
     // console.log(decoded, secret);
-
     // const a = JSON.parse(myJwt);
     // console.log(a);
-
     // console.log(req.headers);
 
     // const a = 'jwt%3DeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImRhdmUiLCJwYXNzd29yZCI6InF3ZTEyM0FAUyIsImlhdCI6MTU0NzMyNzkyMn0.Vtvp4n9O5womcdaalgMe0oeu6W4_qDXzQl1r4bb6syY%3A%20';
-    // const decoded = verify(myJwt, secret);
+    
+    // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImRhdmUiLCJwYXNzd29yZCI6InF3ZTEyM0FAUyIsImlhdCI6MTU0NzU5MjM3OX0.-REgRuzX9mYMF2eJ3_f8aUj_J_K6DVkj72eBMXVqEsE
+    // const a = JSON.parse(myJwt);
+    // const decoded = verify(a, secret);
     // console.log(decoded)
 
+    // const a = myJwt.split('.')[1];
+    // console.log(a, secret);
+
+
+    // console.log(req.headers.cookie.replace(/^JWT\s/, ''));
+    // const a = req.headers.cookie.replace(/^JWT\s/, '');
+    
+    // const decoded = verify(a, secret);
+    // console.log(decoded)
+
+    // const data = atob(a);
+    // console.log(verify(a, secret));
+
+
+
 
     
+    // create a GET request to get the talks when the browser lands on the dashboard
+    // - probably not here, as this is the initial render
+    // - cookie created before the initial render
     
     
-    // how to get user details, and add them to the page?
-    // - user's talks
-    // - username and profile details (for adding a talk)
+
+    // render dashboard and button state
     res.render("dashboard", { languages: languages, loginButtons: status} );
   }
   // not logged in
@@ -170,8 +198,6 @@ router.post("/login", (req, res) => {
 
 // - logout
 router.post("/logout", (req, res) => {
-
-  const status = helpers.loginButtons(req);
   res
     .clearCookie('lightningJwt')
     .status(302)

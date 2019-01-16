@@ -47,7 +47,7 @@ const login = (req, res) => {
                     // - set cookie
                     .then(response => {
                         const jwt = sign(userDetails, secret);
-                        const cookie = `jwt=${jwt}: HttpOnly; Max-Age=9000`;
+                        const cookie = `jwt=${jwt} HttpOnly=false Max-Age=9000`;
                         // console.log(userName, ' \'s cookie is: ', cookie);
 
                         res

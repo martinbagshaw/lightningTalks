@@ -18,17 +18,17 @@ menuBtn.addEventListener("click", e => {
 
 
 
+
+
+
 // login status
-// ...if a jwt / cookie is detected:
-// - change login / signup buttons
-// - can this be done through backend?
-// console.log(window.localStorage)
+// - get username if logged in (dashboard.js)
+// - might be better in here in the future - if we want to show name, and do posts on different pages
 
 
-// this handles login / out buttons:
+
+// login / out buttons:
 const headerBtns = Array.from(document.querySelectorAll('.auth-section button'));
-// console.log(headerBtns);
-
 const logout = headerBtns.find(btn => btn.classList.contains('logout'));
 if (logout !== undefined) {
   logout.addEventListener("click", e => {

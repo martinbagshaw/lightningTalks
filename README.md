@@ -93,10 +93,16 @@ DATABASE_URL = postgres://<user_name>:<password>@localhost:5432/<database_name>
         - [x] add user entry to the database
         - [x] give user a login cookie / jwt
         - [x] allow user to view protected route (dashboard)
-        - [ ] show logout button and hide login and signup buttons
     - [ ] login
-        - [ ] decrypt user password
+        - [x] decrypt user password
+        - [x] assign a jwt
+    - [ ] logout
+        - [x] destroy jwt
+    - [ ] login/ out status
+        - [x] show logout button and hide login and signup buttons 
+        - [ ] show user details on dashboard
     - [ ] dashboard - a protected route
+        - [ ] - get user details (name etc.) from user login status (in jwt / cookie)
         - [ ] add talks
         - [ ] edit talks
         - [ ] see other FAC events
