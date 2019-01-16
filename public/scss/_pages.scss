@@ -129,55 +129,11 @@
 
 
 
-
-/* --- button colour */
-// .button-submit.html,
-// .label-bg.html {background-color: var(--html);}
-// .button-submit.js,
-// .label-bg.js { background-color: var(--js); color: $black; }
-// .button-submit.css,
-// .label-bg.css { background-color: var(--css); color: $white; }
-// .button-submit.sql,
-// .label-bg.sql  { background-color: var(--sql); }
-// .button-submit.node,
-// .label-bg.node { background-color: var(--node); }
-// /* darken on focus */
-// .language-search .button-submit:focus {
-// filter: saturate(125%) hue-rotate(-10deg) brightness(0.9);
-// }
-
-
-// bar chart
-// .skills {
-//     margin-top: 1rem;
-//     padding-top: 1rem;
-//     border-top: 2px solid black;
-// }
-// .skills > div > div {
-//     border: 1px solid black;
-//     height: 1rem;
-// }
-// .skills > div > span {
-//     font-size: 1rem;
-// }
-// .one {width: 20%;}
-// .two {width: 40%;}
-// .three {width: 60%;}
-// .four {width: 80%;}
-// .five {width: 100%;}
-
-// .html > div {
-//     background-color: var(--html);
-// }
-// .js > div {
-//     background-color: var(--js);
-// }
-// .css > div {
-//     background-color: var(--css);
-// }
-// .sql > div {
-//     background-color: var(--sql);
-// }
-// .node > div {
-//     background-color: var(--node);
-// }
+// ––––––––––––––––––––––––––––––––––––––––––––––––––
+// dashboard page
+.username {
+    margin-left: 1.25rem;
+    padding: 1rem 1.25rem 0.75rem;
+    background-color: $yellow;
+    color: $black;
+}

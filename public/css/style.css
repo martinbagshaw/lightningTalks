@@ -682,6 +682,10 @@ a {
     color: black;
     border: 1px solid black; }
 
-/* --- button colour */
+.username {
+  margin-left: 1.25rem;
+  padding: 1rem 1.25rem 0.75rem;
+  background-color: #fcbc00;
+  color: black; }
 
 /*# sourceMappingURL=style.css.map */
