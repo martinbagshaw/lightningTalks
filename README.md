@@ -6,20 +6,22 @@ An extension of Founders and Coders Week 7 project, [FAC YAK](https://github.com
 
 ![lightning storm](https://media.giphy.com/media/3o7qE4opCd6f1NJeuY/giphy.gif)
 
-## User Stories
-As a member of FAC 15, I want to...
-- Arrange a time for my lightning talk that won't clash with other course activities
-- See a schedule of upcoming lightning talks
-- Ensure that my lightning talk does not clash with someone else's talk
-- Re-arrange my lightning talk should the time not suit others or myself any more
-- Re-arrange my lightning talk details, should I wish to talk about another subject
-- Not have others modify the time, or any details relating to my talk
+## Tech Stack :books:
+
+| **Category**           | **Technology**                                                                            |
+|------------------------|-------------------------------------------------------------------------------------------|
+| Languages              | JavaScript, node, HTML, SCSS, SQL                                                         |
+| Frameworks & Libraries | Express, handlebars, bcrypt.js, jsonwebtoken, cookie, bodyparser, env2, pg, serve-favicon |
+| Databases              | PostgreSQL                                                                                |
+| Testing                | Tape, tap-spec, istanbul, nyc, supertest                                                  |
+| Dev Tools / Other      | Nodemon, Travis CI, Heroku, Codecov, Github                                               |
+| Quality Assurance      | Codecov, es-lint, prettier                                                                |
 
 ![thumbs up](https://media.giphy.com/media/7PwOZJLNYUkU/giphy.gif)
 
 ---
 
-### Setup Instructions
+### Setup Instructions :memo:
 1. Clone the repo
 2. `npm i` to install all dependencies
 3. Create the database(s) for test and production by:
@@ -38,75 +40,6 @@ DATABASE_URL = postgres://<user_name>:<password>@localhost:5432/<database_name>
 
 
 ---
-[notes and lessons can be found here](https://hackmd.io/RarWZD4WQvmFmusjTMCG8Q)
 
-### Checklist
-1. [x] ~~User Stories~~
-2. [x] ~~Create folder and file structure~~
-3. [x] ~~Add basic files (some empty)~~
-4. [x] ~~`npm init` to make a package.json~~
-5. [x] ~~List dependencies and dev dependencies in package.json~~
-6. [x] ~~`npm i` to install all dependencies~~
-7. [x] ~~Get a basic frontend working (scss and .hbs drafting, splash page)~~
-8. [ ] Map User flow (this one keeps getting iterated over as the project progresses)
-9. [x] ~~Plan a database structure (similar to FAC YAK, but allow for scaling and editing)~~
-10. [x] ~~Decide upon where to build test and production database, and how to test database~~
-11. [x] ~~Build test and development database, and get working, do some tests~~
-12. [x] ~~Do some other tests (supertest etc), and combine all tests into one~~
-13. [x] ~~First commit~~
-
-14. [x] ~~Display Talks and start implementing search function (similar to Meet the FACers)~~
-    - [x] ~~search for talks by user~~
-    - [x] ~~show previous talks as greyed out / add a note to say they have passed~~
-    - [x] ~~by subject~~
-    - [x] ~~by language~~
-    - [x] ~~bear in mind front end validation workshop (more important for signup and login)~~
-    - [x] ~~hide / grey past talks~~
-
-15. ~~Get Travis CI and codecov working~~
-    - [x] ~~requires heroku database~~
-    - [x] ~~requires env variable for database to be set in travis~~
-    - [x] ~~requires live database to be built with same dummy info as test database - used Heroku CLI with psql.~~
-
-16. - [ ] Set up es-lint and prettier to enforce style guides (look at warning sign in bottom right of vs code)
-17. - [ ] Architect user flow (protected routes, identify user name and details, change buttons on login/out). Basically point 8 above, again.
-
-18. Clean up scss
-    - [ ] Remove stuff I don't need
-    - [ ] Refactor and made it smarter
-    - [x] ~~Use big search bar [emotiQuote](https://emotiquote.herokuapp.com/)~~
- 
-19. Handlebars templates:
-    - [x] ~~splash page~~
-    - [x] ~~view talks (and search for them on the frontend)~~
-        - [x] ~~past talks~~
-        - [x] ~~order talks~~
-        - [x] ~~autocomplete [reuse emotiQuote](https://emotiquote.herokuapp.com/)~~
-            - [x] ~~with name, username, and subject~~
-            - [x] ~~with language tags (change output of languages to an array)~~
-            - [x] ~~remove list when there are no results~~
-            - [x] ~~click list item > ~~show in searchbar > click submit >~~ get talk html~~S
-    - [ ] signup
-        - [x] ~~check user exists in database~~
-        - [x] ~~add error message if so~~
-        - [x] encrypt user password
-        - [x] add user entry to the database
-        - [x] give user a login cookie / jwt
-        - [x] allow user to view protected route (dashboard)
-    - [ ] login
-        - [x] decrypt user password
-        - [x] assign a jwt
-    - [ ] logout
-        - [x] destroy jwt
-    - [ ] login/ out status
-        - [x] show logout button and hide login and signup buttons 
-        - [ ] show user details on dashboard
-    - [ ] dashboard - a protected route
-        - [ ] - get user details (name etc.) from user login status (in jwt / cookie)
-        - [ ] add talks
-        - [ ] edit talks
-        - [ ] see other FAC events
-        - [ ] bookmark talks
-        - [ ] set reminders
-    - [ ] change body class per page (how to do this?)
-    - [ ] load scripts for each page async in header
+### More Detail:
+[checklist, notes and lessons can be found here](https://hackmd.io/RarWZD4WQvmFmusjTMCG8Q)
