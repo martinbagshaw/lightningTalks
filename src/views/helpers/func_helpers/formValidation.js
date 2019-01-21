@@ -20,10 +20,17 @@ const passwordStrong = function(value){
     return value.length === 0 || RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})').test(value)
 };
 
+// - textarea validation
+// - see dom validation, needs tightening up
+const textareaValid = value => {
+    return value.length === 0 || RegExp('(?=.{10,200}$)').test(value)
+}
+
 
 module.exports = {
     usernameValid,
     nameValid,
     emailValid,
-    passwordStrong
+    passwordStrong,
+    // textareaValid
 };

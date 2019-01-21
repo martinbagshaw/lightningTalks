@@ -36,6 +36,11 @@ const passwordStrong = value => {
 const passwordsMatch = value => {
     return password.value === value
 };
+// - textarea validation
+// - add somthing to stop = and <> from being entered / only text and numbers
+const textareaValid = value => {
+    return value.length === 0 || RegExp('(?=.{10,200}$)').test(value)
+}
 
 
 // _______________
@@ -78,6 +83,7 @@ if (typeof module !== "undefined") {
         sortDate,
         passwordStrong,
         passwordsMatch,
+        // textareaValid
         // to test - can't really test
         // inputError
     };

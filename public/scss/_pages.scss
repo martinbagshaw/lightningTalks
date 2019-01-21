@@ -68,9 +68,12 @@
     &-subject {
         border-bottom: 2px solid;
         @media only screen and (min-width: 600px) {
-            width: 30%;
             border-bottom: none;
             margin-bottom: 0;
+            padding-right: 1rem;
+            margin-right: 1rem;
+            border-right: 2px solid;
+            flex-basis: 16rem;// set initial width
         }
     }
     // all other details

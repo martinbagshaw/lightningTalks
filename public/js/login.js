@@ -10,7 +10,8 @@ const password = document.getElementById('password');
 const errorMessage = document.getElementById('error-message');
 
 
-// input validation
+// input validation, on blur
+// - anything with null as an argument uses pattern attribute
 inputError(userName, null, 'Usernames cannot contain numbers, special characters, or spaces');
 inputError(password, passwordStrong, 'Passwords must contain 1 uppercase, 1 lowercase letter, 1 number or special character and be at least 8 characters long');
 
