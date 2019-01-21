@@ -8,14 +8,14 @@
     <section class="main-section" id="add-talk">
         <h2>Add Talk</h2>
         <p>Cookie / whatever should identify user, and add correct _user_ info to the database this way</p>
-        <form class="form main-form" method="/post" action="/addtalk">
+        <form class="form main-form" id="add-talk-form" method="/post" action="/addtalk">
 
             <label for="subject">Subject</label>
             <input id="subject" class="text-input" type="text" name="subject" value="" placeholder="Enter talk subject..."
-                autocomplete="off" pattern="[a-zA-Z0-9]{3,40}" required/>
+                autocomplete="off" pattern="[a-zA-Z0-9\s.]{3,40}" required/>
 
             <label for="description">Description</label>
-            <textarea id="description" class="text-input" name="description" pattern="[a-zA-Z0-9'\s.]{3,40}"></textarea>
+            <textarea id="description" class="text-input" name="description"></textarea>
             
             <label for="day">Day</label>
             <input id="day" class="text-input" type="date" name="day" required>
@@ -29,18 +29,21 @@
                 {{!-- addone helper for index - previously in value? {{@key}} --}}
                 {{#each languages}}
                 <label class="checkbox-label">{{this}}
-                    <input class="checkbox-input {{this}}" type="checkbox" name="{{this}}" value="">
+                    <input id="{{this}}" class="checkbox-input {{this}}" type="checkbox" name="{{this}}" value="">
                     <span class="checkmark"></span>
                 </label>
                 {{/each}}
             </div>
 
             <input type="submit" class="button-submit" value="Add Talk" />
+
+            <p id="error-message"></p>
         </form>
 
     </section>
     <section class="main-section" id="your-talks">
         <h3>Your Talks</h3>
+        <p id="success-message"></p>
         <p>if user has talks, show list of talks, with edit talk button, to go to edit talk page/ section</p>
         <p>if user has no talks, say they have no talks, CTA to add a talk</p>
         <!--
@@ -62,5 +65,6 @@
         -->
     </section>
 </main>
-{{!-- <script src="js/dom-helpers.js"></script> --}}
+<audio class="thunder-success" src="sounds/thunder_sound.mp3"></audio>
+<script src="js/dom-helpers.js"></script>
 <script src="js/dashboard.js"></script>

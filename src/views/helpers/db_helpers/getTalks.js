@@ -1,10 +1,10 @@
 // get talks from the database
-const dbConnection = require('../../../database/db_connection');
+const db = require('../../../database/db_connection');
 
 // use an inner join to get some user details
 // - this outputs json object, which includes past talks
 const getAllTalks = cb => {
-  dbConnection.query('SELECT talks.id, subject, username, name, datetime, html, css, js, sql, node FROM talks inner join users on users.id = talks.user_id',
+  db.query('SELECT talks.id, subject, username, name, datetime, html, css, js, sql, node FROM talks inner join users on users.id = talks.user_id',
   (err, res) => {
     if (err) {
       console.log(' database connection Query error in getTalks helper :', err);
@@ -21,7 +21,7 @@ const getAllTalks = cb => {
 // - not a pure function, time changes
 // - therefore, tests will fail at some point
 const upComingTalks = (timeStamp, cb) => {
-  dbConnection.query(`SELECT subject, username, name, datetime, html, css, js, sql, node FROM talks inner join users on users.id = talks.user_id AND talks.datetime > '${timeStamp}'`,
+  db.query(`SELECT subject, username, name, datetime, html, css, js, sql, node FROM talks inner join users on users.id = talks.user_id AND talks.datetime > '${timeStamp}'`,
   (err, res) => {
     if (err) {
       console.log(' database connection Query error in getTalks helper :', err);

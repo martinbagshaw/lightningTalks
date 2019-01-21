@@ -20,9 +20,10 @@ const errorMessage = document.getElementById('error-message');
 
 
 // ___________________________________
-// validation functions - from dom-helpers.js
-inputError(userName, null, 'Usernames must be 3 over characters long, and contain numbers, special characters, or spaces');
-inputError(name, null, 'Names must be 3 over characters long, and contain numbers or special characters');
+// validation functions - from dom-helpers.js, on blur
+// - anything with null as an argument uses pattern attribute
+inputError(userName, null, 'Usernames must be 3 over characters long, and cannot contain numbers, special characters, or spaces');
+inputError(name, null, 'Names must be 3 over characters long, and cannot contain numbers or special characters');
 inputError(email, null, 'Please enter a valid email address');
 inputError(password, passwordStrong, 'Passwords must contain 1 uppercase, 1 lowercase letter, 1 number or special character and be at least 8 characters long');
 inputError(confirmPassword, passwordsMatch, 'Both passwords must match');

@@ -168,6 +168,8 @@ test("checkUser function: User does not exist in the database", t => {
 
 
 
+
+// ______________________
 // checkPassword function
 // a) password ok
 test("checkPassword function: password for user is correct", t => {
@@ -176,15 +178,7 @@ test("checkPassword function: password for user is correct", t => {
       console.log("testBuild error: ", error);
     } else {
 
-      // // sample object
-      // const loginDetails = {
-      //   userName: 'mr-bagglesworth',
-      //   password: 'p4$$WrDwe'
-      // }
-
       // sample object
-      // - added as a user to the main database, needs to be added to the test
-      // - password got encrypted. will enter encrypted version into build scrip
       const loginDetails = {
         userName: 'dave',
         password: 'qwe123A@S'
@@ -208,8 +202,56 @@ test("checkPassword function: password for user is correct", t => {
 
 
 
+// ______________________
+// getUserId
+test("getUserId function returns user id", t => {
+  testBuild((error, response) => {
+    if (error) {
+      console.log("testBuild error: ", error);
+    } else {
+      helperIndex.getUserId('dave')
+        // pass
+        .then(res => {
+          t.deepEqual(
+              res,
+              4,
+              "Username 'dave' should have an id of 4"
+          );
+          t.end();
+        })
+        // fail
+        .catch(err => console.log('getUserId function error: ', err));
+    }
+  });
+});
 
 
+
+
+// ______________________
+// checkTalk function
+
+// a) talk exists - takes a timestamp
+test("checkTalk function: Talk already exists in the database", t => {
+  testBuild((error, response) => {
+    if (error) {
+      console.log("testBuild error: ", error);
+    } else {
+      helperIndex.checkTalk('2018-12-29 15:00:00')
+        // pass
+        .then(res => {
+          t.deepEqual(
+              res.rows[0].exists,
+              true,
+              "The talk with timestamp '2018-12-29 15:00:00' should exist in the database"
+          );
+          t.end();
+        })
+        // fail
+        .catch(err => console.log('checkTalk function error: ', err));
+    }
+  });
+});
 
 
 
@@ -220,17 +262,19 @@ test("checkPassword function: password for user is correct", t => {
 
 // ______________________
 // addUser function
-// - currently fails
-// - perhaps because there is no callback
-// - OR: perhaps I need to run a GET request after user is posted, to see if user has been added?
-
+// - need to run checkUser() after user is posted, to see if user has been added to database
+// 1. build database
+// 2. make sample object to test
+// 3. add user to database
+// 4. check user has been added
 test("addUser function works: requires checkUser() to see if it has worked", t => {
+  // 1.
   testBuild((error, response) => {
     if (error) {
       console.log("testBuild error: ", error);
     } else {
 
-      // sample object we are testing
+      // 2.
       const newUserDetails = {
         userName: 'old-greg',
         name: 'im oooool greeeg',
@@ -238,13 +282,11 @@ test("addUser function works: requires checkUser() to see if it has worked", t =
         password: 'Qwert123@'
       }
 
-
-      // add user to database function
+      // 3. 
       helperIndex.addUser(newUserDetails)
-        // after function run, check if user added
-        // - need to use res, can't chain two .then()'s together in this case
-        // - guess I need to wait for the result
         .then(res => {
+
+          // 4. 
           helperIndex.checkUser('old-greg')
           .then(res => {
             t.deepEqual(
@@ -260,6 +302,59 @@ test("addUser function works: requires checkUser() to see if it has worked", t =
 
         // addUser fail
         .catch(err => console.log('addUser function error: ', err));
+    }
+  });
+});
+
+
+
+
+// ______________________
+// addTalk function
+// - need to run checkTalk() after talk is posted
+// 1. build database
+// 2. make sample object to test
+// 3. add talk to database
+// 4. check talk has been added
+test("addTalk function works: requires checkUser() to see if it has worked", t => {
+  testBuild((error, response) => {
+    if (error) {
+      console.log("testBuild error: ", error);
+    } else {
+
+      // 2. object gets formatted by addTalk.js, not addTalkToDatabase.js:
+      const talkformDetails = {
+        userName: 'dave', // addTalk gets user_id in talks by username in users with getUserId(userName)
+        subject: 'Database Testing',
+        // description: 'How to test databases with Jest as well as Tape', // add description column in build sql
+        timeStamp: '2019-01-12 12:34:00',
+        html: false,
+        css: false,
+        js: false,
+        sql: false,
+        node: true
+      }
+
+      // 3.
+      helperIndex.addTalkToDatabase(talkformDetails)
+        
+      // 4.
+        .then(res => {
+          helperIndex.checkTalk('2019-01-12 12:34:00')
+          .then(res => {
+            t.deepEqual(
+                res.rows[0].exists,
+                true,
+                "addTalk() works as talk with timestamp '2019-01-12 12:34:00' gets added to the database"
+            );
+            t.end();
+          })
+          // checkTalk fail
+          .catch(err => console.log('checkTalk function error: ', err));
+        })
+
+        // addTalk fail
+        .catch(err => console.log('addTalk function error: ', err));
     }
   });
 });

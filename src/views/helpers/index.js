@@ -21,10 +21,19 @@ module.exports = {
     
     // _________
     // database
+
+    // - GET users
     checkUser: require('./db_helpers/checkUser').checkUser,
     checkPassword: require('./db_helpers/checkUser').checkPassword,
+    getUserId: require('./db_helpers/getUserId'),
+    // - POST users
+    addUser: require('./db_helpers/addUser'),
+    
+    // - GET talks
+    checkTalk: require('./db_helpers/checkTalk'),
     getAllTalks: require('./db_helpers/getTalks').getAllTalks,
     upComingTalks: require('./db_helpers/getTalks').upComingTalks,
-    addUser: require('./db_helpers/addUser')
+    // - POST talks
+    addTalkToDatabase: require('./db_helpers/addTalkToDatabase'),
 
 };

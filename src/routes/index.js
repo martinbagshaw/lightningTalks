@@ -9,6 +9,7 @@ const helpers = require("../views/helpers/index");
 // get POST handlers - for forms
 const signup = require("./signup");
 const login = require("./login");
+const addTalk = require("./addTalk");
 
 // jwt - verify user (was hoping to anyway)
 const { sign, verify, decode } = require('jsonwebtoken');
@@ -202,6 +203,11 @@ router.post("/logout", (req, res) => {
     .clearCookie('lightningJwt')
     .status(302)
     .send({ success: true, message: 'What\'s up motherFACer! You\'re in!' }); // pick up message on dashboard
+});
+
+// - add talk
+router.post("/addtalk", (req, res) => {
+  addTalk(req, res);
 });
 
 
