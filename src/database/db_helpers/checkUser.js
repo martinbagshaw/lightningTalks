@@ -1,5 +1,5 @@
 // check if user exists in the database
-const db = require('../../../database/db_connection');
+const db = require('../db_connection');
 const bcrypt = require("bcryptjs");
 
 // - check user

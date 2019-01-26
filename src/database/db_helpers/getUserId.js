@@ -1,4 +1,4 @@
-const db = require('../../../database/db_connection');
+const db = require('../db_connection');
 // enter username, get user id
 const getUserId = userName => {
 

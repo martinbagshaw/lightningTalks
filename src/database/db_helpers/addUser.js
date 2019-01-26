@@ -1,6 +1,6 @@
 // add user function
 // - encrypt password, then add to the database
-const db = require('../../../database/db_connection');
+const db = require('../db_connection');
 const bcrypt = require("bcryptjs");
 
 

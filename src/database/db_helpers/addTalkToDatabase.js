@@ -1,5 +1,5 @@
 // add (and probably edit) talk
-const db = require('../../../database/db_connection');
+const db = require('../db_connection');
 
 // 1. username is entered automatically - match in cookie perhaps?
 // 2. users table queried, returning id

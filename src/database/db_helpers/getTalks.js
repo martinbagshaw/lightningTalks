@@ -1,5 +1,5 @@
 // get talks from the database
-const db = require('../../../database/db_connection');
+const db = require('../db_connection');
 
 // use an inner join to get some user details
 // - this outputs json object, which includes past talks

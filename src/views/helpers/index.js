@@ -23,17 +23,17 @@ module.exports = {
     // database
 
     // - GET users
-    checkUser: require('./db_helpers/checkUser').checkUser,
-    checkPassword: require('./db_helpers/checkUser').checkPassword,
-    getUserId: require('./db_helpers/getUserId'),
+    checkUser: require('../../database/db_helpers/checkUser').checkUser,
+    checkPassword: require('../../database/db_helpers/checkUser').checkPassword,
+    getUserId: require('../../database/db_helpers/getUserId'),
     // - POST users
-    addUser: require('./db_helpers/addUser'),
+    addUser: require('../../database/db_helpers/addUser'),
     
     // - GET talks
-    checkTalk: require('./db_helpers/checkTalk'),
-    getAllTalks: require('./db_helpers/getTalks').getAllTalks,
-    upComingTalks: require('./db_helpers/getTalks').upComingTalks,
+    checkTalk: require('../../database/db_helpers/checkTalk'),
+    getAllTalks: require('../../database/db_helpers/getTalks').getAllTalks,
+    upComingTalks: require('../../database/db_helpers/getTalks').upComingTalks,
     // - POST talks
-    addTalkToDatabase: require('./db_helpers/addTalkToDatabase'),
+    addTalkToDatabase: require('../../database/db_helpers/addTalkToDatabase'),
 
 };
