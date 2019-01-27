@@ -9,7 +9,6 @@ This file requires dom-helpers.js to work
 - fetch data at the end of the file
 
 To Do:
-- grey out past talks
 - get sort button working with past and future talks (integration)
 */
 

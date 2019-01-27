@@ -269,6 +269,11 @@ a {
       padding: 0 2rem; } }
   .main-section:first-child {
     text-align: center; }
+  .dashboard .main-section:not(:first-child):not(:last-child) {
+    padding-top: 1rem;
+    padding-bottom: 3rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid white; }
 
 .page-content .main-section:first-child {
   margin-top: 6rem; }

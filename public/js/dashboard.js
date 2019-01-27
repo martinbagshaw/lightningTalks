@@ -2,6 +2,14 @@
 // - requires dom-helpers.js
 "use strict";
 
+// 1. show username
+// 2. make add talk form work
+// 3. show users talks (handle on server side didn't seem to work out)
+// 4. show users bookmarked talks
+
+
+
+
 // ___________________________________
 // get form elements
 const addTalkForm = document.getElementById('add-talk-form');
@@ -16,12 +24,6 @@ const css = document.getElementById('css');
 const js = document.getElementById('js');
 const sql = document.getElementById('sql');
 const node = document.getElementById('node');
-
-// create array of selectors
-// const elem = name => {
-//   return name.map(a => document.getElementById(`${a}`))
-// }
-// console.log(elem('css'));
 
 
 // _____________________________________
@@ -48,14 +50,21 @@ inputError(description, textareaValid, 'Description must be between 20 and 200 c
 // get username
 // - jwt should always be defined if logged in
 const myJwt = document.cookie.split(' ').find(cookie => cookie.includes('lightningJwt'));
+// console.log(myJwt);
+
 if (myJwt !== undefined) {
   const payload = myJwt.split('.')[1];
+  // console.log(payload);
   const username = JSON.parse(window.atob(payload)).userName;
+
+
 
 
   // ___________________________________
   // 1. add username to dashboard
   document.getElementById('username').innerHTML = `Hello <span class="username">${username}</span>`;
+
+
 
 
   // ___________________________________
@@ -137,7 +146,7 @@ if (myJwt !== undefined) {
 
 
 
-} // end logged in check
+
 
 
 
@@ -153,6 +162,92 @@ if (myJwt !== undefined) {
 // - call it here
 
 
+
+
 // get request:
 // - user's talks
 // - user's bookmarks
+
+
+
+
+// ____________________________________
+// 3. user's talks list
+
+
+const talksByUser = (talks, username) => {
+  // e.preventDefault();
+  const userTalks = talks.filter(talk => talk.username === username);
+  resultHtml(userTalks);
+}
+
+
+
+// html output
+// - modularise this - used in search-talks.js too
+const resultHtml = arr => {
+
+  const outputHtml = arr
+    .map(item => {
+      // create html for any tags that exist
+      const tags = item.languages.map(tag => tag ? `<span class="tag ${tag}">${tag}</span>` : '').join('');
+      // talk passed?
+      const past = new Date(item.datetime) < new Date() ? ' past' :'';
+      // return html
+      return `
+      <li class="talk-event${past}">
+        <h3 class="talk-subject">${item.subject}</h3>
+        <article class="talk-meta">
+          <article class="talk-details">
+            <p class="speaker">${item.username} <span>a.k.a. ${item.name}</span></p>
+            <p class="date-time">${dateFormat(item.datetime)}<span>@ ${timeFormat(item.datetime)}</span></p>
+          </article>
+          <article class="talk-tags">
+            ${tags}
+          </article>
+        </article>
+      </li>
+      `;
+    })
+    .join('');
+
+  const ul = document.querySelector(".talks-list");
+  ul.innerHTML = outputHtml;
+};
+
+
+// ____________________________________
+// attach event listeners
+// - response = allTalks from fetch
+const attachEvents = response => {
+
+  // user's talks
+  talksByUser(response, username);
+  // const talkBtn = document.getElementById('talk-btn');
+  // talkBtn.addEventListener('click', e => talksByUser(e, response, username), false);
+
+  // const dateSort = document.getElementById('date-sort');
+  // dateSort.addEventListener('click', sortList);
+
+  // const toggleHistory = document.getElementById('history');
+  // toggleHistory.addEventListener('click', pastFuture);
+}
+
+
+const allTalks = [];
+fetch("/search-talks")
+  .then(res => res.json())
+  .then(data => allTalks.push(...data))
+  // .then(attachEvents(allTalks));
+  .then(data => {
+    // run functions after fetch is complete
+    talksByUser(allTalks, username)
+  })
+
+
+
+
+
+
+
+} // end logged in check
