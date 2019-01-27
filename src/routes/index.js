@@ -102,26 +102,20 @@ router.get("/login", (req, res) => {
 // - used for checkboxes
 const languages = ['html', 'css', 'js', 'sql', 'node'];
 router.get("/dashboard", (req, res) => {
-  
 
-
-  // logged in
-  // - detect who the user is on login or signup
-  // a) decrypt cookie - tried this below
-  // b) pass form details to the dashboard route somehow
-
-  // - should I check more than just 'jwt' in a cookie?
-  // - can jwt be decrypted and matched to a particular user? I don't think so
-  // - undefined = does not interfere with tests:
-
+  // must have a cookie to view the dashboard
   if (req.headers.cookie !== undefined && req.headers.cookie.includes('jwt')) {
 
-    const myJwt = req.headers.cookie.split(' ').find(cookie => cookie.includes('jwt'));
+    // can't seem to decrypt the cookie here - get jwt is malformed error
+    const myJwt = req.headers.cookie.split(' ').find(cookie => cookie.includes('lightningJwt'));
+    // const jwt = verify(req.headers.cookie, secret);
+    // console.log(myJwt);
+    // const payload = myJwt.split('.')[1];
+    // console.log(payload);
+    // const answer = verify(payload, secret);
+    // console.log(answer);
 
-    
-    // create a GET request to get the talks when the browser lands on the dashboard
-    // - probably not here, as this is the initial render
-    // - cookie created before the initial render
+
 
     // render dashboard and button state
     res.render("dashboard", { languages: languages, loginButtons: status} );
@@ -174,7 +168,7 @@ router.post("/addtalk", (req, res) => {
 
 // ___________________________________
 // error pages
-router.use(function(req, res, next) {
+router.use((req, res, next) => {
   res.status(404);
 
   const status = controllers.loginButtons(req);

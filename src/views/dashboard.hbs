@@ -6,8 +6,7 @@
     </section>
 
     <section class="main-section" id="add-talk">
-        <h2>Add Talk</h2>
-        <p>Cookie / whatever should identify user, and add correct _user_ info to the database this way</p>
+        <h2>Add Talk +</h2>
         <form class="form main-form" id="add-talk-form" method="/post" action="/addtalk">
 
             <label for="subject">Subject</label>
@@ -44,25 +43,12 @@
     <section class="main-section" id="your-talks">
         <h3>Your Talks</h3>
         <p id="success-message"></p>
-        <p>if user has talks, show list of talks, with edit talk button, to go to edit talk page/ section</p>
-        <p>if user has no talks, say they have no talks, CTA to add a talk</p>
-        <!--
-            if no talks found for user:
-                You have contributed no talks yet, add your talk above
-            else
-                display all talks    
-        -->
+        {{!-- <button class="button-input has-icon" id="talk-btn"><a href="/#">Your Talks <span class="button-icon">v</span></a></button> --}}
+        <ul class="talks-list"></ul>
+
     </section>
-    <section class="main-section" id="your-talks">
+    <section class="main-section" id="bookmarked-talks">
         <h3>Bookmarked Talks</h3>
-        <p>Show list partial, with bookmarked talks</p>
-        <p>if no talks are bookmarked, CTA to bookmark a talk</p>
-        <!--
-            if no bookmarks found for user:
-                You have no bookmarks yet, bookmark talks here (link to view-talks) - show bookmark option when logged in
-            else
-                display all talks bookmarked by user  
-        -->
     </section>
 </main>
 <audio class="thunder-success" src="sounds/thunder_sound.mp3"></audio>

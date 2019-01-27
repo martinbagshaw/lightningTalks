@@ -24,9 +24,6 @@ const checkPassword = userDetails => {
   
         // 3.
         else {
-          // console.log(res.rows[0].password);
-
-          // might want this to be in a promise - this and addUser.js fail on heroku
 
           bcrypt.compare(password, res.rows[0].password,
             (err, passwordsMatch) => {
@@ -43,7 +40,6 @@ const checkPassword = userDetails => {
               
               // success
               else {
-                // console.log(passwordsMatch);
                 resolve(passwordsMatch);
               }
   

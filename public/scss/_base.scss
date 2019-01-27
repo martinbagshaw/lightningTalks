@@ -81,6 +81,16 @@ a {
     &:first-child {
         text-align: center;
     }
+    // page specific
+    &:not(:first-child):not(:last-child) {
+        .dashboard & {
+            padding-top: 1rem;
+            padding-bottom: 3rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid $white;
+        }
+    }
+    
 }
 // only applies to sections within <main>
 .page-content .main-section:first-child {

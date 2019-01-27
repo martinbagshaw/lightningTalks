@@ -67,7 +67,7 @@ INSERT INTO talks (user_id, subject, datetime, html, css, js, sql, node) VALUES
 ),
 (
   2, 
-  'Database testing',
+  'Database Testing',
   '2019-01-10 13:00:00',
   false,
   false,

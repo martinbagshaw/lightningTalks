@@ -8,7 +8,7 @@ const getUserId = userName => {
         [userName],
         (err, res) => {
             if (err) {
-                reject('no id for user found in the database ', err);
+                reject(err);
             }
             else {
                 resolve(res.rows[0].id);

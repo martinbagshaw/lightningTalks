@@ -42,20 +42,20 @@ DATABASE_URL = postgres://<user_name>:<password>@localhost:5432/<database_name>
 
 ### File Structure
 
-📁 public - all publicly hosted files
+- 📁 **public** (all publicly hosted files)
     - includes client side js, css, images, and sounds
 
-📁 src - all server side files  
-    📁 controllers  
+- 📁 **src** (all server side files)   
+    - ↳ 📁 **controllers**  
         ↳ data processing functions that don't interact directly with the database, or rendering system  
-    📁 database  
+    - ↳ 📁 **database**  
         ↳ database schema, build, and connection scripts, and queries that interact directly with the database  
-    📁 routes  
+    - ↳ 📁 **routes**  
         ↳ handles the processing of data for different routes (GET and POST requests)  
-    📁 views  
+    - ↳ 📁 **views**  
         ↳ handlebars(.hbs) files that implement server side rendering  
 
-📁 tests - all tests (run with tape)
+- 📁 **tests** (all tests)
 
 
 ---

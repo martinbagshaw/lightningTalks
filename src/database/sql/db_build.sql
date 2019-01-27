@@ -25,4 +25,5 @@ CREATE TABLE talks (
   node BOOLEAN NOT NULL
 );
 
+
 COMMIT;
