@@ -9,7 +9,7 @@
 const test = require("tape");
 const testBuild = require("../src/database/test_db_build.js");
 // get database query functions
-const databaseHelpers = require("../src/database/db_helpers/index");
+const db_helpers = require("../src/database/db_helpers/index");
 
 
 
@@ -23,19 +23,17 @@ test("getAllTalks function returns subject", t => {
     if (error) {
       console.log("testBuild error: ", error);
     } else {
-      databaseHelpers.getAllTalks((err, res) => {
-        if (err) {
-          console.log("getTalks error: ", err);
-        } else {
-          // console.log("result from getTalks: ", res);
+      db_helpers.getAllTalks()
+        .then(res => {
           t.deepEqual(
             res[0].subject,
             "SCSS",
             "The first entered talk subject in the test database should be SCSS"
           );
           t.end();
-        }
-      });
+        })
+        // fail
+        .catch(err => console.log('getAllTalks not returning subject: ', err));
     }
   });
 });
@@ -45,19 +43,17 @@ test("getAllTalks function returns username", t => {
     if (error) {
       console.log("testBuild error: ", error);
     } else {
-      databaseHelpers.getAllTalks((err, res) => {
-        if (err) {
-          console.log("getTalks error: ", err);
-        } else {
-          // console.log("result from getTalks: ", res);
+      db_helpers.getAllTalks()
+        .then(res => {
           t.deepEqual(
             res[0].username,
             "mr-bagglesworth",
             "The first entered talk should be from user with username 'mr-bagglesworth'"
           );
           t.end();
-        }
-      });
+        })
+        // fail
+        .catch(err => console.log('getAllTalks not returning username: ', err));
     }
   });
 });
@@ -67,46 +63,44 @@ test("getAllTalks function returns username", t => {
 
 
 // ______________________
-// upComingTalks function - don't get talks that have passed
+// upcomingTalks function - don't get talks that have passed
 // - return rows where the datetime column value is greater than the entered argument
-test("upComingTalks function fails: date is past any future talks", t => {
+test("upcomingTalks function fails: date is past any future talks", t => {
   testBuild((error, response) => {
     if (error) {
       console.log("testBuild error: ", error);
     } else {
-      databaseHelpers.upComingTalks('2019-10-20 17:30:00', (err, res) => {
-        if (err) {
-          console.log("getTalks error: ", err);
-        } else {
+      db_helpers.upcomingTalks('2029-10-20 17:30:00')
+        .then(res => {
           t.deepEqual(
             res[0],
             undefined,
             "There are no talks returned, as there currently are no talks after the entered date of '2019-02-15'"
           );
           t.end();
-        }
-      });
+        })
+        // fail
+        .catch(err => console.log('upcomingTalks with future date error: ', err));
     }
   });
 });
 // passing
-test("upComingTalks function passes: first subject is 'Database testing'", t => {
+test("upcomingTalks function passes: first subject is 'Database testing'", t => {
   testBuild((error, response) => {
     if (error) {
       console.log("testBuild error: ", error);
     } else {
-      databaseHelpers.upComingTalks('2019-01-02 20:00:00', (err, res) => {
-        if (err) {
-          console.log("getTalks error: ", err);
-        } else {
+      db_helpers.upcomingTalks('2019-01-02 20:00:00')
+        .then(res => {
           t.deepEqual(
             res[0].subject,
             "Database testing",
             "The next subject of the next talk (as of 02/01/2019) should be 'Database testing'"
           );
           t.end();
-        }
-      });
+        })
+        // fail
+        .catch(err => console.log('upcomingTalks with past date error: ', err));
     }
   });
 });
@@ -127,7 +121,7 @@ test("checkUser function: User already exists in the database", t => {
     if (error) {
       console.log("testBuild error: ", error);
     } else {
-      databaseHelpers.checkUser('mr-bagglesworth')
+      db_helpers.checkUser('mr-bagglesworth')
         // pass
         .then(res => {
           t.deepEqual(
@@ -149,7 +143,7 @@ test("checkUser function: User does not exist in the database", t => {
     if (error) {
       console.log("testBuild error: ", error);
     } else {
-      databaseHelpers.checkUser('mr-bojangles')
+      db_helpers.checkUser('mr-bojangles')
         // pass
         .then(res => {
           t.deepEqual(
@@ -184,7 +178,7 @@ test("checkPassword function: password for user is correct", t => {
         password: 'qwe123A@S'
       }
 
-      databaseHelpers.checkPassword(loginDetails)
+      db_helpers.checkPassword(loginDetails)
         // pass
         .then(res => {
           t.deepEqual(
@@ -209,7 +203,7 @@ test("getUserId function returns user id", t => {
     if (error) {
       console.log("testBuild error: ", error);
     } else {
-      databaseHelpers.getUserId('dave')
+      db_helpers.getUserId('dave')
         // pass
         .then(res => {
           t.deepEqual(
@@ -237,7 +231,7 @@ test("checkTalk function: Talk already exists in the database", t => {
     if (error) {
       console.log("testBuild error: ", error);
     } else {
-      databaseHelpers.checkTalk('2018-12-29 15:00:00')
+      db_helpers.checkTalk('2018-12-29 15:00:00')
         // pass
         .then(res => {
           t.deepEqual(
@@ -283,11 +277,11 @@ test("addUser function works: requires checkUser() to see if it has worked", t =
       }
 
       // 3. 
-      databaseHelpers.addUser(newUserDetails)
+      db_helpers.addUser(newUserDetails)
         .then(res => {
 
           // 4. 
-          databaseHelpers.checkUser('old-greg')
+          db_helpers.checkUser('old-greg')
           .then(res => {
             t.deepEqual(
                 res.rows[0].exists,
@@ -336,11 +330,11 @@ test("addTalk function works: requires checkUser() to see if it has worked", t =
       }
 
       // 3.
-      databaseHelpers.addTalkToDatabase(talkformDetails)
+      db_helpers.addTalkToDatabase(talkformDetails)
         
       // 4.
         .then(res => {
-          databaseHelpers.checkTalk('2019-01-12 12:34:00')
+          db_helpers.checkTalk('2019-01-12 12:34:00')
           .then(res => {
             t.deepEqual(
                 res.rows[0].exists,

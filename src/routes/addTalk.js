@@ -1,7 +1,12 @@
 // addTalk route handler - backend
 // - handles addTalk POST request
 // - may be tricky to test
-const helpers = require("../views/helpers/index");
+
+// get controllers - for data processing
+const controllers = require("../controllers/index");
+// database helpers
+const db_helpers = require("../database/db_helpers/index");
+
 
 // 1. handle error messages, send back to frontend
 // 2. match username to user id in database
@@ -20,7 +25,7 @@ const addTalk = (req, res) => {
     if (!subject && !day && !time) {
         return res.status(400).send({ error: true, message: 'Please fill subject, day, and time' })
     }
-    const { nameValid, textareaValid } = helpers.formValidation;
+    const { nameValid, textareaValid } = controllers.formValidation;
     // - check subject and description
     // NOTE: add description in build sql
     if (!nameValid(subject) && !textareaValid(description)){
@@ -29,7 +34,7 @@ const addTalk = (req, res) => {
 
 
     // 2. 
-    helpers.getUserId(userName)
+    db_helpers.getUserId(userName)
         .then(id => {
 
             // 3.
@@ -39,7 +44,7 @@ const addTalk = (req, res) => {
             const talkDetails =  { id, subject, timeStamp, html, css, js, sql, node };
 
             // 4. 
-            helpers.addTalkToDatabase(talkDetails)
+            db_helpers.addTalkToDatabase(talkDetails)
                 .then(response => {
                     return res.status(200).send({ success: true, message: '🎉 Congrats! Your talk has been booked 🎉' });
                 })

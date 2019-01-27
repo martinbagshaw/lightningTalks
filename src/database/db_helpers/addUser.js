@@ -12,14 +12,14 @@ const addUser = details => {
     return new Promise((resolve, reject) => {
         // generate salt and hash on password
         bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(password, salt, (err, res) => {
-            if (err) {
-                reject(err);
+            bcrypt.hash(password, salt, (hashError, hashResult) => {
+            if (hashError) {
+                reject(hashError);
             }
     
             // insert into users table
             else {
-                const encryptedPwd = res;
+                const encryptedPwd = hashResult;
                 db.query(
                 "INSERT INTO users (username, name, email, password) VALUES ($1, $2, $3, $4)",
                 [userName, name, email, encryptedPwd],

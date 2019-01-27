@@ -1,6 +1,12 @@
 // login route handler - backend
 // - handles login POST request
-const helpers = require("../views/helpers/index");
+
+// get controllers - for data processing
+const controllers = require("../controllers/index");
+// database helpers
+const db_helpers = require("../database/db_helpers/index");
+
+
 const { sign, verify } = require('jsonwebtoken');
 const secret = process.env.SECRET;
 
@@ -19,7 +25,7 @@ const login = (req, res) => {
         return res.status(400).send({ error: true, message: 'Please fill in all details' })
     }
     // - get form validation functions
-    const { usernameValid, passwordStrong } = helpers.formValidation;
+    const { usernameValid, passwordStrong } = controllers.formValidation;
     // - check that valid data has been entered
     if (!usernameValid(userName) && !passwordStrong(password)){
         return res.status(400).send({ error: true, message: 'Please enter valid data' })
@@ -28,7 +34,7 @@ const login = (req, res) => {
 
     // 2.
     // - check user exists
-    helpers.checkUser(userName)
+    db_helpers.checkUser(userName)
         .then(data => {
             // user doesn't exist
             if (!data.rows[0].exists) {
@@ -40,8 +46,7 @@ const login = (req, res) => {
                 // 3.
                 // - check if password is correct (uses bcrypt compare)
                 const userDetails =  { userName, password };
-                helpers.checkPassword(userDetails)
-
+                db_helpers.checkPassword(userDetails)
 
                     // 4.
                     // - set cookie

@@ -4,7 +4,8 @@ const getUserId = userName => {
 
     return new Promise((resolve, reject) => {
 
-        db.query(`SELECT id FROM users WHERE username = '${userName}'`,
+        db.query('SELECT id FROM users WHERE username = $1',
+        [userName],
         (err, res) => {
             if (err) {
                 reject('no id for user found in the database ', err);
