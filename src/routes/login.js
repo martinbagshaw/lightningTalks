@@ -55,7 +55,7 @@ const login = (req, res) => {
                         const cookie = `jwt=${jwt} HttpOnly=false Max-Age=9000`;
                         // console.log(userName, ' \'s cookie is: ', cookie);
 
-                        res
+                        return res
                             .cookie('lightningJwt', cookie)
                             .status(302)
                             .send({ success: true, message: 'What\'s up motherFACer! You\'re in!' }); // pick up message on dashboard
@@ -65,7 +65,7 @@ const login = (req, res) => {
                     // promise error
                     .catch(err => {
                         // console.log("checkPassword() fail ", result);
-                        return res.status(409).send({ error: true, message: 'Password incorrect. Please try again' })
+                        return res.status(409).send({ error: true, message: 'Password incorrect. Please try again', response: err })
                     });
 
             }
