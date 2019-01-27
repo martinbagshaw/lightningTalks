@@ -33,11 +33,11 @@ const checkPassword = userDetails => {
               
               // 4.
               if (err) {
-                res.status(500).send({ error: true, message: 'Error logging in' });
+                // res.status(500).send({ error: true, message: 'Error logging in' });
                 reject(err);
               }
               else if (!passwordsMatch) {
-                res.status(403).send({ error: true, message: 'Username or password doesn\'t exist' });
+                // res.status(403).send({ error: true, message: 'Username or password doesn\'t exist' });
                 reject(err);
               }
               

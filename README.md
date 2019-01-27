@@ -47,13 +47,13 @@ DATABASE_URL = postgres://<user_name>:<password>@localhost:5432/<database_name>
 
 📁 src - all server side files  
     📁 controllers  
-        - data processing functions that don't interact directly with the database, or rendering system
+        ↳ data processing functions that don't interact directly with the database, or rendering system  
     📁 database  
-        - database schema, build, and connection scripts, and queries that interact directly with the database
+        ↳ database schema, build, and connection scripts, and queries that interact directly with the database  
     📁 routes  
-        - handles the processing of data for different routes (GET and POST requests)
+        ↳ handles the processing of data for different routes (GET and POST requests)  
     📁 views  
-        - handlebars(.hbs) files that implement server side rendering
+        ↳ handlebars(.hbs) files that implement server side rendering  
 
 📁 tests - all tests (run with tape)
 

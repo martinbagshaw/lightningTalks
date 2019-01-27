@@ -49,6 +49,7 @@ loginForm.addEventListener('submit', e => {
                 if (res.error){
                     // console.log('form error');
                     errorMessage.textContent = res.message;
+                    console.log(res);
                 }
                 // redirect to dashboard
                 // - can't do this on backend
