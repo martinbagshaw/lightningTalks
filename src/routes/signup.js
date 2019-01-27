@@ -3,8 +3,14 @@
 // - aggregate functions here, most heavy lifting done by other files
 // - tested in a half-arsed way in routes test file
 
+
 // - as with frontend signup, modularisation could cut out some repetition with the login js
-const helpers = require("../views/helpers/index");
+// get controllers - for data processing
+const controllers = require("../controllers/index");
+
+// database helpers
+const db_helpers = require("../database/db_helpers/index");
+
 
 const { sign, verify } = require('jsonwebtoken');
 const secret = process.env.SECRET;
@@ -26,7 +32,7 @@ const signup = (req, res) => {
   }
 
   // - get form validation functions
-  const { usernameValid, nameValid, emailValid, passwordStrong } = helpers.formValidation;
+  const { usernameValid, nameValid, emailValid, passwordStrong } = controllers.formValidation;
   // - check that valid data has been entered
   if (!usernameValid(userName) && !nameValid(name) && !emailValid(email) && !passwordStrong(password)){
     return res.status(400).send({ error: true, message: 'Please enter valid data' })
@@ -35,7 +41,7 @@ const signup = (req, res) => {
   
   // 2.
   // - check user
-  helpers.checkUser(userName)
+  db_helpers.checkUser(userName)
     .then(data => {
     // user doesn't exist
     // - not exists: encrypt password, create user entry, send jwt, redirect to dashboard happens on frontend
@@ -43,7 +49,7 @@ const signup = (req, res) => {
     
       // 3.
       // - encrypt password, and add to database. uses bcrypt.js
-      helpers.addUser(req.body)
+      db_helpers.addUser(req.body)
         
         .then(response => {
 
@@ -55,11 +61,10 @@ const signup = (req, res) => {
           const jwt = sign(userDetails, secret);
           const cookie = `jwt=${jwt}: HttpOnly; Max-Age=9000`;
           
-          // probably don't need a return
-          return res
-          .cookie('lightningJwt', cookie)
-          .status(302)
-          .send({ success: true, message: 'What\'s up motherFACer! You\'re in!' }); // pick up message on dashboard
+          res
+            .cookie('lightningJwt', cookie)
+            .status(302)
+            .send({ success: true, message: 'What\'s up motherFACer! You\'re in!' }); // pick up message on dashboard
 
         })
         .catch(err => {

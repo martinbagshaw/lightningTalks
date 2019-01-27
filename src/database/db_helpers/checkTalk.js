@@ -1,4 +1,4 @@
-const db = require('../../../database/db_connection');
+const db = require('../db_connection');
 // check if a talk in the database
 
 // - check by timestamp (most specific way)

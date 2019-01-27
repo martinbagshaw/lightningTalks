@@ -38,6 +38,25 @@ DATABASE_URL = postgres://<user_name>:<password>@localhost:5432/<database_name>
 6. `npm run test` to run tests on helper functions, routes, and database queries.
 7. If you wish to edit the css, this project uses Sass (SCSS). Make sure you have [Sass installed](https://sass-lang.com/install), then go to the public folder and run `sass --watch scss:css`.
 
+---
+
+### File Structure
+
+📁 public - all publicly hosted files
+    - includes client side js, css, images, and sounds
+
+📁 src - all server side files
+    📁 controllers
+        - data processing functions that don't interact directly with the database, or rendering system
+    📁 database
+        - database schema, build, and connection scripts, and queries that interact directly with the database
+    📁 routes
+        - handles the processing of data for different routes (GET and POST requests)
+    📁 views
+        - handlebars(.hbs) files that implement server side rendering
+
+📁 tests - all tests (run with tape)
+
 
 ---
 

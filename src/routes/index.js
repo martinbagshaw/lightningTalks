@@ -1,11 +1,15 @@
 // index - routes
-// - could split into more files, as with helpers
 const express = require("express");
 const router = express.Router();
 
-// get helper functions
-const helpers = require("../views/helpers/index");
+// get controllers - for data processing
+const controllers = require("../controllers/index");
 
+// database helpers
+const db_helpers = require("../database/db_helpers/index");
+
+
+// _____________________________
 // get POST handlers - for forms
 const signup = require("./signup");
 const login = require("./login");
@@ -27,32 +31,32 @@ router.get("/", (req, res) => {
 // - output upcoming talks only
 router.get("/view-talks", (req, res) => {
   // convert date to something that can work with database query
-  const date = helpers.datetimeToStamp(new Date());
-  helpers.upComingTalks(date, (err, upcomingTalkList) => {
-    if (err) {
-      res.statusCode = 500;
-      res.send("Error");
-    }
-    // json processing here
-    const formatTalks = helpers.jsonOutput(upcomingTalkList);
-    // render view-talks
-    res.render("view-talks", { talks: formatTalks, loginButtons: status })
-  })
+  const date = controllers.datetimeToStamp(new Date());
+  db_helpers.upcomingTalks(date)
+    .then(talkList => {
+      const formatTalks = controllers.jsonOutput(talkList);
+      res.render("view-talks", { talks: formatTalks, loginButtons: status })
+    })
+    .catch(talksError => {
+      res.render("500", { loginButtons: status });
+      return;
+    })
 });
+
 
 
 // search talks tool
 // - output all talks, irrespective of date
 router.get('/search-talks', (req, res) => {
-  helpers.getAllTalks((err, talkList) => {
-    if (err) {
-      res.statusCode = 500;
-      res.send("Error");
-    }
-    // json processing here
-    const formatTalks = helpers.jsonOutput(talkList);
-    res.json(formatTalks)
-  })
+  db_helpers.getAllTalks()
+    .then(talkList => {
+      const formatTalks = controllers.jsonOutput(talkList);
+      res.json(formatTalks)
+    })
+    .catch(talksError => {
+      res.render("500", { loginButtons: status });
+      return;
+    })
 })
 
 
@@ -105,19 +109,6 @@ router.get("/dashboard", (req, res) => {
   // - detect who the user is on login or signup
   // a) decrypt cookie - tried this below
   // b) pass form details to the dashboard route somehow
-  //    - but how can we tell who the user is?
-
-
-  /*
-  from mike:
-  - output users json on frontend
-  - decrypt cookie on frontend (make sure not http only)
-  - match user to json output
-
-   */
-
-
-
 
   // - should I check more than just 'jwt' in a cookie?
   // - can jwt be decrypted and matched to a particular user? I don't think so
@@ -126,46 +117,11 @@ router.get("/dashboard", (req, res) => {
   if (req.headers.cookie !== undefined && req.headers.cookie.includes('jwt')) {
 
     const myJwt = req.headers.cookie.split(' ').find(cookie => cookie.includes('jwt'));
-    // console.log(myJwt);
-
-    // can't seem to verify or decode
-
-    
-    // const decoded = decode(myJwt, secret);
-    // console.log(decoded, secret);
-    // const a = JSON.parse(myJwt);
-    // console.log(a);
-    // console.log(req.headers);
-
-    // const a = 'jwt%3DeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImRhdmUiLCJwYXNzd29yZCI6InF3ZTEyM0FAUyIsImlhdCI6MTU0NzMyNzkyMn0.Vtvp4n9O5womcdaalgMe0oeu6W4_qDXzQl1r4bb6syY%3A%20';
-    
-    // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImRhdmUiLCJwYXNzd29yZCI6InF3ZTEyM0FAUyIsImlhdCI6MTU0NzU5MjM3OX0.-REgRuzX9mYMF2eJ3_f8aUj_J_K6DVkj72eBMXVqEsE
-    // const a = JSON.parse(myJwt);
-    // const decoded = verify(a, secret);
-    // console.log(decoded)
-
-    // const a = myJwt.split('.')[1];
-    // console.log(a, secret);
-
-
-    // console.log(req.headers.cookie.replace(/^JWT\s/, ''));
-    // const a = req.headers.cookie.replace(/^JWT\s/, '');
-    
-    // const decoded = verify(a, secret);
-    // console.log(decoded)
-
-    // const data = atob(a);
-    // console.log(verify(a, secret));
-
-
-
 
     
     // create a GET request to get the talks when the browser lands on the dashboard
     // - probably not here, as this is the initial render
     // - cookie created before the initial render
-    
-    
 
     // render dashboard and button state
     res.render("dashboard", { languages: languages, loginButtons: status} );
@@ -221,7 +177,7 @@ router.post("/addtalk", (req, res) => {
 router.use(function(req, res, next) {
   res.status(404);
 
-  const status = helpers.loginButtons(req);
+  const status = controllers.loginButtons(req);
 
   if (req.accepts('html')) {
     res.render("404", { loginButtons: status });

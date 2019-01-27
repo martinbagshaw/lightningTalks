@@ -5,8 +5,9 @@ const handlebars = require("express-handlebars");
 const bodyParser = require("body-parser");
 const favicon = require("serve-favicon");
 
-// get routes and helpers
+// get routes, controllers, and handlebars helpers
 const routes = require("./routes/index");
+const controllers = require("./controllers/index");
 const helpers = require("./views/helpers/index");
 
 const app = express();
@@ -21,7 +22,7 @@ app.use(express.static(path.join(__dirname, "..", "public"), { maxAge: "30d" }))
 
 // login/out buttons
 app.use((req, res, next) => {
-  status = helpers.loginButtons(req);
+  status = controllers.loginButtons(req);
   next();
 });
 
