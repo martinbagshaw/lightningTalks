@@ -2,6 +2,9 @@
   "name": "lightningtalks",
   "version": "1.0.0",
   "description": "A system for members of FAC 15 to arrange lightning talks, short presentations on topics of their choosing.",
+  "engines": { 
+    "node": "11.3.0" 
+  },
   "main": "app.js",
   "directories": {
     "test": "tests"
