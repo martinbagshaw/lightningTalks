@@ -28,14 +28,13 @@ const node = document.getElementById('node');
 
 // _____________________________________
 // fail and success messages (and effects!)
-// error message
+// - form messages
 const errorMessage = document.getElementById('error-message');
-// success message
 const successMessage = document.getElementById('success-message');
-// thunder
+// - thunder
 const thunder = document.querySelector(".thunder-success"); // get sound
-
-
+// - user talks
+const talksMsg = document.getElementById('your-talks-message');
 
 
 // ___________________________________
@@ -118,8 +117,15 @@ if (myJwt !== undefined) {
                 // deliver a success message, and show new talk in the dashboard
                 successMessage.textContent = res.message;
                 window.location = '/dashboard#your-talks';
+                // sound
                 thunder.currentTime = 0; // start at 0
                 thunder.play();
+                // talks
+                talksMsg.textContent = '';
+                // run something to refresh / populate talks list
+                fetchTalks();
+                // reset form
+                addTalkForm.reset();
             }
         })
         // catch promise error
@@ -175,13 +181,16 @@ if (myJwt !== undefined) {
 // 3. user's talks list
 
 
+
 const talksByUser = (talks, username) => {
-  // e.preventDefault();
   const userTalks = talks.filter(talk => talk.username === username);
-  resultHtml(userTalks);
+  userTalks.length > 0 ? resultHtml(userTalks) : noResultHtml(talksMsg, `Hey, ${username}! You haven\'t added a talk yet. Please fill in the form above to add a talk.`);
 }
 
 
+const noResultHtml = (elem, msg) => {
+  elem.textContent = msg;
+}
 
 // html output
 // - modularise this - used in search-talks.js too
@@ -219,10 +228,10 @@ const resultHtml = arr => {
 // ____________________________________
 // attach event listeners
 // - response = allTalks from fetch
-const attachEvents = response => {
+// const attachEvents = response => {
 
   // user's talks
-  talksByUser(response, username);
+  // talksByUser(response, username);
   // const talkBtn = document.getElementById('talk-btn');
   // talkBtn.addEventListener('click', e => talksByUser(e, response, username), false);
 
@@ -231,18 +240,24 @@ const attachEvents = response => {
 
   // const toggleHistory = document.getElementById('history');
   // toggleHistory.addEventListener('click', pastFuture);
+// }
+
+
+// make the fetch talks function reusable
+// - needs to update on form submit
+const fetchTalks = () => {
+  const allTalks = [];
+  fetch("/search-talks")
+    .then(res => res.json())
+    .then(data => allTalks.push(...data))
+    // .then(attachEvents(allTalks));
+    .then(data => {
+      // run functions after fetch is complete
+      talksByUser(allTalks, username)
+    })
 }
 
-
-const allTalks = [];
-fetch("/search-talks")
-  .then(res => res.json())
-  .then(data => allTalks.push(...data))
-  // .then(attachEvents(allTalks));
-  .then(data => {
-    // run functions after fetch is complete
-    talksByUser(allTalks, username)
-  })
+fetchTalks();
 
 
 
