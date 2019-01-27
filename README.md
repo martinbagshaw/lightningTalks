@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/mr-bagglesworth/lightningTalks.svg?branch=master)](https://travis-ci.org/mr-bagglesworth/lightningTalks) [![codecov](https://codecov.io/gh/mr-bagglesworth/lightningTalks/branch/master/graph/badge.svg)](https://codecov.io/gh/mr-bagglesworth/lightningTalks)
 
 # :zap: Lightning Talks :zap:
-[fac-lightning-talks.herokuapp.com](http://fac-lightning-talks.herokuapp.com/)
+[fac-lightning-talks.herokuapp.com](https://fac-lightning-talks.herokuapp.com/)
 An extension of Founders and Coders Week 7 project, [FAC YAK](https://github.com/fac-15/FAC-YAK). A system for members of [FAC 15](https://github.com/fac-15) to arrange lightning talks, short presentations on topics of their choosing.
 
 ![lightning storm](https://media.giphy.com/media/3o7qE4opCd6f1NJeuY/giphy.gif)
@@ -45,14 +45,14 @@ DATABASE_URL = postgres://<user_name>:<password>@localhost:5432/<database_name>
 📁 public - all publicly hosted files
     - includes client side js, css, images, and sounds
 
-📁 src - all server side files
-    📁 controllers
+📁 src - all server side files  
+    📁 controllers  
         - data processing functions that don't interact directly with the database, or rendering system
-    📁 database
+    📁 database  
         - database schema, build, and connection scripts, and queries that interact directly with the database
-    📁 routes
+    📁 routes  
         - handles the processing of data for different routes (GET and POST requests)
-    📁 views
+    📁 views  
         - handlebars(.hbs) files that implement server side rendering
 
 📁 tests - all tests (run with tape)

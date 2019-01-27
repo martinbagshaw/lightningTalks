@@ -19,11 +19,15 @@ const checkPassword = userDetails => {
       [userName],
       (err, res) => {
         if (err) {
-          reject('no password found in database ', err);
+          reject(err);
         }
   
         // 3.
         else {
+          // console.log(res.rows[0].password);
+
+          // might want this to be in a promise - this and addUser.js fail on heroku
+
           bcrypt.compare(password, res.rows[0].password,
             (err, passwordsMatch) => {
               
@@ -32,13 +36,14 @@ const checkPassword = userDetails => {
                 res.status(500).send({ error: true, message: 'Error logging in' });
                 reject(err);
               }
-              if (!passwordsMatch) {
+              else if (!passwordsMatch) {
                 res.status(403).send({ error: true, message: 'Username or password doesn\'t exist' });
                 reject(err);
               }
               
               // success
               else {
+                // console.log(passwordsMatch);
                 resolve(passwordsMatch);
               }
   
