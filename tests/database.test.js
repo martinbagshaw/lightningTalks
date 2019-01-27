@@ -85,17 +85,17 @@ test("upcomingTalks function fails: date is past any future talks", t => {
   });
 });
 // passing
-test("upcomingTalks function passes: first subject is 'Database testing'", t => {
+test("upcomingTalks function passes: first subject is 'React'", t => {
   testBuild((error, response) => {
     if (error) {
       console.log("testBuild error: ", error);
     } else {
-      db_helpers.upcomingTalks('2019-01-02 20:00:00')
+      db_helpers.upcomingTalks('2019-01-14 17:30:0')
         .then(res => {
           t.deepEqual(
             res[0].subject,
-            "Database testing",
-            "The next subject of the next talk (as of 02/01/2019) should be 'Database testing'"
+            "React",
+            "The next subject of the next talk (as of 2019-01-14) should be 'React'"
           );
           t.end();
         })
