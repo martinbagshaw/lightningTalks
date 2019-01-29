@@ -34,8 +34,10 @@ router.get("/view-talks", (req, res) => {
   const date = controllers.datetimeToStamp(new Date());
   db_helpers.upcomingTalks(date)
     .then(talkList => {
-      const formatTalks = controllers.jsonOutput(talkList);
-      res.render("view-talks", { talks: formatTalks, loginButtons: status })
+      // order by date and time
+      const orderedTalks = controllers.talksByTimestamp(talkList);
+      // output data to page
+      res.render("view-talks", { talks: orderedTalks, loginButtons: status })
     })
     .catch(talksError => {
       res.render("500", { loginButtons: status });

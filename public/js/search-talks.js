@@ -1,15 +1,24 @@
 "use strict";
 /*
+
+
 This file requires dom-helpers.js to work
 
-- autocomplete: search by subject, speaker, or tag
-- history button: view past talks
-- sort button: sort date ascending and descending
+1. autocomplete: search by subject, speaker, or tag
+2. sort function: toggle date ascending and descending
+3. history function: view past talks
 
-- fetch data at the end of the file
+
+
 
 To Do:
+- order talks by date when switching between past and future
 - get sort button working with past and future talks (integration)
+
+
+
+
+
 */
 
 
@@ -81,95 +90,6 @@ const formValidation = e => {
 
 
 
-
-
-
-
-
-
-// ____________________________________
-// Sort function(s)
-
-// filter out old talks
-const upcomingTalks = (arr, date) => {
-  // deep clone the array of objects
-  const newArr = JSON.parse(JSON.stringify(arr));
-  // if datetime on an array item is less than the current date, filter it out
-  const returnArr = newArr.filter(talk => new Date(talk.datetime) > date);
-  return returnArr;
-}
-
-
-// sort talks - event handler
-// - needs refactoring to work with history
-const sortList = e => {
-  e.preventDefault();
-
-  // prevent it working with history for time being:
-  const exit = document.getElementById('history').classList.contains('descending');
-  if (exit) return false;
-
-  // button
-  e.target.closest('button').classList.toggle('descending');
-  const order = document.getElementById('date-sort').classList.contains('descending');
-
-  // sort function
-  const upcoming = upcomingTalks(allTalks, new Date());
-  const sorted = sortDate(upcoming, order);
-
-  // return html
-  resultHtml(sorted);
-};
-
-
-
-
-
-
-// ____________________________________
-// History function(s)
-
-// filter out new talks
-const passedTalks = (arr, date) => {
-  const newArr = JSON.parse(JSON.stringify(arr));
-  // if datetime on an array item is greater than the current date, filter it out
-  const returnArr = newArr.filter(talk => new Date(talk.datetime) < date);
-  return returnArr;
-}
-
-
-// past and future talks - event handler
-const pastFuture = e => {
-  e.preventDefault();
-
-  // button
-  e.target.closest('button').classList.toggle('descending');
-  const order = document.getElementById('history').classList.contains('descending');
-  const text = e.target.closest('a').childNodes[0];
-  text.nodeValue = order ? 'Upcoming Talks' : 'Past Talks';
-
-  // heading textContent as well
-  const main = document.querySelector('.page-content .main-section:first-child');
-  main.children[0].textContent = order ?  'Past Talks' : 'Upcoming Talks';
-
-
-  // past and future functions
-  const talks = order ? passedTalks(allTalks, new Date()) : upcomingTalks(allTalks, new Date());
-
-  // return html
-  resultHtml(talks);
-}
-
-
-
-
-
-
-
-
-
-// ____________________________________
-// output html
 // - autocomplete html
 const autocompleteHtml = arr => {
   const outputHtml = arr
@@ -191,26 +111,117 @@ const autocompleteHtml = arr => {
 
 
 
-// - resultHtml is used by all 3 features
-const resultHtml = arr => {
-  // const numbers = {
-  //   1: "one",
-  //   2: "two",
-  //   3: "three",
-  //   4: "four",
-  //   5: "five"
-  // };
 
-  // could use this area for another helper function
-  // - grey out old talks. Adds another layer of complexity though
-  // - 
-  // rgba(125, 125, 125, 0.75)
+
+
+
+
+
+
+
+
+// ____________________________________
+// Sort function(s)
+
+// 1. order past talks by date on toggle
+// 2. order future talks by date on toggle
+// 3. make order work in history
+// 4. default when switching between past and future = most recent first
+
+
+// get past or future talks
+const getTalkList = (arr, date, isFuture) => {
+  const newArr = JSON.parse(JSON.stringify(arr));
+  return isFuture ? newArr.filter(talk => new Date(talk.datetime) > date) : newArr.filter(talk => new Date(talk.datetime) < date);
+}
+
+
+
+
+// sort talks by timestamp
+// - works with past and future talks
+const sortList = e => {
+  e.preventDefault();
+
+  // button
+  e.target.closest('button').classList.toggle('descending');
+
+  // get order
+  const order = document.getElementById('date-sort').classList.contains('descending');
+
+  // __________________
+  // if #history button has class past, we are in history
+  const past = document.getElementById('history').classList.contains('past');
+
+  // get past or future talks
+  const talks = past ? getTalkList(allTalks, new Date(), false) : getTalkList(allTalks, new Date(), true);
+
+  // opposite order for talks in the past
+  const sorted = past ? sortDate(talks, !order) : sortDate(talks, order);
+
+  // return html
+  resultHtml(sorted);
+};
+
+
+
+
+
+
+// switch between past and future talks
+const pastFuture = e => {
+  e.preventDefault();
+
+  // remove descending class from sort when toggling history
+  document.getElementById('date-sort').classList.remove('descending');
+
+  // button
+  e.target.closest('button').classList.toggle('past');
+  // if #history button has class .past, we are in history
+  const past = document.getElementById('history').classList.contains('past');
+
+  // button text
+  const text = e.target.closest('a').childNodes[0];
+  text.nodeValue = past ? 'Upcoming Talks' : 'Past Talks';
+
+  // heading text
+  const main = document.querySelector('.page-content .main-section:first-child');
+  main.children[0].textContent = past ?  'Past Talks' : 'Upcoming Talks';
+
+  // __________________
+  // get past or future talks
+  const talks = past ? getTalkList(allTalks, new Date(), false) : getTalkList(allTalks, new Date(), true);
+
+  // switch order according to date
+  const sorted = sortDate(talks, past);
+
+  // return html
+  resultHtml(sorted);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Search Results
+// - resultHtml is used by all 3 features
+// - also used in dashboard.js
+// - may want to refactor to take output element
+const resultHtml = arr => {
 
   const outputHtml = arr
     .map(item => {
       // create html for any tags that exist
       const tags = item.languages.map(tag => tag ? `<span class="tag ${tag}">${tag}</span>` : '').join('');
-      // talk passed?
+      // different appearance for past talks
       const past = new Date(item.datetime) < new Date() ? ' past' :'';
       // return html
       return `
@@ -237,6 +248,9 @@ const resultHtml = arr => {
 
 
 
+
+
+
 // ____________________________________
 // attach event listeners
 // - response = allTalks from fetch
@@ -253,6 +267,7 @@ const attachEvents = response => {
   const searchForm = document.getElementById('search-form');
   searchForm.addEventListener('submit', formValidation);
 
+  // sort by date and past / future talks toggle
   const dateSort = document.getElementById('date-sort');
   dateSort.addEventListener('click', sortList);
 

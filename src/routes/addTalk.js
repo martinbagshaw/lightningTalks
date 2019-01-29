@@ -37,8 +37,6 @@ const addTalk = (req, res) => {
     db_helpers.getUserId(userName)
         .then(id => {
 
-            console.log(id);
-
             // 3.
             // need to do a better job with the timestamp, it is not sortable on the frontend
             // - this could be due to the sorting function, not necessarily timestamp formatting

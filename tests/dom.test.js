@@ -19,32 +19,59 @@ test('dom-helpers.js: timeFormat function is working', t => {
     t.end();
 })
 
-// - sort date
-test('dom-helpers.js: sortDate function is working', t => {
-    const arr = [
+
+
+
+
+// ______________________
+// timeAsc
+test('timeAsc sorts most recent first', t => {
+    const inputDates = [
         { datetime: "2018-12-29T15:00:00.000Z" },
         { datetime: "2019-01-10T13:00:00.000Z" },
-        { datetime: "2019-01-15T17:30:00.000Z" }
-    ]
-    const order = true; // descending = true
+        { datetime: "2019-01-15T17:30:00.000Z" },
+        { datetime: "2019-01-29T15:00:00.000Z" }
+    ];
     t.deepEqual(
-        domHelpers.sortDate(arr, order),
+        inputDates.sort(domHelpers.timeAsc),
         [
+            { datetime: "2019-01-29T15:00:00.000Z" },
             { datetime: "2019-01-15T17:30:00.000Z" },
             { datetime: "2019-01-10T13:00:00.000Z" },
             { datetime: "2018-12-29T15:00:00.000Z" }
+            
         ],
-        "sortDate function reverses order according to datetime property"
+        "timeAsc function sorts recent timestamp first if entered order = true"
+    );
+    t.end();
+})
+
+// timeDesc
+test('timeDesc sorts oldest first', t => {
+    const inputDates = [
+        { datetime: "2018-12-29T15:00:00.000Z" },
+        { datetime: "2019-01-10T13:00:00.000Z" },
+        { datetime: "2019-01-15T17:30:00.000Z" },
+        { datetime: "2019-01-29T15:00:00.000Z" }
+    ];
+    t.deepEqual(
+        inputDates.sort(domHelpers.timeDesc),
+        [
+            { datetime: "2018-12-29T15:00:00.000Z" },
+            { datetime: "2019-01-10T13:00:00.000Z" },
+            { datetime: "2019-01-15T17:30:00.000Z" },
+            { datetime: "2019-01-29T15:00:00.000Z" }
+            
+        ],
+        "timeDesc function sorts oldest timestamp first if entered order = false"
     );
     t.end();
 })
 
 
 
-// ______________________
-// sortDate function (frontend)
-// - sort array of objects by timestamp (recent first)
-test('sortDate sorts most recent first', t => {
+// sortDate
+test('sortDate sorts ascending if order = true', t => {
     const inputDates = [
         { datetime: "2018-12-29T15:00:00.000Z" },
         { datetime: "2019-01-10T13:00:00.000Z" },
@@ -64,8 +91,8 @@ test('sortDate sorts most recent first', t => {
     );
     t.end();
 })
-// - sort array of objects by timestamp (oldest first)
-test('sortDate sorts oldest first', t => {
+// // - sort array of objects by timestamp (oldest first)
+test('sortDate sorts descending if order = false', t => {
     const inputDates = [
         { datetime: "2018-12-29T15:00:00.000Z" },
         { datetime: "2019-01-10T13:00:00.000Z" },
@@ -86,6 +113,11 @@ test('sortDate sorts oldest first', t => {
     t.end();
 })
 
+
+
+
+
+// ______________________
 
 // form validation - frontend
 // - test the input element as an object

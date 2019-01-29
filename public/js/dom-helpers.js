@@ -1,6 +1,9 @@
 // helper functions used in the DOM
 "use strict";
 
+// ___________________________________
+// format date and time, based on json output
+// - may get refactored later, if more processing is done on backend
 const dateFormat = str => {
     const arr = str.split('T')[0].split('-');
     return `${arr[2]}/${arr[1]}/${arr[0]}`;
@@ -11,18 +14,41 @@ const timeFormat = str => {
 }
 
 
-// sort by date, bears in mind the following:
-// - can't just reverse the array, talks may not be entered in chronological order
-// - needs to be versatile - not just take upcoming items array
+// ___________________________________
+// time sort functions
+// - there must be a better way to do this!
+const timeAsc = (a, b) => {
+    const timeA = a.datetime.toUpperCase();
+    const timeB = b.datetime.toUpperCase();
+
+    let comparison = 0;
+    if (timeA > timeB) {
+        comparison = -1;
+    } else if (timeA < timeB) {
+        comparison = 1;
+    }
+    return comparison;
+}
+
+const timeDesc = (a, b) => {
+    const timeA = a.datetime.toUpperCase();
+    const timeB = b.datetime.toUpperCase();
+
+    let comparison = 0;
+    if (timeA > timeB) {
+        comparison = 1;
+    } else if (timeA < timeB) {
+        comparison = -1;
+    }
+    return comparison;
+}
+
 const sortDate = (arr, order) => {
-    order = !order;
-    arr.sort(function (a, b) {
-      const x = a.datetime;
-      const y = b.datetime;
-      return (order ? 1 : -1);
-    });
-    return arr;
-};
+    return order ? arr.sort(timeAsc) : arr.sort(timeDesc);
+}
+
+
+
 
 
 
@@ -80,7 +106,11 @@ if (typeof module !== "undefined") {
     module.exports = {
         dateFormat,
         timeFormat,
+        // sort
+        timeAsc,
+        timeDesc,
         sortDate,
+        // form
         passwordStrong,
         passwordsMatch,
         // textareaValid
