@@ -5,6 +5,9 @@ module.exports = {
     datetimeToStamp: require('./datetimeToStamp'),
     // json output - languages as an array
     jsonOutput: require('./jsonOutput'),
+    // order by timestamp
+    talksByTimestamp: require('./talksByTimestamp'),
+
     // form validation
     formValidation: require('./formValidation'),
     

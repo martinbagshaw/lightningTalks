@@ -510,17 +510,17 @@ a {
   background-color: #239eb7; }
   .button-input.history a:hover, .button-input.history a:focus {
     background-color: #24d1f3; }
-.button-input.descending a span {
+.button-input.descending a span, .button-input.past a span {
   color: transparent; }
-  .button-input.descending a span:after {
+  .button-input.descending a span:after, .button-input.past a span:after {
     color: white;
     position: absolute;
     right: 0;
     top: 0;
     line-height: 1; }
 .button-input.date-sort.descending a span:after {
-  content: "↑"; }
-.button-input.history.descending a span:after {
+  content: "↓"; }
+.button-input.history.past a span:after {
   content: "→"; }
 
 .button-icon {

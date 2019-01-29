@@ -69,7 +69,7 @@ test('jsonOutput function is working', t => {
 
 
 
-// ________________________________________________________________________________________________________________
+// ____________________________________________________________________
 // form validation - backend
 
 // - username passes
@@ -134,5 +134,82 @@ test('strong password function fails with weak password', t => {
     const actual = controllers.formValidation.passwordStrong('abc123');
     const expected = false;
     t.equals(actual, expected), 'a strong password is not "abc123"';
+    t.end();
+})
+
+
+
+
+// ____________________________________________________________________
+// talks by timestamp
+// - doesn't want to work
+test('talksByTimestamp function is working', t => {
+
+    const inputArr = [
+        {
+            subject: 'Github',
+            username: 'zurda',
+            name: 'Michal',
+            datetime: '2019-02-15T17:30:00.000Z',
+            html: false,
+            css: false,
+            js: false,
+            sql: false,
+            node: false
+        },
+        {
+            subject: 'Test talk far future',
+            username: 'dave',
+            name: 'dave',
+            datetime: '2019-09-21T09:00:00.000Z',
+            html: false,
+            css: true,
+            js: true,
+            sql: false,
+            node: false
+        },
+        {
+            subject: 'Testing talk future',
+            username: 'dave',
+            name: 'dave',
+            datetime: '2019-04-28T13:21:00.000Z',
+            html: false,
+            css: false,
+            js: true,
+            sql: false,
+            node: true
+        }
+    ];
+
+    t.deepEqual(
+        controllers.talksByTimestamp(inputArr),
+        [
+            {
+                subject: 'Github',
+                username: 'zurda',
+                name: 'Michal',
+                date: '15/02/2019',
+                time: '17:30',
+                languages: []
+            },
+            {
+                subject: 'Testing talk future',
+                username: 'dave',
+                name: 'dave',
+                date: '28/04/2019',
+                time: '13:21',
+                languages: [ 'js', 'node' ]
+            },
+            {
+                subject: 'Test talk far future',
+                username: 'dave',
+                name: 'dave',
+                date: '21/09/2019',
+                time: '09:00',
+                languages: [ 'css', 'js' ]
+            }
+        ],
+        "talksByTimestamp function sorts with earliest talk first"
+    );
     t.end();
 })

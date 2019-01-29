@@ -16,12 +16,6 @@ const loginButtons = req => {
             title: 'Login'
         }
     ];
-
-    // if (req.headers.cookie !== undefined && req.headers.cookie.includes('jwt')) {
-    //     return loggedIn;
-    // } else {
-    //     return loggedOut;
-    // }
     return req.headers.cookie !== undefined && req.headers.cookie.includes('jwt') ? loggedIn : loggedOut;
     
 }

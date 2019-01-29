@@ -16,7 +16,7 @@
                 <label for="sort" class="hidden">Sort Talks by Date</label>
                 <div class="row">
                     <button id="history" class="button-input has-icon history"><a href="/search-talks">Past Talks <span class="button-icon">←</span></a></button>
-                    <button id="date-sort" class="button-input has-icon date-sort"><a href="/search-talks">Sort by Date <span class="button-icon">↓</span></a></button>
+                    <button id="date-sort" class="button-input has-icon date-sort"><a href="/search-talks">Sort by Date <span class="button-icon">↑</span></a></button>
                 </div>
             </div>
         </form>
@@ -36,7 +36,7 @@
                 <article class="talk-meta">
                     <article class="talk-details">
                         <p class="speaker">{{username}} <span>a.k.a. {{name}}</span></p>
-                        <p class="date-time">{{dateFromStamp datetime}}<span>@ {{timeFromStamp datetime}}</span></p>
+                        <p class="date-time">{{date}}<span>@ {{time}}</span></p>
                         <!-- add a bookmark button eventually -->
                     </article>
                     <article class="talk-tags">

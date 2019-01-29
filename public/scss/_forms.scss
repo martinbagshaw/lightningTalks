@@ -205,7 +205,8 @@
     @include btnColour('date-sort', $green, $green-hover);
     @include btnColour('history', $blue, $blue-hover );
     // toggle states
-    &.descending a span {
+    &.descending a span,
+    &.past a span {
         color: transparent;
         &:after {
             color: $white;
@@ -216,9 +217,9 @@
         }
     }
     &.date-sort.descending a span:after {
-        content: "↑";
+        content: "↓";
     }
-    &.history.descending a span:after {
+    &.history.past a span:after {
         content: "→";
     }
 }
